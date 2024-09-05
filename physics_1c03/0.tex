@@ -1,0 +1,193 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Kinematics in 1D}
+\author{Patrick Chen}
+\date{Sept 5, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Dimensional Analysis}
+    A dimension (unit) is an inherent property of a quantity. Most physical
+    quantities can be expressed in terms of these fundamental dimensions: Mass,
+    Length, Time. We can use dimensions to understand and solve problems.
+
+    \subsection*{Rules}
+    \begin{enumerate}
+        \item addition and subtraction must have same dimensions.
+
+        \item  log and exponential functions only apply to dimensionless quantities
+
+        \item trig functions only apply to dimensionless quantities
+    \end{enumerate}
+
+    \subsection*{Example}
+    In the equation $E=mc^2$, what is the unit of $E$?
+    \begin{align*}
+        E& =mc^2 \\
+         & = mass\ speed^2 \\
+         & = mass\ (\frac{length}{time})^2 \\
+         & = mass\ length^2\ time^{-2} \\
+         & = energy
+    \end{align*}
+
+    Consider the following equation
+    \begin{align*}
+        x(=?)x_0+v_0t^2+at
+    \end{align*}
+    The first term has unit of $length$ and the second term has units of
+    $length\ time$. These two terms are different units and cannot be added
+    therefore this equation is invalid.
+
+    \begin{align*}
+        x&=x_0+v_0t^2+at \\
+        &= length + length/time \ time^2 + length/time^2\ time \\
+        &= length + \frac{length}{time} \ time^2 + \frac{length}{time^2}\ time \\
+        &= length + length\ time + \frac{length}{time}
+    \end{align*}
+
+    The correct formula is
+    \begin{align*}
+        x = x_0 + v_0 t + \frac{1}{2} a t^2
+    \end{align*}
+
+    \section*{Kinematics}
+    Kinematics is the description of motion. These three important quantities
+    can describe 1D motion as a function of time:
+    \begin{itemize}
+        \item Position: $\vec{r}(t)$ (displacement from the origin)
+        \item Velocity: $\vec{v}(t)$ (rate of change of position)
+        \item Acceleration $\vec{a}(t)$ (rate of change of velocity)
+    \end{itemize}
+
+    In 1D direction can be expressed as sign. The relations between these
+    quantities and be found using calculus.
+
+    \subsection*{Vector vs Scalar}
+    Physical quantities can be classified as scalars, vectors, etc. \\
+    Scalars are described as real numbers with units (examples: speed,
+    temperature, mass, time, energy) \\
+    Vectors describe both a scalar (magnitude) and a direction in space
+    (examples: velocity displacement, electric field, force)
+
+    \subsection*{Notation}
+    \begin{itemize}
+        \item scalars: ordinary or italic font ($i$, $\textit{i}$)
+
+        \item vector: boldface, arrow notation, underline ($\textbf{i}$, $\vec{i}$, $\underline{i}$)
+
+        \item unit vector: hat ($\hat{i}$ or $\hat{x}$ for x, $\hat{j}$ or
+            $\hat{y}$ for y, $\hat{k}$ or $\hat{z}$ for z)
+    \end{itemize}
+
+    Unit vectors are vectors with a magnitude of $1$. It is basically a
+    direction.
+
+    \subsection*{Position, distance, displacement}
+    \begin{itemize}
+        \item Position: gives a location, need to define an origin
+
+        \item Distance: a scalar that expressed the change in position,
+            depending on the path
+
+        \item Displacement: a vector that expressed the straight line distance
+            without depending on the path
+    \end{itemize}
+
+    Displacement:
+    \begin{equation*}
+        \Delta \vec{x} \equiv \vec{x}_f - \vec{x}_i
+    \end{equation*}
+
+    \subsection*{Vector arithmetic}
+    \begin{itemize}
+        \item magnitude: scalar, length of vector
+
+        \item scalar * vector: multiply the magnitude of vector
+
+        \item vector * vector: either dot or cross product
+
+        \item vector + vector: add vectors tip to tail
+
+        \item vector - vector: add the negation of the subtracted vector
+    \end{itemize}
+
+    \subsection*{Velocity}
+    Velocity is the time rate of change of position. Average velocity:
+    \begin{align*}
+        \vec{v}_{avg}=\frac{\Delta \vec{x}}{\Delta t}
+    \end{align*}
+
+    The instantaneous velocity is the slope of a line tangent to curve. Thus,
+    velocity is the time derivative of position.
+    \begin{align*}
+        \vec{v}=\frac{d\vec{x}}{dt}
+    \end{align*}
+
+    \subsection*{Acceleration}
+    Acceleration is the time rate of change of velocity. Average acceleration:
+    \begin{align*}
+        \vec{a}_{avg}=\frac{\Delta \vec{v}}{\Delta t}
+    \end{align*}
+
+    The instantaneous acceleration is the slope of a line tangent to curve.
+    \begin{align*}
+        \vec{a}=\frac{d\vec{v}}{dt}
+    \end{align*}
+
+
+\end{document}
