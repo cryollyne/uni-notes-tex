@@ -89,10 +89,17 @@
         \end{bmatrix}
     \end{align*}
 
+    Rules for manipulating augmented matrices
+    \begin{itemize}
+        \item interchange rows
+        \item multiply an entire row by a non-zero constant
+        \item add a constant multiple of another row
+    \end{itemize}
+
     The row reduction algorithm is as follows:
     \begin{enumerate}
-        \item multiply the first row by the reciprical of the first element.
-        This will make the first row have the form:
+        \item divide the first row by the first element, causing the first
+            element to be one. This will make the first row have the form:
         \begin{align*}
             \begin{bmatrix}
                 1 & a_{12} & a_{13} & \ldots & a_{1m} & b_1
@@ -188,7 +195,69 @@
         \end{bmatrix} \text{add 2 $\times$ row (3) to row (1),
                             subtract row (3) from row (2)}\\
     \end{align*}
-
     \pagebreak
+
+    A matrix in is row echelon form if:
+    \begin{enumerate}
+        \item All zero rows are grouped contiguously at the bottom of the matrix
+
+        \item In any two consecutive row which are both non-zero, the non-zero
+            entry of the upper row is to the left of the non-zero entry of the
+            lower row
+    \end{enumerate}
+    If all leading entries in non-zero rows are 1, it is in \textbf{reduced} row
+    echelon form.
+
+    \section*{Example 2}
+    \begin{equation*}
+        \begin{matrix}
+               & & y &+& 3z &=& 4 \\
+            2x &-& y &+& z  &=& 2
+        \end{matrix}
+    \end{equation*}
+
+    \begin{align*}
+        \begin{bmatrix}
+            0 & 1 & 3 & 4 \\
+            2 &-1 & 1 & 2
+        \end{bmatrix} \\
+        \begin{bmatrix}
+            2 &-1 & 1 & 2 \\
+            0 & 1 & 3 & 4
+        \end{bmatrix} \\
+        \begin{bmatrix}
+            1 &- \frac{1}{2} & \frac{1}{2} & 1 \\
+            0 & 1 & 3 & 4
+        \end{bmatrix} \\
+        \begin{bmatrix}
+            1 & 0 & 2 & 3 \\
+            0 & 1 & 3 & 4
+        \end{bmatrix} \\
+        \begin{matrix}
+            x && &+& 2z&=&3 \\
+              &&y&+& 3z&=&4
+        \end{matrix} \\
+    \end{align*}
+    \begin{align*}
+        \therefore x =& 3-2t \\
+                   y =& 4-3t \\
+                   z =& t \\
+                      &\text{where } t \in \mathbb{R}
+    \end{align*}
+
+    Since there is one free variable, there are infinite solutions residing on a
+    line. If there are two free variables, there will be infinite solutions
+    residing on a plane. For three free variables, a volume. etc. \\
+    Sometimes a matrix may have no solutions. The following matrix has the row
+    $\begin{bmatrix} 0 & 0 & 0 & 1 \end{bmatrix}$, which is equivalent to the
+    non-sense expression $0x+0y+0z=1$. 
+    \begin{equation*}
+        \begin{bmatrix}
+            1 & 0 & 1 & 2 \\
+            0 & 0 & 1 & 4 \\
+            0 & 0 & 0 & 1
+        \end{bmatrix}
+    \end{equation*}
+
 
 \end{document}
