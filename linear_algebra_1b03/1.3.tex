@@ -1,0 +1,114 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Vectors}
+\author{Patrick Chen}
+\date{Sept 10, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \subsection*{Vector Addition}
+    A $n\times 1$ matrix is called a column vector. The set of all vectors with
+    n entries is called $\mathbb{R}^n$. Vectors in $\mathbb{R}^n$ can be added
+    by adding component wise. Geometrically, two vectors added together is the
+    resultant of putting the vectors tip-to-tail.
+    \begin{equation*}
+        \begin{bmatrix}
+            a_1 \\ a_2 \\ \vdots \\ a_n
+        \end{bmatrix} +
+        \begin{bmatrix}
+            b_1 \\ b_2 \\ \vdots \\ b_n
+        \end{bmatrix} =
+        \begin{bmatrix}
+            a_1 + b_1 \\ a_2 + b_2 \\ \vdots \\ a_n + b_n
+        \end{bmatrix}
+    \end{equation*}
+
+    \begin{itemize}
+        \item Vectors in $\mathbb{R}^2$ can be thought of as a point in 2D
+        \item Vectors in $\mathbb{R}^3$ can be thought of as a point in 3D
+        \item Vectors in higher dimensions cannot be visualized, but can still
+            store useful information
+    \end{itemize}
+
+    \subsection*{Scalar Vector Multiplication}
+    Multiplying a vector by a scalar will multiply every entry in the vector by
+    the scalar.
+    \begin{equation*}
+        \lambda
+        \begin{bmatrix}
+            a_1 \\ a_2 \\ \vdots \\ a_n
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            \lambda a_1 \\ \lambda a_2 \\ \vdots \\ \lambda a_n
+        \end{bmatrix}
+    \end{equation*}
+
+    \subsection*{Linear Combinations}
+    When scalar multiples of vectors are added, it is called a linear
+    combination of vectors:
+    \begin{equation*}
+        \lambda_1 v_1 + \lambda_2 v_2 + \dots + \lambda_n v_n
+    \end{equation*}
+
+    When any two vectors form a plane, any point on that plane can be expressed
+    as a linear combination of those vectors. The span of some list of vectors
+    is the set of all linear combination of those vectors. We can check of some
+    vector $b$ is in the span of some list of vectors $v_1,v_2,\dots,v_n$ by
+    checking if the augmented matrix $\begin{bmatrix} v_1 & v_2 & \dots & v_n &
+    b \end{bmatrix}$ is consistent.
+    \end{document}
