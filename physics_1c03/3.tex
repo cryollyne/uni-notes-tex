@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Motion}
+\author{Patrick Chen}
+\date{Sept 12, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Free fall}
+    Motion that is only affected by gravity is called free fall. All objects in
+    free fall move with a constant downward acceleration.
+    \begin{equation*}
+        a = g \approx 9.8 \frac{m}{s^2}
+    \end{equation*}
+    The acceleration is the same for all objects, but the acceleration may
+    differ depending on where you are.
+    \begin{align*}
+        v= v_0 + at &\rightarrow b = v_0 - gt \\
+        x = x_0 + vt + \frac{1}{2} at &\rightarrow x = x_0 + vt - \frac{1}{2} gt
+    \end{align*}
+
+    Assuming up is positive,
+    \begin{itemize}
+        \item The position of the thrown object is concave down parabola
+            \begin{align*}
+                y = y_0 +v_{0y} + \frac{1}{2} at^2
+            \end{align*}
+        \item The velocity of the thrown object is linear with a negative slope
+            \begin{align*}
+                v_y = v_{0y} + at
+            \end{align*}
+        \item The acceleration of a thrown object is a negative constant.
+            \begin{align*}
+                a_y = a
+            \end{align*}
+    \end{itemize}
+
+    At the top of the arc of the thrown object, the velocity is $0 \frac{m}{s}$
+    and the acceleration is $-9.8 \frac{m}{s^2}$.
+
+    \subsection*{Strategies for solving questions}
+    \begin{itemize}
+        \item If there are separate types of motions, you can break it up into
+            different parts.
+        \item Strategically choose where the origin is.
+    \end{itemize}
+
+    \subsection*{Example}
+    \begin{align*}
+        v_0 = 15 m/s && x_i = 2m && x_f = 0m \\
+    \end{align*}
+    \begin{align*}
+        x_f = x_i + v_0t + \frac{1}{2} at^2 \\
+        0 = 2 + 15t + \frac{1}{2} (-9.8) t^2 \\
+        0 = -4.9 t^2 + 15t + 2 \\
+    \end{align*}
+    \begin{align*}
+        t \approx 3.189207165165621 s \text{ or } t \approx -0.1279826753697030 s
+    \end{align*}
+    Since t cannot be negative
+    \begin{align*}
+        t \approx 3.189207165165621 s
+    \end{align*}
+    \begin{align*}
+        v &= v_0 + at \\
+          &= 15 + (-9.8)\cdot 3.189207165165621 \\
+          &= -16.25423021862309 \frac{m}{s}
+    \end{align*}
+\end{document}
