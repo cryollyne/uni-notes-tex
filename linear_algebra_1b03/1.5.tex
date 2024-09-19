@@ -1,0 +1,199 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Homogeneous Equations}
+\author{Patrick Chen}
+\date{Sept 16, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \subsection*{Ex}
+    \begin{align*}
+        v_1 = \begin{bmatrix}
+            1 \\ 0 \\ 0
+        \end{bmatrix} &&
+        v_2 = \begin{bmatrix}
+            1 \\ 1 \\ 0
+        \end{bmatrix} &&
+        v_3 = \begin{bmatrix}
+            1 \\ 1 \\ 1
+        \end{bmatrix} &&
+    \end{align*}
+    Does $v_1\dots v_3$ span $\mathbb{R}^3$?
+    \begin{align*}
+        A = \begin{bmatrix}
+            1 & 1 & 1 \\
+            0 & 1 & 1 \\
+            0 & 0 & 1
+        \end{bmatrix}
+    \end{align*}
+    Since the matrix is already in row echelon form, it can span all of
+    $\mathbb{R}^3$, but it does not tell how to get any individual vector. Note
+    that if you have n vectors, at most, it could span $\mathbb{R}^n$. The
+    dimension is the minimum amount of vectors required to span a space.
+
+    \section*{Linearity of matrix multiplication}
+    $A$ is a matrix, $x$, $y$ are vectors, and $\lambda$ is a scalar:
+    \begin{align*}
+        A(x+y) &= Ax+Ay \\
+        A(\lambda x) &= \lambda Ax
+    \end{align*}
+
+    \section*{Homogeneous Systems}
+
+    A homogeneous system is a system in the form of $Ax = 0$. All homogeneous
+    systems has one trivial solution: $x=0$ and may have non-trivial solutions.
+
+    \begin{theorem}
+        Any homogeneous system with more unknowns than equations has infinitely
+        many solutions
+    \end{theorem}
+
+    Suppose we have a augmented matrix for a homogeneous system with more
+    variables than equations with $m$ columns and $n$ rows. If $m>n$, there will
+    be a free variable, and thus, infinitely many solutions.
+    \begin{align*}
+        \begin{bmatrix}
+            A & \vec{0}
+        \end{bmatrix}
+    \end{align*}
+
+    Suppose that $Ax=b$ has a solution $x_0$ and $y$ is any solution to $Ax=0$.
+    $x_0 + y$ is a solution to $Ax=b$.
+    \begin{align*}
+        A(x_0+y) = Ax_0 + Ay = b+0 = b \\
+        A(x_0-x_1) = Ax_0 - Ax_1 = b-b = 0 \\
+    \end{align*}
+
+    \subsection*{Linearly Independence}
+    A set of vectors $v_1\dots v_m$ is linearly independent if in $\lambda_1 v_1
+    + \dots + \lambda_m v_m = 0$, the only solution is $\lambda_1 = \dots =
+    \lambda_m = 0$. This means that for $A=[v_1 \dots v_m]$, the only solution
+    to $Ax=0$ is $x=0$.
+
+    \begin{itemize}
+        \item a set of any one individual vector (except for the zero vector) is
+            a set of linear independent vectors in $\mathbb{R}^n$.
+
+        \item With a set of size two, any two vectors that are not scalar
+            multiples of each other are linearly independent.
+
+        \item In a set of m vectors in $\mathbb{R}^n$, a new linearly
+            independent set can be created by adding a vector that is not in the
+            span of the set.
+
+        \item  Any subset of a linearly independent set of vectors will also be
+            linear dependent.
+    \end{itemize}
+
+    If $v_1\dots v_m$ are in $\mathbb{R}^n$ and $m>n$, then $v_1\dots v_m$ is not
+    linearly independent.
+    Since there are more columns than rows,
+    the row reduction of $[v_1\dots v_m]$ will have free variables, and thus a non-trivial solution
+    to $Ax=0$.
+
+    \subsection*{Example 1}
+    \begin{align*}
+        v_1 = \begin{bmatrix}
+            1 \\ 0 \\ 0
+        \end{bmatrix} &&
+        v_2 = \begin{bmatrix}
+            0 \\ 1 \\ 0
+        \end{bmatrix} &&
+        v_3 = \begin{bmatrix}
+            0 \\ 0 \\ 1
+        \end{bmatrix}
+    \end{align*}
+    \begin{align*}
+        \lambda_1 \begin{bmatrix}
+            1 \\ 0 \\ 0
+        \end{bmatrix} +
+        \lambda_2 \begin{bmatrix}
+            0 \\ 1 \\ 0
+        \end{bmatrix} +
+        \lambda_3 \begin{bmatrix}
+            0 \\ 0 \\ 1
+        \end{bmatrix} = 0
+    \end{align*}
+    \begin{align*}
+        \begin{matrix}
+            \lambda_1 &+& 0 &+& 0 &=& 0 \\
+            0 &+& \lambda_2 &+& 0 &=& 0 \\
+            0 &+& 0 &+& \lambda_2 &=& 0 \\
+        \end{matrix}
+    \end{align*}
+    \begin{align*}
+        \lambda_1 = 0 \\
+        \lambda_2 = 0 \\
+        \lambda_3 = 0
+    \end{align*}
+
+    \subsection*{Example 2}
+    Is $[1, 0, 0]^T$ and $[0, 1, 0]^T$ linearly independent in $\mathbb{R}^3$?
+    Yes, when it is row reduced, it does not yield any free variables. They are
+    also subsets of the linearly independent set in example 1, and are thus also
+    linear independent.
+
+    \subsection*{Example 3}
+    Is $v_1=[1, 2, 3]^T, v_2=[2, 1, 0]^T, v_3=[3, 3, 3]^T$ linearly independent?
+    \begin{align*}
+        v_1 + v_2 - v_3 = 0
+    \end{align*}
+    Since there is a non-trivial solution for the homogeneous equation, this set
+    of vectors are not linearly independent.
+
+\end{document}
