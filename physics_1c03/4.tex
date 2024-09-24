@@ -1,0 +1,203 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Momentum}
+\author{Patrick Chen}
+\date{Sept 16, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Inertia}
+    Inertia or mass is a measure of how much an object resists acceleration. It
+    is represented by the symbol $m$ and the SI unit is inertia is the kilogram
+    (kg).
+
+    \section*{Systems}
+    A system is a object of group of objects that we mentally separate from the
+    rest of the environment. The objects we care about will guide our choice of
+    systems. Extensive quantities are quantities that are proportional to the
+    size of the system. Intensive quantities do not depend on the extent of the
+    system. Isolated systems are system without inputs or outputs. Conserved
+    quantities can only be changed by input or output. \\
+    In a system of trees, cutting down trees or planting new trees are external
+    because they require an external effect. Trees naturally dying and
+    reproducing are internal because they do not require external input.
+    \begin{align*}
+        change = input-output+creation-destruction
+    \end{align*}
+
+    \section*{Collisions}
+    When objects collide, they could bounce off each other, stick together,
+    stop, deform, transfer energy, etc. 
+
+    \begin{align*}
+        \Delta v &\propto \frac{1}{m} \\
+        \frac{\Delta v_a}{\Delta v_b} &= -\frac{m_b}{m_a} \\
+        m_a \Delta v_a &= - m_b \Delta v_b
+    \end{align*}
+
+    Linear momentum $p$ of a particle is its mass times is velocity. Momentum is
+    a vector, since velocity is a vector. It has units of $kg \frac{m}{s}$.
+
+    \begin{align*}
+        \vec{p} \equiv m \vec{v}
+    \end{align*}
+
+    Momentum is transferred though interactions between objects, but cannot be
+    created or destroyed. For an isolated system, the total momentum change is
+    zero.
+
+    \begin{align*}
+        p_{1i} = p_{2i} &= p_{1f} + p_{2f} \\
+        p_{1i} - p_{1f} &= p_{2f} - p_{2i} \\
+        -\Delta p_1     &= \Delta p_2 \\
+    \end{align*}
+
+    \begin{align*}
+        \vec{p}_{f,sys} = \vec{p}_{i,sys} \\
+        \vec{p}_{total} = \Sigma \vec{p}_i = constant \\
+        \Delta \vec{p}_{sys} = 0
+    \end{align*}
+
+    \subsection*{Collisions with Friction}
+    We need to separate the effect of friction from the effect of the collision
+    and extrapolate the velocity of the cart.
+
+    \subsection*{Impulse}
+    impulse is the change in momentum of an object.
+    \begin{align*}
+        \Delta \vec{p} = \vec{J}
+    \end{align*}
+
+    \subsection*{Type of collisions}
+    \begin{enumerate}
+        \item Perfectly inelastic collisions are collisions where the two
+            objects come out stuck to each other and their final velocity is the
+            same.
+
+        \item Inelastic collisions are collisions where kinetic energy is lost.
+
+        \item Perfectly elastic collisions are collisions where the total
+            kinetic energy is conserved.
+    \end{enumerate}
+
+    In all collisions, momentum is conserved.
+
+    \subsection*{Elastic Collisions}
+    momentum and kinetic energy is conserved
+    \begin{align*}
+        m_1v_{1i} + m_2v_{2i} &= m_1v_{1f} + m_2v_{2f} & \text{(p)} \\
+        \frac{1}{2} m_{1i}v_{1i}^2 + \frac{1}{2} m_{2i}v_{2i}^2 &= \frac{1}{2}
+        m_{1f}v_{1f}^2 + \frac{1}{2} m_{2f}v_{2f}^2 & \text{(k)}
+    \end{align*}
+
+    \begin{align}
+        m_1(v_{1i}-v_{1f}) &= m_2(v_{2f}-v_{2i}) & \text{rearrange variables in (p)}\\
+        m_{1i}v_{1i}^2 + m_{2i}v_{2i}^2 &= m_{1f}v_{1f}^2 + m_{2f}v_{2f}^2 & \text{multiply (k) by two}\\
+        m_1(v_{1i}^2 - v_{1f}^2) &= m_2(v_{2f}^2-v_{2i}^2) & \text{rearrange (2)}\\
+        m_1(v_{1i}-v_{1f})(v_{1i}+v_{1f}) &= m_2(v_{2f}-v_{2i})(v_{2f}+v_{2i}) &\text{factor (3)}\\
+        \frac{m_1(v_{1i}-v_{1f})(v_{1i}+v_{1f})}{
+            m_1(v_{1i} - v_{1f})
+        } &= \frac{m_2(v_{2f}-v_{2i})(v_{2f}+v_{2i})} {
+            m_2(v_{2f}-v_{2i})
+        } & \text{divide (4) by (1)} \\
+        v_{1i} + v_{1f}  &= v_{2f} + v_{2i}
+    \end{align}
+
+    \begin{align*}
+        v_{1f} &= v_{2f} + v_{2i} -v_{1i}  \\
+        m_1(v_{1i}-v_{1f}) &= m_2(v_{2f}-v_{2i}) \\
+        m_1(v_{1i}-(v_{2f} + v_{2i} -v_{1i})) &= m_2(v_{2f}-v_{2i}) \\
+        m_1(v_{1i}-v_{2f} - v_{2i} +v_{1i}) &= m_2(v_{2f}-v_{2i}) \\
+        2m_1v_{1i} - m_1v_{2i} - m_1 v_{2f} &= m_2v_{2f}-m_2v_{2i} \\
+        2m_1v_{1i} - m_1v_{2i} + m_2v_{2i} &= m_2v_{2f} + m_1 v_{2f} \\
+        2m_1v_{1i} + v_{2i} (m_2-m_1) &= v_{2f} (m_2 + m_1) \\
+        \frac{2m_1}{m_1 + m_2} v_{1i} + \frac{(m_1-m_2)}{m_2 + m_1} v_{2i} &= v_{2f} \\
+    \end{align*}
+    \begin{align*}
+        v_{2f} &= v_{1i} + v_{1f} -v_{2i} \\
+        m_1(v_{1i}-v_{1f}) &= m_2(v_{2f}-v_{2i}) \\
+        m_1(v_{1i}-v_{1f}) &= m_2(v_{1i} + v_{1f} -v_{2i}-v_{2i}) \\
+        m_1v_{1i}-m_1v_{1f} &= m_2v_{1i} + m_2v_{1f} -2m_2v_{2i} \\
+        m_1v_{1i} - m_2v_{1i} + 2m_2v_{2i} &=  m_2v_{1f}  + m_1v_{1f} \\
+        (m_1 - m_2)v_{1i} + 2m_2v_{2i} &=  v_{1f}(m_1  + m_2) \\
+        \frac{m_1 - m_2}{m_1  + m_2} v_{1i} + \frac{2m_2}{m_1  + m_2}v_{2i} &=  v_{1f} \\
+    \end{align*}
+
+    \begin{align*}
+        v_{1f}= \frac{m_1-m_2}{m_1+m_2} v_{1i} + \frac{2m_2}{m_1+m_2} v_{2i} \\
+        v_{2f}= \frac{2m_1}{m_1+m_2} v_{1i} + \frac{m_2-m_1}{m_1+m_2} v_{2i}
+    \end{align*}
+
+    \begin{itemize}
+        \item When two carts have the same mass and the second cart is
+            stationary, the velocity is interchanges.
+
+        \item When two carts have the same mass but different velocities, the
+            velocities still interchanges
+    \end{itemize}
+
+    \subsection*{Inelastic Collisions}
+    Momentum is still conserved In Perfectly inelastic collisions, the final
+    velocity is the same:
+    \begin{align*}
+        m_1 v_{1i} + m_2 v_{2i} = (m_1 + m_2) v_f \\
+        v_f = \frac{m_1 v_{1i} + m_2 v_{2i}}{m_1 + m_2}
+    \end{align*}
+
+
+\end{document}
