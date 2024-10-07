@@ -1,0 +1,116 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Energy}
+\author{Patrick Chen}
+\date{Sept 23, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    In a Newton's cradle, if one ball hits, then one ball will be come out the
+    other side. If two balls hits, two balls come out the other end. This effect
+    is due to conservation of energy. If one ball hits and two balls come out
+    the other end, the velocity would have to be halved to conserve the
+    momentum, but that would mean that kinetic energy is lost.
+
+    In a collision, momentum is conserved throughout the entire collision.
+    Kinetic energy in a elastic collision is constant before and after the
+    collision but not during. This is because the kinetic energy is converted
+    into elastic potential energy during the collision and is then released back
+    into kinetic energy.
+
+    The state of a system is the condition of an object completely specified by
+    a set of parameters such as shape and temperature. Transformations of a
+    system from an initial state to a final state is called a process. A closed
+    system is a system where no energy is transferred into or out of it. The
+    chosen system should include all the objects undergoing these changes in
+    state or motion. 
+
+    \section*{Properties of Collisions}
+    Inelastic collisions are irreversible processes: the changes that occur in
+    the state of the colliding objects cannot spontaneously undo themselves. In
+    inelastic collisions, the relative speed changes and therefore the total
+    kinetic energy of the system changes. In inelastic collisions, the kinetic
+    energy is transformed into internal energy. The sum of the kinetic energy
+    and internal energy remains constant. 
+
+    Elastic collisions are reversible processes: there are no permanent changes
+    in the state of the colliding object. In elastic collisions the magnitude of
+    the relative velocity remains the same before and after the collision. If a
+    small object hits a much more massive object, the small object will bounce
+    back. If a massive object hits a small object, the massive object will
+    continue at approximately the same velocity.
+
+    In explosive separations, there is some stored internal energy that gets
+    converted into kinetic energy. In explosive separations, momentum and total
+    energy is conserved, but kinetic energy is increased. The internal energy
+    could be elastic potential, chemical, etc.
+
+    \section*{Coefficient of Restitution}
+    The coefficient of restitution is the ratio between the final relative
+    velocity and the initial relative velocity.
+    \begin{align*}
+        e = \bigg|\frac{ v_{2f} - v_{1f} }{v_{2i} - v_{1i} } \bigg| \\
+        e = - \frac{ v_{2f} - v_{1f} }{ v_{1i} - v_{2i} }
+    \end{align*}
+    For a perfectly inelastic collision, the final velocity is zero, thus the
+    coefficient of restitution is zero. When the collision is inelastic, the
+    coefficient of restitution is between zero and one. In a perfectly elastic
+    collision, the coefficient of restitution is one. In explosive separation,
+    the coefficient of restitution is greater than one.
+
+\end{document}
