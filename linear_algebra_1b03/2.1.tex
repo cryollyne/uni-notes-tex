@@ -1,0 +1,199 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Matrix Algebra}
+\author{Patrick Chen}
+\date{Sept 26, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Addition and multiplication}
+    When two matrices of the same size are added or subtracted, it is done
+    element-wise.
+    \begin{align*}
+        \begin{bmatrix}
+            A_{11} & A_{12} & \dots \\
+            A_{21} & A_{22} & \\
+            \vdots &        & \ddots \\
+        \end{bmatrix} +
+        \begin{bmatrix}
+            B_{11} & B_{12} & \dots \\
+            B_{21} & B_{22} & \\
+            \vdots &        & \ddots \\
+        \end{bmatrix} =
+        \begin{bmatrix}
+            A_{11}+B_{11} & A_{12}+B_{12} & \dots \\
+            A_{21}+B_{21} & A_{22}+B_{22} & \\
+            \vdots        &               & \ddots \\
+        \end{bmatrix}
+    \end{align*}
+
+    When a matrix is multiplied by a scalar, every entry in the matrix is
+    multiplied by the scalar
+    \begin{align*}
+        \lambda \begin{bmatrix}
+            A_{11} & A_{12} & A_{13} & \\
+            A_{21} & A_{22} & A_{23} & \dots \\
+            A_{31} & A_{32} & A_{33} & \\
+                   & \vdots &        & \ddots \\
+        \end{bmatrix} =
+        \begin{bmatrix}
+            \lambda A_{11} & \lambda A_{12} & \lambda A_{13} & \\
+            \lambda A_{21} & \lambda A_{22} & \lambda A_{23} & \dots \\
+            \lambda A_{31} & \lambda A_{32} & \lambda A_{33} & \\
+                   & \vdots &        & \ddots \\
+        \end{bmatrix}
+    \end{align*}
+
+    \begin{align*}
+        A+B             &= B+A & \text{matrix addition commutes}\\
+        \lambda (A+B)   &= \lambda A + \lambda B & \text{scalars are distributive}\\
+        (\lambda\mu)A   &= \lambda(\mu a)
+    \end{align*}
+
+    \section*{Matrix Multiplication}
+    When $A$ is a $m\times k$ matrix and $B$ is a $k\times n$ matrix, we define
+    $AB$ as:
+    \begin{align*}
+        \begin{bmatrix}
+            Ab_1 & Ab_2 & \dots & AB_n
+        \end{bmatrix}
+    \end{align*}
+    Note that multiplication of matrices do not commute. That means that $AB\ne
+    BA$ When $A$ and $B$ are multiplied, this is equivalent to composing their
+    transformations. $AB \equiv T_A \circ T_B$
+
+    exmaple:
+    \begin{align*}
+        \begin{bmatrix}
+            2 & 1 & 3 \\
+            0 & -1 & -2
+        \end{bmatrix} \begin{bmatrix}
+            1 & 2 \\
+            0 & -1 \\
+            1 & 1
+        \end{bmatrix} = \begin{bmatrix}
+            5 & 6 \\
+            -2 & -1
+        \end{bmatrix}
+    \end{align*}
+
+    \begin{align*}
+        \begin{bmatrix}
+            1 & 1 \\
+            0 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 0 \\
+            1 & 1
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            2 & 1 \\
+            1 & 1
+        \end{bmatrix} \\
+        \begin{bmatrix}
+            1 & 0 \\
+            1 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & 1 \\
+            0 & 1
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            1 & 1 \\
+            1 & 2
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{Properties of matrix algebra}
+    \begin{itemize}
+        \item Associativity $A(BC) = (AB)C$
+        \item Left distributivity $A(B+C) = AB+AC$
+        \item Right distributivity $(A+B)C = AC+BC$
+        \item Scalar commutativity $\lambda(AB) = (\lambda A)B = A(\lambda B)$
+        \item Identity $IA = AI = A$
+    \end{itemize}
+    Matrices are associative because multiplying by a matrix corresponds to
+    linear transformations. Since function composition is associative, so is
+    matrix multiplication. Distributivity is split between left and right
+    distributivity because multiplication does not commute. Thus, multiplying
+    from the left will distributing the matrix with the multiplication on the
+    left, and vise versa for right.
+
+    \subsection*{Identity and Zero Matrix}
+    A matrix composed with the basis vectors is called the identity matrix. This
+    matrix is special because left multiplication and right multiplication by
+    this matrix is equivalent to not doing anything.
+    \begin{align*}
+        I = \begin{bmatrix}
+            1 & 0 & 0 & \\
+            0 & 1 & 0 & \dots \\
+            0 & 0 & 1 & \\
+             & \vdots &  & \ddots
+        \end{bmatrix}
+    \end{align*}
+
+    When a matrix is composed entirely of zeros, it is called the zero matrix
+    because it acts like a zero in addition.
+    \begin{align*}
+        0 = \begin{bmatrix}
+            0 & 0 & \dots \\
+            0 & 0 & \\
+            \vdots & & \ddots
+        \end{bmatrix}
+    \end{align*}
+\end{document}
