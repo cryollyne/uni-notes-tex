@@ -1,0 +1,143 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Matrix of a Linear Transformation}
+\author{Patrick Chen}
+\date{Sept 23, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+
+    \subsection*{Linear Transformation}
+    We say a transformation $T: \mathbb{R}^n \mapsto \mathbb{R}^m$ is linear
+    if it follows the rules of linearity. All matrices are linear
+    transformations.
+    \begin{itemize}
+        \item for all $u,v\in \mathbb{R}^n, T(u+v) = T(u)+T(v)$
+        \item for all scalars $\lambda$ and $u\in \mathbb{R}^n, T(\lambda u) = \lambda T(u)$
+    \end{itemize}
+
+    Following these rules, we can conclude $T(0) = 0$ and for all scalars,
+    $c,d$, and vectors $u,v$, $T(cu+dv) = cT(u) + dT(v)$
+
+    \begin{align*}
+        T(c_1u_1+\dots+c_ku_k) = c_1T(u_1)+\dots+c_kT(u_k)
+    \end{align*}
+    T's value on the span of $u_1\dots u_n$ is determined by its values at
+    $u_1\dots u_n$
+
+    \begin{align*}
+        e_1 = \begin{bmatrix}
+            1 \\ 0 \\ 0 \\ \vdots
+        \end{bmatrix} &&
+        e_1 = \begin{bmatrix}
+            1 \\ 0 \\ 0 \\ \vdots
+        \end{bmatrix} &&
+        e_3 = \begin{bmatrix}
+            0 \\ 0 \\ 1 \\ \vdots
+        \end{bmatrix} && \dots \\
+    \end{align*}
+    \begin{align*}
+        \begin{bmatrix}
+            x_1 \\ \vdots \\ x_n
+        \end{bmatrix} &=
+        x_1e_1 + x_2e_2 + \dots + x_ne_n \\
+        T\bigg(\begin{bmatrix}
+            x_1 \\ \vdots \\ x_n
+        \end{bmatrix}\bigg) &= T(x_1e_1+x_2e_2+\dots+x_ne_n) \\
+        &= x_1T(e_1) + x_2T(e_2) + \dots + x_nT(e_n)
+    \end{align*}
+    A linear transformation is entirely defined by how it affects the basis
+    vectors. All linear transformations from $T: \mathbb{R}^n \mapsto
+    \mathbb{R}^m$ has a unique matrix that describes the transformation called
+    the standard matrix. The standard matrix is composed of the transformations
+    applied to the basis vectors.
+    \begin{align*}
+        A = \begin{bmatrix}
+            T(e_1) & T(e_2) & T(e_3) & \dots
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{Common Transformations}
+    Reflection on the $y=x$ line:
+    \begin{align*}
+        \begin{bmatrix}
+            0 & 1 \\
+            1 & 0
+        \end{bmatrix}
+    \end{align*}
+    Counter clockwise rotation by the angle $\theta$:
+    \begin{align*}
+        \begin{bmatrix}
+            \cos(\theta) & -\sin(\theta) \\
+            \sin(\theta) & \cos(\theta)
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{Properties}
+    \begin{itemize}
+        \item A transformation is \textbf{one-to-one} if two different values of
+            input always results in different outputs.
+
+        \item A transform is \textbf{onto} if the range of a transformation is
+            the same as the codomain
+    \end{itemize}
+    A linear transformation is one-to-one if the only answer to $T_A(x)=0$
+    is the trivial solution $x=0$. This is equivalent to checking if the
+    columns of the matrix is linearly independent.
+
+\end{document}
