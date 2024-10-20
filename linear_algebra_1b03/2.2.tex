@@ -1,0 +1,261 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Inverse of a Matrix}
+\author{Patrick Chen}
+\date{Oct 1, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Powers of a matrix}
+    When a square matrix is raised to a power $A^n$, this is equivalent to
+    multiplying by the matrix $n$ times. When a matrix is raised to the zeroth
+    power, it is equal to the identity matrix.
+    \begin{align*}
+        A^2 &=AA \\
+        A^n &= AA^{n-1} \\
+        A^0 &= I
+    \end{align*}
+
+    \section*{Transpose}
+    The transpose of a matrix is the matrix flipped along the main diagonal.
+    \begin{align*}
+        (A+B)^T         &= A^T+B^T \\
+        (AB)^T          &= B^TA^T \\
+        (\lambda A)^T   &= \lambda A^T \\
+        T_{A}: \mathbb{R}^n \mapsto \mathbb{R}^m &\Leftrightarrow
+        T_{A^T}: \mathbb{R}^m \mapsto \mathbb{R}^n \\
+        T_{A} \circ T_{A^T}: \mathbb{R}^n \mapsto \mathbb{R}^n &\Leftrightarrow
+        T_{A^T} \circ T_{A}: \mathbb{R}^m \mapsto \mathbb{R}^m \\
+    \end{align*}
+    A matrix is called symmetric if $A=A^T$
+
+    \begin{align*}
+        A = \begin{bmatrix}
+            2 & 0 \\
+            1 & 3
+        \end{bmatrix} &&
+        A^T = \begin{bmatrix}
+            2 & 1 \\
+            0 & 3
+        \end{bmatrix} \\
+        B = \begin{bmatrix}
+            1 & 0 & 4 \\
+            -1 & 3 & 1
+        \end{bmatrix} &&
+        B^T = \begin{bmatrix}
+            1 & -1 \\
+            0 & 3 \\
+            4 & 1
+        \end{bmatrix}
+    \end{align*}
+
+    \section*{Inverse of a matrix}
+    We say a $n\times n$ matrix $A$ is invertible if there exists a matrix $B$
+    such that $AB=BA=I$. The matrix $B$ is the inverse of $A$ and can be written
+    as $A^{-1}$. If $A$ is invertible, then $A$ is one-to-one and onto. The
+    inverse of a matrix is always unique if it exists.
+
+    \begin{align*}
+        BAC = B(AC) &= BI = B \\
+        BAC = (BA)C &= IC = C \\
+        BAC = B &= C
+    \end{align*}
+
+    The inverse of the inverse of matrix $A$ is $A$.
+    \begin{align*}
+        (A^{-1})^{-1} = A \\
+        (A^{-1})^{-1} = B \\
+        A^{-1}(A^{-1})^{-1} = A^{-1}B \\
+        I = A^{-1}B \\
+        AI = AA^{-1}B \\
+        A = B \\
+    \end{align*}
+
+    When two matrices are multiplied, then inverted, it is equivalent to
+    reversing the order of matrices and inverting all of them.
+    \begin{align*}
+        (ABC)^{-1} &= C^{-1}B^{-1}A^{-1} \\
+        (ABC)(ABC)^{-1} &= (ABC)(C^{-1}B^{-1}A^{-1}) \\
+        I &= AB(CC^{-1})B^{-1}A^{-1} \\
+        I &= ABIB^{-1}A^{-1} \\
+        I &= ABB^{-1}A^{-1} \\
+        I &= AIA^{-1} \\
+        I &= AA^{-1} \\
+        I &= I
+    \end{align*}
+
+    Transpose and invert commute with each other.
+    \begin{align*}
+        (A^T)^{-1} = (A^{-1})^T = A^{-T}
+    \end{align*}
+
+    For a two by two matrix, If $ad-bc = 0$, then the matrix is not invertible.
+    \begin{align*}
+        \begin{bmatrix}
+            a & b \\
+            c & d
+        \end{bmatrix}
+        \begin{bmatrix}
+            d & -b \\
+            -c & a
+        \end{bmatrix} &=
+        \begin{bmatrix}
+            ad-bc & 0 \\
+            0 & ad-bc
+        \end{bmatrix} \\
+        \begin{bmatrix}
+            a & b \\
+            c & d
+        \end{bmatrix}^{-1} &=
+        \frac{1}{ad-bc} \begin{bmatrix}
+            d & -b \\
+            -c & a
+        \end{bmatrix}
+    \end{align*}
+    \begin{align*}
+        ad-bc&=0 \\
+        ad &= cd \\
+        \frac{a}{c} &= \frac{b}{d}
+    \end{align*}
+    Note that this means that ac and bd are linearly dependent.
+
+    Suppose $A$ is an invertible matrix
+    \begin{align*}
+        Ax=0 \\
+        A^{-1}Ax = A^{-1}0 \\
+        x = 0
+    \end{align*}
+    Since there is only one solution to the homogeneous equation, A is
+    one-to-one.
+    \begin{align*}
+        Ax &= b \\
+        A^{-1}Ax &= A^{-1}b \\
+        x &= A^{-1}b
+    \end{align*}
+    Since all vectors in $\mathbb{R}^n$ has a vector in $\mathbb{R}^n$ that maps
+    to it, $T_{A}: \mathbb{R}^n \mapsto \mathbb{R}^n$ is onto.
+
+    \section*{Elementary Matrices}
+    A elementary matrix is one row operation applied to the identity matrix.
+    \begin{itemize}
+        \item For interchanging rows, the matrix $E$ will be its own inverse
+            because swapping a row twice is the same as not swapping at all.
+            Multiplying by this matrix will interchange rows on the matrix being
+            multiplied.
+            \begin{align*}
+                \begin{bmatrix}
+                    0 & 1 & 0 \\
+                    1 & 0 & 0 \\
+                    0 & 0 & 1 \\
+                \end{bmatrix}^{-1} = 
+                \begin{bmatrix}
+                    0 & 1 & 0 \\
+                    1 & 0 & 0 \\
+                    0 & 0 & 1 \\
+                \end{bmatrix}
+            \end{align*}
+
+        \item For multiplying by a non zero scalar, the inverse of matrix $E$
+            will be the identity matrix with the row multiplied by the
+            reciprocal of the multiplied scalar. Multiplying by this matrix will
+            result in a row being multiplied by the non zero scalar.
+            \begin{align*}
+                \begin{bmatrix}
+                    1 & 0 & 0 \\
+                    0 & 2 & 0 \\
+                    0 & 0 & 1 \\
+                \end{bmatrix}^{-1} = 
+                \begin{bmatrix}
+                    1 & 0 & 0 \\
+                    0 & \frac{1}{2} & 0 \\
+                    0 & 0 & 1 \\
+                \end{bmatrix} \\
+            \end{align*}
+
+        \item For adding a multiple of another row, the inverse of $E$ will be
+            the that row subtracted by the multiply of the row. Multiplying by
+            this matrix will result in a multiply a row being added to the row.
+            \begin{align*}
+                \begin{bmatrix}
+                    1 & 0 & 4 \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1 \\
+                \end{bmatrix}^{-1} = 
+                \begin{bmatrix}
+                    1 & 0 & -4 \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1 \\
+                \end{bmatrix} \\
+            \end{align*}
+    \end{itemize}
+
+    Left multiplying by elementary matrices is identical to preforming row
+    operations. If by left multiplying elementary matrices, some matrix $A$ can
+    be transformed into the identity matrix, then the series of elementary
+    matrices is the inverse of $A$.
+
+    \begin{align*}
+        E_n \dots E_2E_1 A &= I \\
+        E_n \dots E_2E_1 I &= A^{-1} \\
+    \end{align*}
+
+    If the matrix $[A\ I]$ is row reduced, and $A$ is invertible, then the
+    reduced row echelon form will be $[I\ A^{-1}]$. If $A$ is not invertible,
+    then the row reduced form will not contain the identity matrix.
+
+\end{document}
