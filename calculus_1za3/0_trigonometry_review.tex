@@ -1,0 +1,136 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Trigonometry Review}
+\author{Patrick Chen}
+\date{Sept 4, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Angles}
+    Positive angles is counter clockwise, negative angles are clockwise. In this
+    course, we will use radians. Radians is a measure of how many times a radius
+    fit in the arc corresponding with the angle.
+    \begin{align*}
+        \pi\ radian &= 180^\circ \\
+        \frac{\pi D}{180^\circ} &= rad
+    \end{align*}
+
+    Note that $-\frac{5\pi}{4}$ is not the same as $\frac{3\pi}{4}$ even though
+    it ends in the same place because one is clockwise and the other is counter
+    clockwise
+
+    \section*{Acute angles}
+    Trig functions can be defined with right triangles
+    \begin{equation*}
+        \begin{matrix}
+            sin \theta = \frac{opp}{hyp} & cos \theta = \frac{adj}{hyp} & tan \theta = \frac{opp}{adj} \\
+            csc\theta=\frac{1 }{sin\theta} & sec\theta=\frac{1 }{soc\theta} & cot\theta = \frac{1 }{tan\theta}
+        \end{matrix}
+    \end{equation*}
+
+    Special triangles:
+    ($1, 1, \frac{\sqrt{2}}{2}$), ($1, 2, \sqrt{3}$)
+
+    \section*{Obtuse and Negative angles}
+    A point with distance $r$ away from the origin and angle $\theta$ with have
+    an x coordinate of $rcos\theta$ and a y coordinate of $rsin\theta$
+    \begin{equation*}
+        \begin{matrix}
+            sin \theta = \frac{y}{r} & cos \theta = \frac{x}{r} & tan \theta = \frac{y}{x} \\
+            csc\theta=\frac{1}{sin\theta} & sec\theta=\frac{1}{soc\theta} & cot\theta = \frac{1}{tan\theta}
+        \end{matrix}
+    \end{equation*}
+
+    \section*{Trig Identities}
+    \begin{align*}
+        sin^2\theta + cos^2\theta = 1 \\
+        1 + tan^2\theta = sec^2\theta \\
+        1 + cot^2\theta = csc^2\theta
+    \end{align*}
+
+%     \begin{align*}
+%         & 1 + tan2\theta \\
+%         =& \frac{cos^2}{cos^2} + \frac{sin^2\theta}{cos^2\theta} \\
+%         =& \frac{cos^2\theta + sin^2\theta}{cos^2\theta} \\
+%         =& \frac{1}{cos^2\theta} \\
+%         =&sec^2\theta
+%     \end{align*}
+
+    Sine is the y axis coordinate so a negating the angle will negate the sine
+    of the angle. Cosine is the x axis coordinate which doesn't change when the
+    angle is negated
+    \begin{align*}
+        sin(-\theta) = -sin(\theta) \\
+        cos(-\theta) = cos(\theta)
+    \end{align*}
+
+    Sine and Cosine is a quarter rotation phase shifted
+    \begin{align*}
+        cos\theta = sin(\theta + \frac{\pi}{2}) \\
+        sin\theta = cos(\theta - \frac{\pi}{2})
+    \end{align*}
+
+    \begin{align*}
+        \begin{matrix}
+            \theta & 0 & \frac{\pi}{2} & \pi & \frac{3\pi}{2} & 2\pi \\
+            sin\theta & 0 & 1 & 0 & -1 & 0 \\
+            cos\theta & 1 & 0 & -1 & 0 & 1 \\
+            tan\theta & 0 & ud & 0 & ud & 0
+        \end{matrix}
+    \end{align*}
+\end{document}
