@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Inverse Trigonometric Functions}
+\author{Patrick Chen}
+\date{Sept 9, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Domain and Range}
+    The domain is the set of all points that results in a valid result when
+    mapped through a function. For example, in the function $f(x)= \frac{1}{x}$,
+    the input $0$ does not produce a valid result. The range is the set of all
+    possible outputs a function can produce.
+
+    Tips:
+    \begin{enumerate}
+        \item If there is a fraction, the denominator shouldn't be zero.
+
+        \item If there is a square root (or any even root), the input of the
+            square root should be greater than or equal to zero.
+
+        \item In exponentials, the range is strictly greater than zero
+
+        \item If there is a logarithm, the input must be strictly greater than
+            zero.
+    \end{enumerate}
+
+    \subsection*{Example}
+    \begin{align*}
+        f(x)&=\tan(x) \\
+            &= \frac{\sin(x)}{\cos(x)} \\
+        \therefore \cos(x)&\ne 0 \\
+        \Rightarrow x &\ne 2k\pi + \frac{\pi}{2}, 2k\pi + \frac{3\pi}{2} \\
+                      & \text{where } k \in \mathbb{Z}
+    \end{align*}
+
+    \section*{Interval notation}
+    A square bracket means that the interval is inclusive while a round bracket
+    means that a interval is exclusive. Round and square brackets can be mixed
+    to represent a interval that is closed on one side but open on another.
+
+    \begin{align*}
+        x\in [a,b] \Leftrightarrow a \le x \le b \\
+        x\in (a,b) \Leftrightarrow a < x < b
+    \end{align*}
+
+    \section*{Inverse Trigonometric Functions}
+    The sine function is not one-to-one; however, if we restrict the domain of
+    sine to $[ -\frac{\pi}{2}, \frac{\pi}{2} ]$, it becomes a one-to-one
+    function with the range $[-1,1]$. The inverse of the sine function is
+    $sin^{-1}(y) = x$ or $\arcsin(y)= x$
+
+    For cosine, a similar thing can be done by restricting the domain to
+    $[0,\pi]$. $\tan(x)$ is also restricted to $[ -\frac{\pi}{2},
+    \frac{\pi}{2}]$
+
+    \begin{equation*}
+        \begin{matrix}
+            f(x) & \text{Domain} & \text{Range} \\
+            \sin & [ -\frac{\pi}{2}, \frac{\pi}{2} ] & [-1,1] \\
+            \cos & [ 0, \pi ] & [-1,1] \\
+            \tan & [ -\frac{\pi}{2}, \frac{\pi}{2} ] & (-\infty, \infty)
+        \end{matrix}
+    \end{equation*}
+
+\end{document}
