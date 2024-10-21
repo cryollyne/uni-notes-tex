@@ -275,7 +275,7 @@
     If $f$ is a differentiable one-to-one function, the derivative of the
     inverse function can be found with the following formula.
     \begin{align*}
-        (f^{-1})' = \frac{1}{f'(f(x))}
+        (f^{-1})' = \frac{1}{f'(f^{-1}(x))}
     \end{align*}
     Proof:
     \begin{align*}
@@ -284,10 +284,8 @@
         f(y) &= x \\
         f'(y)y' &= 1 & \text{implicit differentiation} \\
         y' &= \frac{1}{f'(y)} \\
-        y' &= \frac{1}{f'(f(x))} & \text{substitute $y$} \\
+        y' &= \frac{1}{f'(f^{-1}(x))} & \text{substitute $y$} \\
     \end{align*}
-
-
 
     \section*{Derivatives of functions}
     \subsection*{Polynomial}
