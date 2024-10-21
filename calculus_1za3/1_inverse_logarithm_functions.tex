@@ -1,0 +1,154 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Inverse and Logarithms}
+\author{Patrick Chen}
+\date{Sept 5, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Inverse Functions}
+    A function $f$ is called one-to-one function if it never takes on the same
+    value twice. If for every horizontal lines, there are no horizontal lines
+    that intersect the graph more than once, then the function satisfies the
+    horizontal line test. If a function satisfies the horizontal line test, it
+    is one-to-one.
+
+
+    Let $f$ be a one-to-one function with domain A and range B. Its inverse
+    $f^-1$ has domain of B and range A (inverse functions have inverted domain
+    and ranges).
+    \begin{align*}
+        f(x) = y &\Leftrightarrow f^{-1}(y) = x \\
+        f: A \mapsto B &\Leftrightarrow f^{-1}: B \mapsto A \\
+    \end{align*}
+
+    \begin{theorem}
+        Cancellation equations:
+        \begin{align*}
+            f^{-1}(f(x)) = x \text{ for every x in A} \\
+            f(f^{-1}(y)) = y \text{ for every y in B}
+        \end{align*}
+    \end{theorem}
+
+    Example:
+    let $f(x)=x^3$. Find $f^{-1}(x)$
+
+
+    \begin{align*}
+        f^{-1}(x)=\sqrt[3]{x} \\
+        f^{-1}(f(x))=x \\
+        \sqrt[3]{x^3}=x \\
+        x=x
+    \end{align*}
+    \begin{align*}
+        f(f^{-1}(y))=y \\
+        (\sqrt[3]{y})^3=y \\
+        y=y
+    \end{align*}
+
+    If you have the graph of $f$, $f^{-1}$ is the function $f$ reflected upon
+    the x=y line. This is equivalent to swapping $x$ and $y$ for every point on
+    the graph. The inverse of a function can be found algebraically by following
+    these steps:
+
+    \begin{enumerate}
+        \item write $y=f(x)$
+        \item solve this equation for x in terms of y
+        \item interchange x and y
+    \end{enumerate}
+
+    \section*{Logarithmic Functions}
+
+    If $b>0$ and $b\ne 1$, the exponential function $f(x)=b^x$ is either
+    strictly increasing or decreasing and therefore it is one-to-one and has an
+    inverse function $f^{-1} = \log_{b}\ y$.
+
+    \begin{align*}
+        b^x=y &\Leftrightarrow log_by=x \\
+        \log_b(b^x)&=x \text{ for every } x \in \mathbb{R} \\
+        b^{\log_by}&=y \text{ for every } y > 0
+    \end{align*}
+
+    Laws of Logarithms
+    \begin{enumerate}
+        \item $\log_b(xy)=\log_bx+\log_by$
+
+        \item $\log_b(\frac{x}{y})=\log_bx-\log_by$
+
+        \item $\log_b(x^r)=r\log_b(x)$
+    \end{enumerate}
+
+    \subsection*{Natural Logarithms}
+    The natural logarithm is a special logarithm with a base of $e$.
+    \begin{align*}
+        \ln(x)&=\log_e(x) \\
+        \text{where } e &\approx 2.718
+    \end{align*}
+
+    \begin{align*}
+        e^x=y &\Leftrightarrow \ln y=x \\
+        \ln(e^x)&=x \text{ for every } x \in \mathbb{R} \\
+        e^{\ln y}&=y \text{ for every } y > 0
+    \end{align*}
+
+    Log change of base formula
+    \begin{align*}
+        \frac{\log_b a}{\log_b c} = \log_c a
+    \end{align*}
+
+\end{document}
