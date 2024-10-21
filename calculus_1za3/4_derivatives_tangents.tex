@@ -1,0 +1,109 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Derivatives and Tangents}
+\author{Patrick Chen}
+\date{Sept 16, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Derivatives}
+    A line tangent to a graph takes the form:
+    \begin{align*}
+        y = mx + b
+    \end{align*}
+
+    A line between two points on a graph is called a secant line. The limit as
+    the second point approaches the first is the tangent line
+    \begin{align*}
+        m   &= \lim_{x\to a} \frac{f(x)-f(a)}{x-a} \\
+        y-a &= \lim_{x\to a} \frac{f(x)-f(a)}{x-a} (x-a) \\
+        y   &= \frac{df}{dx} (a) (x-a) + f(a)
+    \end{align*}
+
+    The derivative is the slope of the tangent line. The idea is that if we zoom
+    in far enough toward the point, the curve looks like a linear.
+
+    \begin{align*}
+        f'(a)=\lim_{h\to 0} \frac{f(a+h) - f(a)}{h}
+    \end{align*}
+
+    \subsection*{Example}
+    Find the equation of the tangent line at the point (3, 1).
+    \begin{align*}
+        f(x) &= \frac{3}{x} \\
+        f(x) &= 3x^{-1} \\
+        m &= \lim_{h\to 0} \frac{f(a+h) - f(a)}{h} \\
+        m &= \lim_{h\to 0} \frac{1}{h} (\frac{3}{a+h}-\frac{3}{a}) \\
+        m &= \lim_{h\to 0} \frac{1}{h} (\frac{3}{a+h}-1) \\
+        m &= \lim_{h\to 0} \frac{1}{h} (\frac{3 - a - h}{a+h}) \\
+        m &= \lim_{h\to 0} \frac{1}{h} (\frac{- h}{a+h}) \\
+        m &= \lim_{h\to 0} (\frac{- 1}{a+h}) \\
+        m &= \lim_{h\to 0} -\frac{1}{3+h} \\
+        m &= -\frac{1}{3}
+    \end{align*}
+
+    \begin{align*}
+        m   &= -\frac{1}{3} \\
+        x_1 &= 3 \\
+        y_1 &= 1 \\
+        y-y_1 &= m(x-x_1) \\
+        y-1 &= -\frac{1}{3} (x-3) \\
+        y   &= -\frac{1}{3} x + 2
+    \end{align*}
+
+\end{document}
