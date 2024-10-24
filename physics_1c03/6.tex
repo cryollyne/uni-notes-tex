@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Relative Motion}
+\author{Patrick Chen}
+\date{Sept 26, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Center of mass}
+    The center of mass is a point at the average of the masses. A multi-object
+    system may be replaced with a point mass at this point to simplify the
+    model. Object with any symmetry will lie on the axis of symmetry. For a
+    uniform object, the center of geometry and mass is distributed evenly around
+    the center of mass.
+
+    \begin{align*}
+        x_{CM} &= \frac{m_1x_1+m_2x_2}{m_1+m_2} \\
+        x_{CM} &= \frac{\sum_i m_i \vec{r}_i}{\sum_i m_i}
+    \end{align*}
+
+    The derivative of center of mass with respect to time is the total momentum
+    of the collection. Since the total momentum is constant, the velocity of the
+    center of mass will also remain constant.
+    \begin{align*}
+        Mr_{CM} &= \sum m_ir_i \\
+                &\Downarrow \frac{d}{dt} \\
+        Mv_{CM} &= \sum m_iv_i = p_{total} \\
+    \end{align*}
+
+    \section*{Relative motion}
+    Since velocity is relative, it needs to be measured with respect to a frame
+    of reference.
+    \begin{align*}
+        V_{AC} &= V_{AB} + V_{BC} \\
+        V_{AB} &= -V_{BA}
+    \end{align*}
+    $V_{AC}$ is the velocity of $C$ relative to $A$. When changing reference
+    frames, the graph of velocities are shifted up or down.
+
+    When a collision is observed from the center of mass reference frame, the
+    collision looks like a head on collision. If the two masses are the same,
+    the two masses will be the same speed.
+
+    \section*{Kinetic Energy}
+    \begin{align*}
+        v_{cm}      &= 0 \\
+        K_E         &= K_Z + \frac{1}{2} Mv_{cm}^2 \\
+        \Delta K_E  &= \Delta K_Z
+    \end{align*}
+
+    $K_Z$ is the kinetic energy in the center of mass frame. $\frac{1}{2} MV_{cm}^2$
+    is the kinetic energy of the center of mass in the earth frame. The
+    difference of the kinetic energy in the center of mass frame is called the
+    convertible kinetic energy. During a collision, the kinetic energy cannot be
+    lower than the kinetic energy of the center of mass because the kinetic
+    energy of the center of mass is the lowest kinetic energy possible to
+    conserve momentum. This means that the convertible kinetic energy is the
+    only kinetic energy that can be converted into potential energy during the
+    collisions, hence the name convertible.
+
+    \begin{align*}
+        K_E    = \frac{1}{2} m_1v_1^2 + \frac{1}{2} m_2v_2^2 \\
+        K_{CM} = \frac{1}{2} (m_1+m_2)v_{cm}^2 \\
+        K_Z    = \frac{1}{2} m_1 v_{z1}^2 + \frac{1}{2} m_2 v_{z2}^2
+    \end{align*}
+
+    \section*{Galilean Relativity}
+    \begin{align*}
+        r=r'+r_0 && x_{AC} = x_{AB} + x_{BC} \\
+        v=v'+v_0 && v_{AC} = v_{AB} + v_{BC} \\
+        a=a'+a_0 && a_{AC} = a_{AB} + a_{BC} \\
+    \end{align*}
+    Since it is an inertial reference frame, $a=0$.
+
+\end{document}
