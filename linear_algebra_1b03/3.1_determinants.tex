@@ -1,0 +1,219 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Determinants}
+\author{Patrick Chen}
+\date{Oct 10, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    A $n\times n$ matrix $A$ will map the unit vectors in $\mathbb{R}^n$ to
+    columns of $A$, which is also in $\mathbb{R}^n$. The n-dimensional
+    equivalent to volume of a shape, when mapped through the matrix, will be
+    scaled by $det\ A$. If $det\ A = 0$, then the matrix $A$ is not invertible.
+
+    \subsection*{2x2 Matrix}
+    \begin{align*}
+        A = \begin{bmatrix}
+            a & b \\
+            c & d
+        \end{bmatrix} \\
+        \begin{bmatrix}
+            a & b \\
+            0 & -\frac{cb}{a} + d
+        \end{bmatrix} \text{ ($-\frac{c}{a}$ R1 + R2)}
+    \end{align*}
+    A is invertible iff $a\ne 0$ and $-\frac{cb}{a} +d\ne 0$.
+    The determinant of $A$ is $ad-bc$ then
+    \begin{align*}
+        A^{-1} = \frac{1}{det(A)} \begin{bmatrix}
+            d & -b \\
+            -c & a
+        \end{bmatrix}
+    \end{align*}
+
+    The area of a parallelogram formed by $\begin{bmatrix} a \\ c \end{bmatrix}$
+    and $\begin{bmatrix} b \\ d \end{bmatrix}$ is equal to $|det\ A|$
+
+    If a edge of the parallelogram is not on the x-axis, it can be rotated onto
+    the x-axis with a rotation matrix. Rotation matrices preserves the
+    determinant so the determinant is unchanged after being rotated.
+
+    \subsection*{3x3 Matrix}
+    The absolute value of the determinant of a $3\times 3$ matrix is the volume
+    of a parallelepiped formed by the three columns in $\mathbb{R}^3$. A
+    parallelepiped with $v_1,v_2$ in the xy-plane forming a parallelogram, and
+    $v_3=[x_3,y_3,z_3]^T$ will have a volume $z_3*(\text{area of
+    parallelogram})$. Any parallelepiped can be rotated to have a plane laying
+    in the xy-plane.
+
+    \begin{align*}
+        det \begin{bmatrix}
+            a & b & x_3 \\
+            c & d & y_3 \\
+            0 & 0 & z_3
+        \end{bmatrix} = z_3 \cdot det \begin{bmatrix}
+            a & b \\
+            c & d
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{General Matrix}
+    The determinant can be generalized to higher dimensions by rotating one
+    "cell" into a (n-1) volume without a $x_n$ component, calculating the
+    determinant for the first (n-1) vectors, then multiplying by the last
+    vector's $x_n$ component.
+
+    \section*{General Determinant Formula}
+    Suppose the matrix $A$ is a $n\times n$ matrix and $A_{ij}$ is the matrix
+    $A$ with the ith row and the jth column removed. $A_{ij}$ will be a size
+    $(n-1)\times (n-1)$ matrix. The $(i,j)$-cofactor of $A$ is the determinant
+    of $A_{ij}$ multiplied by one or negative one depending on if the sum of the
+    row index and column index if even.
+    \begin{align*}
+        C_{ij} = (-1)^{i+j} \det(A_{ij})
+    \end{align*}
+    The determinant is defined as
+    \begin{align*}
+        \det(A) &= a_{i1}C_{i1} +
+                  a_{i2}C_{i2} +
+                  a_{i3}C_{i3} +
+                  \dots +
+                  a_{in}C_{in} \\
+                &= \sum_{j=0}^n a_{ji}C_{ji}
+    \end{align*}
+    The determinant can also be found by summing across the columns instead of
+    the rows.
+
+    \begin{align*}
+        \det(A) &= a_{1j}C_{1j} +
+                   a_{2j}C_{2j} +
+                   a_{3j}C_{3j} +
+                   \dots +
+                   a_{nj}C_{nj} \\
+                &= \sum_{i=0}^n a_{ji}C_{ji}
+    \end{align*}
+    The determinant is well defined when summing across any row or column.
+
+    \subsection*{Example}
+    Computing the determinant of a matrix across the first row
+    \begin{align*}
+        A &= \begin{bmatrix}
+            1 & -1 & 2 \\
+            3 &  1 & 4 \\
+            2 & 0 & 1
+        \end{bmatrix} \\
+        \det(A) &= (1)(1)\det\bigg(\begin{bmatrix}
+            1 & 4 \\
+            0 & 1
+        \end{bmatrix}\bigg) + (-1)(-1)\det\bigg(\begin{bmatrix}
+            3 & 4 \\
+            2 & 1
+        \end{bmatrix}\bigg) + (1)(2)\det\bigg(\begin{bmatrix}
+            3 & 1 \\
+            2 & 0
+        \end{bmatrix}\bigg) \\
+        &= 1-5+2(-2)  \\
+        &= -8
+    \end{align*}
+
+    Computing the determinant of the same matrix across the second column
+    \begin{align*}
+        A &= \begin{bmatrix}
+            1 & -1 & 2 \\
+            3 &  1 & 4 \\
+            2 & 0 & 1
+        \end{bmatrix} \\
+        \det(A) &= (-1)(-1)\det\bigg(\begin{bmatrix}
+            3 & 4 \\
+            2 & 1
+        \end{bmatrix}\bigg) + (1)(1)\det\bigg(\begin{bmatrix}
+            1 & 2 \\
+            2 & 1
+        \end{bmatrix}\bigg) + (-1)(0)\det\bigg(\begin{bmatrix}
+            1 & 2 \\
+            3 & 4
+        \end{bmatrix}\bigg) \\
+        &= (-5) + (-3) + 0 \\
+        &= -8
+    \end{align*}
+
+    \subsection*{Example 2}
+    \begin{align*}
+        A = \begin{bmatrix}
+            1 & 2 & -5 & 6 \\
+            0 & 3 & 4 & 7 \\
+            0 & 0 & 1 & -2 \\
+            0 & 0 & 0 & 3
+        \end{bmatrix}
+    \end{align*}
+    Finding the determinant across the fourth row
+    \begin{align*}
+        \det(A) &= 0 + 0 + 0 + (1)(3)\det(\begin{bmatrix}
+            1 & 2 & -5 \\
+            0 & 3 & 4 \\
+            0 & 0 & 1
+        \end{bmatrix}) \\
+        &= 3(0 + 0 + 1(\det(\begin{bmatrix}
+            1 & 2 \\
+            0 & 3
+        \end{bmatrix}))) \\
+        &= 3(1(3)) \\
+        &= 9
+    \end{align*}
+
+\end{document}
