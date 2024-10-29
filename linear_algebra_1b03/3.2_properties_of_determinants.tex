@@ -1,0 +1,298 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Properties of Determinants}
+\author{Patrick Chen}
+\date{Oct 21, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\adj{\text{adj}}
+
+\begin{document}
+    \maketitle
+    \section*{Properties of Determinants}
+    For $n\times n$ matrices $A$ and $B$ and scalars $k$:
+    \begin{align*}
+        \det(AB) &= \det(A)\det(B) \\
+        \det(A)  &= \det(A^T) \\
+        \det(kA) &= k^n\det(A) \\
+        A^{-1} \text{exists }&\text{iif} \det(A)=0
+    \end{align*}
+
+    If the matrix $A$ is invertible, then there is some combination of elementary matrices
+    that when left multiplies with $A$, will give the identity.
+    \begin{align*}
+        \det(E_k\dots E_2E_1A) = \det(I) \\
+        \det(E_k)\dots\det(E_2)\det(E_1)\det(A) = 1
+    \end{align*}
+    Since the determinant of elementary matrices are all non-zero, the
+    determinant of $A$ cannot be zero, thus $A$ is invertible iff $\det A\ne0$.
+
+    \section*{Efficient Computations of Determinants}
+    Upper triangular matrices are matrices where the only non-zero values are
+    either on or above the main diagonal. Everything under the main diagonals is
+    zero. Lower triangular matrices are the opposite. The determinant of a upper
+    triangular or lower triangular matrix is the product of the diagonals. This
+    is evident from applying the cofactor definition of the determinant with the
+    rows with all zeros except for the main diagonal.
+
+    Multiplying by a elementary matrix will modify it depending on what type of
+    elementary matrix it is. Since the transpose of a matrix has the same
+    determinant, it is possible to preform row operations on the transpose of
+    the matrix. This corresponds with column operations on the original matrix.
+    \begin{enumerate}
+        \item If the row operation is interchanging two rows, then the
+            determinant is negated.
+            \begin{align*}
+                \det(EA)=-\det(A)
+            \end{align*}
+        \item If the row operation is multiplying a row by $k$, then the
+            determinant will be multiplied by k.
+            \begin{align*}
+                \det(EA)=k\det(A)
+            \end{align*}
+        \item If the row operation is adding or subtracting a multiple of
+            another row, then the determinant will be unchanged.
+            \begin{align*}
+                \det(EA)=\det(A)
+            \end{align*}
+    \end{enumerate}
+
+    \subsection*{Example}
+    \begin{align*}
+        &\det\begin{bmatrix}
+            1 & -1 & 2 \\
+            3 & 1 & 4 \\
+            2 & 0 & 1
+        \end{bmatrix} \\
+        =&\det\begin{bmatrix}
+            4 & 0 & 6 \\
+            3 & 1 & 4 \\
+            2 & 0 & 1
+        \end{bmatrix} \\
+        =&\det\begin{bmatrix}
+            4 & 6 \\
+            2 & 1
+        \end{bmatrix} \\
+        = -8
+    \end{align*}
+
+    \subsection*{Example 2}
+    \begin{align*}
+        \det \begin{bmatrix}
+            2 & 1 & 4 \\
+            1 & 0 & -1 \\
+            3 & 2 & 0
+        \end{bmatrix} \\
+        = -\det \begin{bmatrix}
+            1 & 0 & -1 \\
+            2 & 1 & 4 \\
+            3 & 2 & 0
+        \end{bmatrix} \\
+        = -\det \begin{bmatrix}
+            1 & 0 & -1 \\
+            0 & 1 & 6 \\
+            0 & 2 & 3
+        \end{bmatrix} \\
+        = -\det \begin{bmatrix}
+            1 & 0 & -1 \\
+            0 & 1 & 6 \\
+            0 & 0 & -9
+        \end{bmatrix} \\
+        = 9
+    \end{align*}
+
+    \section*{Linearity of Determinants}
+    The determinant of a set matrix where one column is the input to the
+    transformation and all other columns are fixed is a linear transformation.
+    \begin{align*}
+        T: \mathbb{R}^n \mapsto& \mathbb{R}\\
+        T(x) =& \det(v_1,\dots,v_{j-1},x,v_{j+1},\dots,v_n) \\
+        \text{where }& v_1\dots v_{j-1} \text{ is constant,} \\
+                     & v_{j+1}\dots v_n \text{ is constant}
+    \end{align*}
+
+    Proof of linearity:
+    \begin{align*}
+        T(x+y)
+        &= \det(v_1,\dots,v_{j-1},x+y,v_{j+1},\dots,v_n) \\
+        &= \sum_{i=0}^n a_{ji} (-1)^{i+j} \det(A_{ij}) \\
+        &= \sum_{i=0}^n (x_i+y_i) (-1)^{i+j} \det(A_{ij}) \\
+        &= \sum_{i=0}^n \bigg(x_i(-1)^{i+j} \det(A_{ij})
+            +y_i(-1)^{i+j} \det(A_{ij})\bigg) \\
+        &= \bigg(\sum_{i=0}^n x_i(-1)^{i+j} \det(A_{ij})\bigg)
+            +\bigg(\sum_{i=0}^ny_i(-1)^{i+j} \det(A_{ij})\bigg) \\
+        &= \det(v_1,\dots,v_{j-1},x,v_{j+1},\dots,v_n)
+            +\det(v_1,\dots,v_{j-1},y,v_{j+1},\dots,v_n) \\
+        &= T(x)+T(y)
+    \end{align*}
+
+    \begin{align*}
+        T(\lambda x) = & \det(v_1,\dots,v_{j-1},\lambda x,v_{j+1},\dots,v_n) \\
+        =& \sum_{i=0}^n \lambda a_{ji} (-1)^{i+j} \det(A_{ij}) \\
+        =& \lambda \sum_{i=0}^n a_{ji} (-1)^{i+j} \det(A_{ij}) \\
+        =& \lambda \det(v_1,\dots,v_{j-1},x,v_{j+1},\dots,v_n) \\
+        =& \lambda T(x)
+    \end{align*}
+
+    \subsection*{Example 3}
+    \begin{align*}
+        \det \begin{bmatrix}
+            1 & 4 & 1 \\
+            2 & 2 & 0 \\
+            0 & 3 & 1
+        \end{bmatrix} &=
+        \det \begin{bmatrix}
+            1 & 4 & 1 \\
+            0 & 2 & 0 \\
+            0 & 3 & 1
+        \end{bmatrix} +
+        \det \begin{bmatrix}
+            0 & 4 & 1 \\
+            2 & 2 & 0 \\
+            0 & 3 & 1
+        \end{bmatrix} \\
+        &= \det \begin{bmatrix}
+            2 & 0 \\
+            3 & 1
+        \end{bmatrix} + (-2) \det \begin{bmatrix}
+            4 & 1 \\
+            3 & 1
+        \end{bmatrix} \\
+        & = 2-2 \\
+        &= 0
+    \end{align*}
+
+    \subsection*{Example 4}
+    \begin{align*}
+        \det \begin{bmatrix}
+            a & d & g \\
+            b & e & h \\
+            c & f & i
+        \end{bmatrix} = 
+        \det \begin{bmatrix}
+            a & d & g \\
+            0 & e & h \\
+            0 & f & i
+        \end{bmatrix} + 
+        \det \begin{bmatrix}
+            0 & d & g \\
+            b & e & h \\
+            0 & f & i
+        \end{bmatrix} +
+        \det \begin{bmatrix}
+            0 & d & g \\
+            0 & e & h \\
+            c & f & i
+        \end{bmatrix} \\
+        =\det \begin{bmatrix}
+            a & d & g \\
+            0 & 0 & h \\
+            0 & 0 & i
+        \end{bmatrix} + 
+        \det \begin{bmatrix}
+            0 & d & g \\
+            b & 0 & h \\
+            0 & 0 & i
+        \end{bmatrix} +
+        \det \begin{bmatrix}
+            0 & d & g \\
+            0 & 0 & h \\
+            c & 0 & i
+        \end{bmatrix} \\ +
+        \det \begin{bmatrix}
+            a & 0 & g \\
+            0 & e & h \\
+            0 & 0 & i
+        \end{bmatrix} + 
+        \det \begin{bmatrix}
+            0 & 0 & g \\
+            b & e & h \\
+            0 & 0 & i
+        \end{bmatrix} +
+        \det \begin{bmatrix}
+            0 & 0 & g \\
+            0 & e & h \\
+            c & 0 & i
+        \end{bmatrix} \\ +
+        \det \begin{bmatrix}
+            a & 0 & g \\
+            0 & 0 & h \\
+            0 & f & i
+        \end{bmatrix} + 
+        \det \begin{bmatrix}
+            0 & 0 & g \\
+            b & 0 & h \\
+            0 & f & i
+        \end{bmatrix} +
+        \det \begin{bmatrix}
+            0 & 0 & g \\
+            0 & 0 & h \\
+            c & f & i
+        \end{bmatrix}
+    \end{align*}
+
+    After repeating this, in general, all columns will have only one non-zero
+    value. If a entire row in a matrix is zero, then the determinant will be
+    zero. Evaluating the determinant, the first column will have $n$ choices for
+    a non-zero determinant. The column will have $n-1$ choices for a non-zero
+    determinant. In general the sequence will be $[n, n-1, n-2,\dots, 3, 2, 1]$.
+    Since recursively splitting matrices with linearity will give every possible
+    combination of columns, it will contain every matrix with non-zero
+    determinants (as well as a lot of determinant zero matrices). This means
+    that we need to sum up $n!$ values to find the determinant.
+
+\end{document}
