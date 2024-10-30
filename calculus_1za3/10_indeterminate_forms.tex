@@ -1,0 +1,146 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Indeterminate Forms}
+\author{Patrick Chen}
+\date{Oct 10, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\lH{\stackrel{H}{=}}
+
+\begin{document}
+    \maketitle
+    Indeterminate forms are forms where substituting the limit variable will not
+    give an answer.
+    
+    \section*{Indeterminate Fractions}
+    \begin{align*}
+        \frac{0}{0} &&
+        \frac{\infty}{\infty}
+    \end{align*}
+
+    L'Hospital's rule is a rule that can be used if the numerator and
+    denominator of a fraction are both zero or both infinite.
+
+    \begin{align*}
+        \lim_{x\to a} f(x)=0 &\text{ and } \lim_{x\to a} g(x)=0 \\
+        &\text{  or} \\
+        \lim_{x\to a} f(x)=\infty &\text{ and } \lim_{x\to a} g(x)=\infty \\
+                                  &\text{then} \\
+        \lim_{x\to a} \frac{f(x)}{g(x)} &= \lim_{x\to a} \frac{f'(x)}{g'(x)}
+    \end{align*}
+
+    \subsection*{Example 1}
+    \begin{align*}
+        &\lim_{x\to \infty} \frac{e^x}{x^2} = \frac{\infty}{\infty} \\
+        \lH&\lim_{x\to \infty} \frac{e^x}{2x} \\
+        \lH&\lim_{x\to \infty} \frac{e^x}{2} = \frac{\infty}{2} = \infty
+    \end{align*}
+
+    \section*{Indeterminate products}
+    \begin{align*}
+        & 0\cdot \infty \\
+    \end{align*}
+    When a indeterminate product is found, it is often favorable to rewrite it
+    as a fraction.
+    \begin{align*}
+        \frac{0}{(\frac{1}{\infty})}=\frac{0}{0}
+        && \frac{\infty}{(\frac{1}{0})} = \frac{\infty}{\infty}
+    \end{align*}
+
+    \subsection*{Example 2}
+    \begin{align*}
+        & \lim_{x\to 0^+} xe^{\frac{1}{x}} = 0\cdot\infty \\
+        =& \lim_{x\to 0^+} \frac{e^{\frac{1}{x}}}{\frac{1}{x}} \\
+        \lH& \lim_{x\to 0^+} \frac{-\frac{1}{x^2} e^{\frac{1}{x}}}{-\frac{1}{x^2}} \\
+        =& \lim_{x\to 0^+} e^{\frac{1}{x}} \\
+        =& e^{\frac{1}{0}} \\
+        =& e^{\infty} \\
+        =& \infty
+    \end{align*}
+
+    \subsection*{Example 3}
+    \begin{align*}
+        & \lim_{x\to 0^+} x\ln x = 0\cdot-\infty \\
+        =& \lim_{x\to 0^+} \frac{\ln x}{\frac{1}{x}}\\
+        \lH& \lim_{x\to 0^+} \frac{\frac{1}{x}}{-\frac{1}{x^2}} \\
+        =& \lim_{x\to 0^+} (-x) \\
+        =& 0
+    \end{align*}
+
+    \section*{Indeterminate Powers}
+    \begin{align*}
+        0^0 \qquad
+        \infty^0 \qquad
+        1^\infty
+    \end{align*}
+    Indeterminate powers can be converted into products by applying a logarithm.
+    \begin{align*}
+        \lim_{x\to n} a^b = e^{\big(\lim\limits_{x\to n} b\cdot \ln a\big)}
+    \end{align*}
+
+    \subsection*{Example 4}
+    \begin{align*}
+        L =& \lim_{x\to 0^+} (1+\sin 4x)^{\cot x} = 1^\infty \\
+        \ln L =& \lim_{x\to 0^+} \cot x \ln(1+\sin 4x) = \infty \cdot 0 \\
+        \ln L =& \lim_{x\to 0^+} \frac{ln(1+\sin 4x)}{\tan x} \\
+        \ln L \lH& \lim_{x\to 0^+} \frac{(\frac{4\cos 4x}{1+\sin 4x})}{1+\tan^2 x} \\
+        \ln L =& \frac{(\frac{4\cos 0}{1+\sin 0})}{1+\tan^2 0} \\
+        \ln L =& \frac{4}{1} \\
+        \ln L =& 4 \\
+        L   =& e^4
+    \end{align*}
+\end{document}
