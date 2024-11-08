@@ -1,0 +1,223 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Curve sketching}
+\author{Patrick Chen}
+\date{Oct 23, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\lH{\stackrel{H}{=}}
+
+\begin{document}
+    \maketitle
+    \section*{Example}
+    \begin{align*}
+        xe^{\frac{1}{x}}
+    \end{align*}
+    \begin{enumerate}
+        \item Check the domain of the function.
+            \begin{align*}
+                y_1=x && D=\mathbb{R} \\
+                y_2= \frac{1}{x} && D=\{x|x\in \mathbb{R}, x\ne 0\} \\
+                y_3= e^x && D=\mathbb{R} \\
+                y_4= e^{\frac{1}{x}} && D=\{x|x\in\mathbb{R}, x\ne 0\} \\
+                y  = xe^{\frac{1}{x}} && D=\{x|x\in\mathbb{R}, x\ne 0\}
+            \end{align*}
+
+        \item Find the $x$ and $y$ intercepts.
+            \begin{align*}
+                f(0)
+            \end{align*}
+            Since $x\ne 0$, there is no y-intercept.
+            \begin{align*}
+                xe^{\frac{1}{x}} = 0
+            \end{align*}
+            Since $x\ne 0$ and $e^x$ is never zero, there is no x-intercept
+
+        \item Symmetry
+            \begin{itemize}
+                \item Even functions are function that are symmetric about the
+                    y-axis. $f(-x)=f(x)$
+
+                \item Odd functions are functions that are an symmetric about
+                    the origin. It can also be thought of as being the same
+                    graph when rotated half a revolution.
+                    $f(-x)=-f(x)$
+            \end{itemize}
+
+            \begin{align*}
+                f(-x) = -xe^{-\frac{1}{x}} \\
+                f(-x) \ne f(x) \\
+                f(-x) \ne -f(x) \\
+            \end{align*}
+            $f(x)$ is neither even nor odd.
+
+        \item Periodic
+            \begin{itemize}
+                \item A function is periodic if $f(x+p)=f(x)$ for all $x$ in the
+                    domain, where $p$ is a positive constant. The smallest value
+                    $p$ satisfying this is called the period.
+            \end{itemize}
+
+            \begin{align*}
+                f(x+p) = (x+p)e^{\frac{1}{x+p}}
+            \end{align*}
+            This function is not periodic because no such $p$ exists.
+
+        \item Find the asymptotes
+            \begin{itemize}
+                \item Horizontal asymptotes occur when the limit of a function
+                    as the input approaches infinite remains finite.  If the
+                    limit approaches infinity or negative infinity, then there
+                    is no horizontal asymptotes.
+                    \begin{align*}
+                        \lim_{x\to \infty} f(x&) = L \\
+                        \text{or} \\
+                        \lim_{x\to -\infty} f(x&) = L
+                    \end{align*}
+
+                \item Vertical asymptotes are where the limit as the function
+                    approaches some value is infinity or negative infinity
+                    \begin{align*}
+                        \lim_{x\to a^+} f(x) &= \pm\infty \\
+                        \text{or} \\
+                        \lim_{x\to a^-} f(x) &= \pm\infty
+                    \end{align*}
+            \end{itemize}
+
+            Horizontal asymptotes of $xe^{\frac{1}{x}}$
+            \begin{align*}
+                &\lim_{x\to \infty} xe^{\frac{1}{x}} \\
+                =& \infty\cdot e^{\frac{1}{\infty}} \\
+                =& \infty\cdot e^{0} \\
+                =& \infty\cdot 1 \\
+                =& \infty
+            \end{align*}
+            \begin{align*}
+                &\lim_{x\to -\infty} xe^{\frac{1}{x}} \\
+                =& -\infty\cdot e^{\frac{1}{-\infty}} \\
+                =& -\infty\cdot e^{0} \\
+                =& -\infty\cdot 1 \\
+                =& -\infty
+            \end{align*}
+            For vertical asymptotes of $xe^{\frac{1}{x}}$, we can check the restrictions
+            in the domain of the function.
+            \begin{align*}
+                \lim_{x\to 0^+} xe^{\frac{1}{x}}
+                &= \lim_{x\to 0^+} \frac{e^{\frac{1}{x}}}{\frac{1}{x}} \\
+                &\lH\lim_{x\to 0^+} \frac{-\frac{1}{x^2}e^{\frac{1}{x}}}{-\frac{1}{x^2}} \\
+                &= \lim_{x\to 0^+} e^{\frac{1}{x}} = e^{\frac{1}{0}} = e^\infty = \infty
+            \end{align*}
+            \begin{align*}
+                \lim_{x\to 0^-} xe^{\frac{1}{x}}
+                &= \lim_{x\to 0^-} \frac{e^{\frac{1}{x}}}{\frac{1}{x}} \\
+                &\lH\lim_{x\to 0^-} \frac{-\frac{1}{x^2}e^{\frac{1}{x}}}{-\frac{1}{x^2}} \\
+                &= \lim_{x\to 0^-} e^{\frac{1}{x}} = e^{\frac{1}{-0}} = e^{-\infty} = 0
+            \end{align*}
+
+        \item Intervals of increase or decrease and local maximums and minimums
+            \begin{align*}
+                f'(x)&=  e^{\frac{1}{x}} + x(-\frac{1}{x^2} e^{\frac{1}{x}}) \\
+                     &=  e^{-\frac{1}{x}} (1-\frac{1}{x}) \\
+                0    &=  e^{-\frac{1}{x}} (1-\frac{1}{x}) \\
+                x &= 1
+            \end{align*}
+
+            \begin{center}
+                \begin{tabular}[c]{l|l|l|l|l|l|l|l}
+                    \hline
+                    & $x<0$ & $x=0$ & $0<x<1$ & $x=1$ & $1<x$\\
+                    \hline
+                    && $m=\infty$ && local min &\\
+                    f' & + & DNE & - & 0 & + \\
+                    \hline
+                \end{tabular}
+            \end{center}
+
+        \item Concavity and inflection points
+            \begin{align*}
+                f''(x) = \frac{1}{x^3} e^{\frac{1}{x}}
+            \end{align*}
+
+            \begin{center}
+                \begin{tabular}[c]{l|l|l|l|l|l|l|l}
+                    \hline
+                    & $x<0$ & $x=0$ & $0<x<1$ & $x=1$ & $1<x$\\
+                    \hline
+                    && $m=\infty$ && local min & \\
+                    f'' & - & DNE & + &  & + \\
+                    \hline
+                \end{tabular}
+            \end{center}
+    \end{enumerate}
+
+    \begin{tikzpicture}
+        \begin{axis} [width=\textwidth, height=\textwidth, xmin=-6, xmax=6, ymin=-6, ymax=6]
+            \addplot [
+                domain=-6:-0.001,
+                samples=70,
+                color=blue,
+                ]
+                {x*e^(1/x)};
+            \addplot [
+                domain=0.001:6,
+                samples=70,
+                color=blue,
+                ]
+                {min(x*e^(1/x), 6)};
+        \end{axis}
+    \end{tikzpicture}
+\end{document}
