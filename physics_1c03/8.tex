@@ -1,0 +1,187 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Forces}
+\author{Patrick Chen}
+\date{Oct 24, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    Changes in acceleration require a force. All influences on a particle from
+    its surroundings are forces exerted on the particle. There are four
+    fundamental forces.
+
+    \section*{Four fundamental forces}
+    \begin{center}
+        \begin{tabular}[c]{l|l|l|l|l|l}
+            \hline
+            Type & Attribute & Strength & Range & Gauge
+            Particle & Propagation Speed \\
+            \hline
+            gravity & mass & 1 & $\infty$ & graviton & $c$ \\
+            weak & weak charge & $10^{25}$ & $10^{-18}$ & vector bosons & varies \\
+            electromagnetic & charge & $10^{36}$ & $\infty$ & photon & $c$ \\
+            strong color & color charge & $10^{38}$ & $10^{-15}$ & gluon & $c$ \\
+            \hline
+        \end{tabular}
+    \end{center}
+
+    \subsection*{Gravity}
+
+    Gravity is a attractive long range force between any two objects with mass.
+    Weight is the force of gravity exerted on a particle. Note that weight is
+    the same as mass.
+    \begin{align*}
+        \vec{F_g} &= - \frac{GMm}{r^2} \\
+        |\vec{F_g}| &= mg
+    \end{align*}
+
+    \subsection*{Electromagnetism}
+    Electromagnetic forces are responsible for the structure of atoms and
+    molecules, chemical and biological processes, repulsion between objects
+    in contact, and light. The repulsion is what causes objects to not intersect
+    when they collide.
+    \begin{align*}
+        \vec{F_E} &= \frac{kQq}{r^2} \\
+        \vec{F_B} &= q \vec{v}\times \vec{B}
+    \end{align*}
+
+    \section*{Types of Forces}
+    \subsection*{Normal}
+    Normal forces are always perpendicular to the contact surface. The normal
+    force is a passive force which means that it gets as big as it needs to be
+    to hold a object in place. We have to calculate it based off the situation a
+    object is in. A normal force is a type of electromagnetic force because it
+    is caused by the interaction between atom.
+
+    \subsection*{Friction}
+    Friction acts when a object is in contact and in motion. It opposes the
+    direction of motion and is parallel to the contact surface. There exists two
+    kinds: kinetic friction and static friction
+
+    Static motion is friction that happens when there is no relative motion.
+    Static friction prevents sliding. There is a maximum static friction and the
+    static friction force will be as big as it needs to be while under the
+    maximum static friction to prevent the object from moving relative to the
+    surface.
+    Kinetic friction happens when an object is moving.
+
+    \begin{align*}
+        f_{s,max} &= \mu_s N \\
+        f_s       &\le \mu_s N \\
+        f_k       &= \mu_k N
+    \end{align*}
+
+    Coefficient of friction is a approximation of friction depending on
+    smoothness and temperature. Usually static friction is greater than kinetic
+    friction.
+
+    \subsection*{Spring}
+    The spring force is a restoring force that depends on how much a spring is
+    stretched or compressed from its natural length.
+    \begin{align*}
+        F_s = -kd
+    \end{align*}
+
+    \subsection*{Tension}
+    Tension is a pulling force that points away from the object. An ideal rope
+    has the same tension across the entire rope and ideal pulleys change the
+    direction of the tension but not the magnitude. In the real world, none of
+    these exists so the tension on a rope will be non-uniform and a pulley will
+    change the magnitude of the tension.
+
+    When a pulley is stationary, the tension will only change directions, but if
+    the pulley can be moved, there will be two tension forces acting on the
+    pulley.
+
+    \subsection*{Drag}
+    Drag or air resistance of a object in a fluid is the friction between an
+    object and the fluid.
+
+    \subsection*{Buoyancy}
+    Buoyant forces is a upward force equal to the mass of the displaced fluid.
+
+    \section*{Free Body Diagrams}
+    For free body diagrams, we pick one single objects and identify all external
+    forces which act directly on that body. Then we set up a coordinate system
+    and draw the object as either a rough sketch or a point at the center of
+    mass. Every force is drawn as vector starting at the object and in the
+    direction of the force. The direction of acceleration should be indicated
+    but not as a vector on the body because it is not a force.
+
+
+    \section*{Passive Forces}
+    A passive force can only be calculated as a response to other forces. They
+    will depend on the load it has to support and the acceleration they have to
+    provide. They are often limited.
+
+    \section*{Equilibrium}
+    A system whose motion or state is not changing is said to be in equilibrium.
+    A object at rest or moving at a constant velocity is said to be in
+    translational equilibrium. When objects are in equilibrium, the sum of all
+    forces is zero.
+
+    \section*{Tips for forces problems}
+    \begin{itemize}
+        \item identify known and unknowns
+        \item draw free body diagrams for each objects
+        \item relate forces in action reaction pairs
+        \item analyze constraints of motion.
+        \item use Newton's second law
+        \item determine if there are any free variables
+    \end{itemize}
+\end{document}
