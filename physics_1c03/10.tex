@@ -1,0 +1,151 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Forces and Work}
+\author{Patrick Chen}
+\date{Nov 4, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+
+    \section*{Motions of Systems}
+    \begin{itemize}
+        \item Internal forces is between objects in the system.
+        \item External forces are form outside the system.
+    \end{itemize}
+
+    \begin{align*}
+        Ma_{cm} &= \sum_j F_{net,j} \\
+                &= \sum_j F_{net,j}^{ext} + \sum_j F_{net,j}^{int} \\
+                &= \sum_j F_{net,j}^{ext} + 0 \\
+                &= \sum_j F_{net,j}^{ext}
+    \end{align*}
+
+    Choosing a system depending on the problem can help solve the problem. When
+    choosing a system, having friction on the boundary of the system will make
+    analysis more difficult. Gravity will either be a change in potential energy
+    or a force doing work on a system depending if it is in the system or not.
+
+    \section*{Work}
+    Work is the change in the energy of a system due to external forces. Work is
+    a signed scalar quantity measured in joules (J) in the SI system.
+    \begin{align*}
+        W &= \mathbf{F} \cdot \mathbf{d} = Fd\cos\theta \\
+        W &= \Delta E
+    \end{align*}
+    For non-constant forces, the work must be integrated
+    \begin{align*}
+        W = \int_{x_i}^{x_f} F \cdot \ dx
+    \end{align*}
+
+    Force displacement is how far the point where the force is applied moves. In
+    order for a force to do work, the point where the force is being applied
+    must undergo a force displacement.
+
+    \subsection*{Momentum and Energy}
+
+    \begin{align*}
+        \Delta p = J && \Delta E = W \\
+        J=0 && \Delta E = 0 \\
+        J=\sum f \Delta t && W = \sum F \Delta x
+    \end{align*}
+
+    \subsection*{Example 1}
+    Suppose there is a object with a horizontal for applied on a frictionless
+    surface from point $x_i$ to $x_f$.
+    \begin{align*}
+        W &= \Delta E \\
+        &= \Delta K + \Delta U + \Delta E_{th} \\
+        &= \Delta K + 0 + 0 \\
+        &= \Delta K \\
+        F &= ma_{cm} \\
+        &= m \frac{dv_{cm}}{dt} \\
+        &= m \frac{dv_{cm}}{dx_{cm}} \frac{dx_{cm}}{dt} \\
+        &= m v_{cm} \frac{dv_{cm}}{dx_{cm}} \\
+        F\ dx_{cm}&= mv_{cm} dv_{cm} \\
+        \int_{x_i}^{x_f} F \ dx_{cm} &= \int_{v_i}^{v_f} mv_{cm} \ dv_{cm} \\
+        &= \frac{1}{2} mv_{cm}^2 \ \Big|_{v_i}^{v_f} \\
+        &= \Delta K_{cm} \\
+        F\Delta x_{cm} &= \Delta K_{cm}
+    \end{align*}
+
+    \subsection*{Example 2}
+    Suppose there is a object with two horizontal forces in opposite directions
+    on a frictionless surface.
+    \begin{align*}
+        W = \Delta K \\
+        F_{net} = m a_{cm} \\
+        F_{net} = F_1 - F_2 \\
+        W = \int_{x_i}^{x_f} (F_1-F_2) \ dx_{cm} \\
+        W_{net} = \int_{x_i}^{x_f} F_1 \ dx_{cm}
+        -  \int_{x_i}^{x_f} F_2 \ dx_{cm}
+    \end{align*}
+
+    \subsection*{Example 3}
+    Suppose there is a object sliding with a friction force. $F_k$ is a constant
+    force. We can choose the system to be the object and the surface.
+    \begin{align*}
+        \Delta E &= \Delta K + \Delta E_{th} \\
+        \Delta E &= 0 \\
+        \Delta E_{th} &= -\Delta K \\
+        &= -(K_f - K_i) \\
+        &= K_i \\
+        \Delta K_{cm} &= - \int_{x_{cm,i}}^{x_{cm,f}} f_x \ dx_{cm} \\
+                      &= -f_k\Delta x_cm
+    \end{align*}
+
+\end{document}
