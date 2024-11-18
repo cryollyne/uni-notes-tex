@@ -1,0 +1,226 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Subspaces}
+\author{Patrick Chen}
+\date{Oct 31, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    The dimension of a vector space is the amount of free variables that exist.
+
+    \section*{Nullspace}
+    For a $n\times m$ matrix $A$, the set of solutions for $Ax=0$ is a subspace
+    of $\mathbb{R}^m$ called the nullspace of $A$, written as $Nul(A)$. The
+    nullspace is a subspace, because it is closed under addition and scalar
+    multiplication.
+    \begin{align*}
+        Ax &= 0 \\
+        Ay &= 0 \\
+        A(x + y) &= 0 + 0 \\
+        Ax + Ay &= 0
+    \end{align*}
+    \begin{align*}
+        Ax &= 0 \\
+        A(cx) &= cAx \\
+              &= c0 \\
+              &= 0
+    \end{align*}
+
+    \section*{Span as a Subspace}
+    The span of $v_1\dots v_k\in \mathbb{R}^n$ is a subspace. Zero is in the
+    span of this set because all the vectors can have coefficients zero.
+    \begin{align*}
+        (c_1v_1 +\dots+c_kv_k) + (d_1v_1 +\dots+d_kv_k)
+        &= (c_1+d_1)v_1 +\dots+(c_1+d_1)v_k \\
+        c(d_1v_1+\dots d_kv_k) &= (cd_1)+\dots+(cd_k)v_k
+    \end{align*}
+
+    \section*{Columnspace}
+    For a $n\times m$ matrix $A$, the column space of $A$ is a subspace of
+    $\mathbb{R}^n$ equal to the span of all the columns of $A$. Column space is
+    written as $Col(A)$.
+
+    \section*{Transformations Between Vector Spaces}
+    Suppose that $V$ and $W$ are vector spaces and $T: V \mapsto W$ is a
+    function from $V$ to $W$ The transformation $T$ is called a linear
+    transformation from $V$ to $W$ if for all $u,v\in V$ and $c\in \mathbb{R}$,
+    \begin{align*}
+        T(u+v) &= T(u) + T(v) \\
+        T(cu) &= cT(u)
+    \end{align*}
+
+    \section*{Kernel and Range}
+    Suppose that $T: V \mapsto W$ is a linear transformation. The kernel ($ker$)
+    of a linear transformation is a generation of the nullspace of a matrix for
+    linear transformations that are not matrix transformations. Likewise, the
+    range ($rng$) is the generalization for the column space. When working with
+    matrices, the nullspace is the same as the kernel and the column space is
+    the same as the range.
+    \begin{align*}
+        ker(T) &= \{ v\in V\ |\ T(v) = 0 \} \\
+        rng(T) &= \{T(v)\ |\ v \in V \}
+    \end{align*}
+
+    The kernel and range of a linear transformation is a subspace.
+    \begin{align*}
+        0           &\in ker(T) \\
+        u,v         &\in ker(T) \\
+        T(u) + T(v) &= 0 + 0 \\
+                    &= 0 \in ker(T) \\
+        cT(u)       &= c\cdot 0 \\
+                    &= 0 \in ker(T)
+    \end{align*}
+    \begin{align*}
+        0           &\in rng(T) \\
+        T(u),T(v)   &\in rng(T) \\
+        T(u) + T(v) &= T(u+v) \in rng(T) \\
+        cT(u) &= T(cu) \in rng(T)
+    \end{align*}
+
+    \subsection*{Example 1}
+    Find the null space of the following matrix.
+    \begin{align*}
+        A = \begin{bmatrix}
+            2 & 0 & 1 & 3 & 0 & 4 \\
+            1 & 2 & 1 & 0 & 1 & 5 \\
+            0 & 0 & 1 & 0 & 1 & 1
+        \end{bmatrix} \\
+        rref(A) = \begin{bmatrix}
+            1 & 0 & 0 & \frac{3}{2} & -\frac{1}{2} & \frac{3}{2} \\
+            0 & 1 & 0 & -\frac{3}{4} & \frac{1}{4} & \frac{5}{4} \\
+            0 & 0 & 1 & 0 & 1 & 1
+        \end{bmatrix} \\
+        \begin{matrix}
+            1 x_1 &+ 0 x_2 &+ 0 x_3 &+ \frac{3}{2}  x_4 &- \frac{1}{2}  x_5 &+ \frac{3}{2} x_6 & =0 \\
+            0 x_1 &+ 1 x_2 &+ 0 x_3 &- \frac{3}{4}  x_4 &+ \frac{1}{4}  x_5 &+ \frac{5}{4} x_6 & =0 \\
+            0 x_1 &+ 0 x_2 &+ 1 x_3 &+ 0            x_4 &+ 1            x_5 &+ 1           x_6 & =0
+        \end{matrix} \\
+        x = \begin{bmatrix}
+            -\frac{3}{2} x_4 + \frac{1}{2} x_5 - \frac{3}{2} x_6 \\
+            \frac{3}{4} x_4 -\frac{1}{4} x_5 - \frac{5}{4} x_6 \\
+            -x_5 -x_6 \\
+            x_4 \\
+            x_5 \\
+            x_6
+        \end{bmatrix} \\
+        = \begin{bmatrix}
+            -\frac{3}{2} \\
+            \frac{3}{4} \\
+            0 \\
+            1 \\
+            0 \\
+            0
+        \end{bmatrix} x_4
+        + \begin{bmatrix}
+            \frac{1}{2} \\
+            -\frac{1}{4} \\
+            -1 \\
+            0 \\
+            1 \\
+            0
+        \end{bmatrix} x_5
+        + \begin{bmatrix}
+            -\frac{3}{2} \\
+            -\frac{5}{4} \\
+            -1 \\
+            0 \\
+            0 \\
+            1
+        \end{bmatrix} x_6
+    \end{align*}
+
+    \subsection*{Example 2}
+    Suppose that $V$ is the vector space of all real-valued polynomials.
+    \begin{align*}
+        T: V \mapsto V \\
+        T(p) = xp
+    \end{align*}
+    \begin{align*}
+        p,q&\in V \\
+        T(p+q) &= x(p+q) \\
+        &= xp + xq \\
+        &= T(p) + T(q) \\
+        T(cp) &= x(cp) \\
+        &= cxp \\
+        &= cT(p)
+    \end{align*}
+
+    \begin{align*}
+        ker(T) &= \{0\} \\
+        rng(T) &= \text{all polynomials with a zero constant term}
+    \end{align*}
+
+    \begin{align*}
+        D: V \mapsto V \\
+        D(p) = \frac{dp}{dx}
+    \end{align*}
+    \begin{align*}
+        D(p+q) &= \frac{d(p+q)}{dx} \\
+        &= \frac{dp}{dx} + \frac{dq}{dx} \\
+        &= D(p) + D(q) \\
+        D(cp) &= \frac{d(cp)}{dx} \\
+        &= c\frac{dp}{dx} \\
+        &= cD(p)
+    \end{align*}
+
+    \begin{align*}
+        ker(D) &= \text{constants} \\
+        rng(D) &= V
+    \end{align*}
+
+\end{document}
