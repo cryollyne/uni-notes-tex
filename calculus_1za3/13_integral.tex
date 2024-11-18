@@ -1,0 +1,345 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Integrals}
+\author{Patrick Chen}
+\date{Oct 28, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Antiderivatives}
+    A function $F$ is called an antiderivative or indefinite integral of $f$ on
+    an interval $I$ if $F'(x)=f(x)$ for all $x$ in $I$. Since adding a constant
+    doesn't change the derivative of a function, the addition of a constant is
+    often required for integration.
+
+    \begin{align*}
+        F'(x) = f(x) \\
+        F(x) = \int f(x) \ dx
+    \end{align*}
+
+    \section*{Table of Antiderivatives}
+    \begin{center}
+        \renewcommand{\arraystretch}{2}
+        \begin{tabular}[c]{l|l}
+            \hline
+            function & antiderivative \\
+            \hline
+            $x^n$ when $n\ne -1$ & $\frac{1}{n+1} x^{n+1} + c$ \\
+            \hline
+            $\frac{1}{x}$ & $\ln |x| + c$ \\
+            \hline
+            $e^x$ & $e^x + c$ \\
+            \hline
+            $\cos x$ & $\sin x + c$ \\
+            \hline
+            $\sin x$ & $-\cos x + c$ \\
+            \hline
+            $\sec^2 x$ & $\tan x + c$ \\
+            \hline
+            $\sec x \tan x$ & $\sec + c$ \\
+            \hline
+            $\frac{1}{\sqrt{1-x^2}}$ & $\sin^{-1} x + c$ \\
+            \hline
+            $\frac{1}{\sqrt{1+x^2}}$ & $\tan^{-1} x + c$ \\
+            \hline
+            $a^x$ & $\frac{a^x}{\ln a} + c$ \\
+            \hline
+        \end{tabular}
+    \end{center}
+
+    \section*{Linearity of Integral}
+    Just like derivatives, integrals are linear.
+    \begin{align*}
+        \int f(x)+g(x) \ dx &= \int f(x) \ dx + \int g(x) \ dx \\
+        \int cf(x) \ dx &= c \int f(x) \ dx
+    \end{align*}
+
+    \subsection*{Example 1}
+    \begin{align*}
+        g'(x) = 4 \sin x + \frac{2x^5-\sqrt{x}}{x} && g(0)=2
+    \end{align*}
+    \begin{align*}
+        g(x)&=\int 4 \sin x + \frac{2x^5-\sqrt{x}}{x} \ dx \\
+        &= \int 4 \sin x \ dx + \int \frac{2x^5}{x} \ dx - \int \frac{\sqrt{x}}{x} \ dx \\
+        &= 4\int \sin x \ dx + 2\int x^4 \ dx - \int x^{-\frac{1}{2}} \ dx \\
+        &= 4(-\cos x) + 2(\frac{x^5}{5}) - 2\sqrt{x} + c \\
+        &= -4\cos x + \frac{2}{5} x^5 -2\sqrt{x} + c
+    \end{align*}
+    \begin{align*}
+        g(0) &= -4 \cos x + \frac{2}{5} x^5 - 2\sqrt{x} + c \\
+        2    &= -4 \cos 0 + \frac{2}{5} 0^5 - 2\sqrt{0} + c \\
+        2    &= -4 + c \\
+        6    &= c \\
+        g(x) &= -4\cos x + \frac{2}{5} x^5 -2\sqrt{x} + 6
+    \end{align*}
+
+    \subsection*{Example 2}
+    \begin{align*}
+        f''(x) &= 12x^2 + 6x - 4 \\
+        f(0)   &= 4 \\
+        f(1)   &= 1
+    \end{align*}
+    \begin{align*}
+        f'(x) &= \int 12x^2 + 6x - 4 \ dx \\
+        f'(x) &= 4x^3 + 3x^2 - 4x + c_1 \\
+        f(x)  &= \int 4x^3 + 3x^2 - 4x + c_1 \ dx \\
+        f(x)  &= x^4 + x^3 -2x^2 + c_1x + c_2
+    \end{align*}
+    \begin{align*}
+        f(0) &= 0 + 0 - 0 + 0 + c_2 \\
+        4    &= c_2 \\
+        f(1) &= 1 + 1 - 2(1) + c_1 + 4 \\
+        1    &= c_1 + 4 \\
+        -3   &=  c_1 \\
+        f(x) &= x^4 + x^3 -x^2 - 3x + 4
+    \end{align*}
+
+
+    \section*{Sigma Notation}
+    Sigma notation is a compact way to write a sum of many numbers.
+    \begin{align*}
+        \sum_{i=m}^n a_{i} = a_{m} + a_{m+1} + a_{m+2} + \dots + a_{n-1} + a_{n}
+    \end{align*}
+
+    The index of the sum can be changes.
+    \begin{align*}
+        \sum_{i=m}^{n} a_i = \sum_{i=m+k}^{n+k} a_{i-k} &&
+        \sum_{i=m}^{n} a_i = \sum_{i=m-k}^{n-k} a_{i+k}
+    \end{align*}
+
+    Summations are linear.
+    \begin{align*}
+        \sum_{i=1}^{n} ca_i &= c\sum_{i=1}^{n} a_i \\
+        \sum_{i=m}^{n} (a_i + b_i) &= \sum_{i=m}^{n} a_i + \sum_{i=m}^{n} b_i \\
+    \end{align*}
+
+    There are a closed form solutions for many summations
+    \begin{align*}
+        \sum_{i=1}^{n} c &= cn \\
+        \sum_{i=1}^{n} i &= \frac{n(n+1)}{2} \\
+        \sum_{i=1}^{n} i^2 &= \frac{n(n+1)(2n+1)}{6} \\
+        \sum_{i=1}^{n} i^3 &= \bigg(\frac{n(n+1)}{2}\bigg)^2
+    \end{align*}
+
+    \subsection*{Example 3}
+    \begin{align*}
+        f(x) &= x^2 \\
+        \lim_{n\to \infty} \sum_{i=1}^{n} \frac{1}{n} (\frac{i}{n})^2
+        &= \lim_{n\to \infty} \frac{1}{n} \sum_{i=1}^{n} \frac{i^2}{n^2} \\
+        &= \lim_{n\to \infty} \frac{1}{n^3} \sum_{i=i}^{n} i^2 \\
+        &= \lim_{n\to \infty} \frac{1}{n^3} \frac{n(n+1)(2n+1)}{6} \\
+        &= \lim_{n\to \infty} \frac{(n+1)(2n+1)}{6n^2} \\
+        &= \lim_{n\to \infty} \frac{2n^2 + 3n + 1}{6n^2} \\
+        &= \lim_{n\to \infty} \frac{n^2 (2+ 3n^{-1} + n^{-2})}{6n^2} \\
+        &= \lim_{n\to \infty} \frac{2+ 3n^{-1} + n^{-2}}{6} \\
+        &= \frac{2}{6} \\
+        &= \frac{1}{3}
+    \end{align*}
+
+    \section*{Estimating Area}
+    The area under a curve can be estimated with rectangles. The area in the
+    interval $[0,1]$ can be estimated by the following formula. $L_n$ is the
+    area with the rectangles having a height determined by the left most
+    part of the rectangle and $R_n$ has height determined by the right most
+    part. The height of the rectangle doesn't have to be the left most or
+    right most point, it can be any point in between the bounds of the
+    rectangle. $M_n$ is the sum using the mid point of each rectangle.
+    \begin{align*}
+        L_n &= \sum_{i=1}^{n} \frac{1}{n}\cdot f(\frac{i}{n}) \\
+        R_n &= \sum_{i=1}^{n} \frac{1}{n}\cdot f(\frac{i-1}{n}) \\
+        M_n &= \sum_{i=1}^{n} \frac{1}{n}\cdot f(\frac{2i+1}{2})
+    \end{align*}
+
+    The precise area under a function is the limit as the rectangle width
+    approaches zero.
+    \begin{align*}
+        \lim_{n\to \infty} R_n = \lim_{n\to \infty} L_n
+    \end{align*}
+
+    \begin{align*}
+        R_n = \lim_{n\to \infty} \frac{1}{n} \sum_{i=0}^{n} f(\frac{i}{n})
+    \end{align*}
+
+    In general, if $f$ is continuous and positive on a interval $[a,b]$,
+    then the area under the graph of $f(x)$ on the interval is given by the
+    following formulas.
+    \begin{align*}
+        \Delta x &= \frac{b-a}{n} \\
+        A = R_n &= \lim_{n\to \infty} \sum_{i=1}^{n} \Delta x f(a+i\Delta x) \\
+        A = L_n &= \lim_{n\to \infty} \sum_{i=1}^{n} \Delta x f(a+(i-1)\Delta x) \\
+        A = M_n &= \lim_{n\to \infty} \sum_{i=1}^{n} \Delta x f(a+x_i^*)
+    \end{align*}
+
+    \section*{Definite Integral}
+    The definite integral on the interval $[a,b]$ is the signed area under a
+    graph. If $f(x)$ is negative, then the area is considered negative. In
+    other words, the integral on a interval is the area of every region
+    where $f(x)$ is above the x-axis minus the area of every region where
+    $f(x)$ is below the x-axis.
+    \begin{align*}
+        \int_{a}^{b} f(x) \ dx = \lim_{n\to \infty} \sum_{i=1}^{n} f(x_i)\Delta x
+    \end{align*}
+
+    \section*{Example 4}
+    \begin{align*}
+        \int_{0}^{3} (x-1) \ dx
+        &= \lim_{n\to \infty} \sum_{i=1}^{n} \Delta x f(x_i) \\
+        &= \lim_{n\to \infty} \sum_{i=1}^{n} \frac{3}{n} f(0+\frac{3i}{n}) \\
+        &= \lim_{n\to \infty} \sum_{i=1}^{n} \frac{3}{n} (\frac{3i}{n} - 1) \\
+        &= \lim_{n\to \infty} \frac{3}{n}
+            \Big(\frac{3}{n} \sum_{i=1}^{n} i -
+        \sum_{i=1}^{n} 1\Big) \\
+        &= \lim_{n\to \infty} \frac{3}{n} (\frac{3}{n} \frac{n(n+1)}{2} - n) \\
+        &= \lim_{n\to \infty} \frac{3}{n} ( \frac{3n+3}{2} - \frac{2n}{2} ) \\
+        &= \lim_{n\to \infty} \frac{3}{n} ( \frac{n+3}{2}) \\
+        &= \lim_{n\to \infty} \frac{3n+9}{2n} \\
+        &= \frac{3}{2}
+    \end{align*}
+
+    \section*{Properties of Definite Integrals}
+    Definite integrals are linear
+    \begin{align*}
+        \int_{a}^{b} f(x) + g(x) \ dx &= \int_{a}^{b} f(x) \ dx + \int_{a}^{b} g(x) \ dx \\
+        \int_{a}^{b} cf(x) \ dx &= c \int_{a}^{b} f(x) \ dx
+    \end{align*}
+    The integral of a constant is just the constant times the length of the
+    bounds of the integral.
+    \begin{align*}
+        \int_{a}^{b} c \ dx = c(b-a)
+    \end{align*}
+    Inverting the bounds of a integral will negate the result. This implies
+    that integrals with both bounds equal will result in zero.
+    \begin{align*}
+        \int_{a}^{b} f(x) \ dx &= -\int_{b}^{a} f(x) \ dx \\
+        \int_{a}^{a} f(x) \ dx &= 0
+    \end{align*}
+    Integrals can be combined if they share a common bound with the same
+    function.
+    \begin{align*}
+        \int_{a}^{c} f(x) \ dx + \int_{c}^{b} f(x) \ dx = \int_{a}^{b} f(x) \ dx
+    \end{align*}
+
+    \section*{Fundamental Theorem of Calculus}
+    If $f$ is continuous on $[a,b]$ and $F(x)$ is the antiderivative of $f$,
+    then the area under the function $f$ on the interval $[a,b]$ is equal to the
+    antiderivative evaluated on $b$ minus the antiderivative evaluated at $a$.
+    \begin{align*}
+        \int_{a}^{b} f(x) \ dx = F(b) - F(a)
+    \end{align*}
+
+    If $f(t)$ is continuous on $[a,b]$ and $g$ is continuous on $[a,b]$ and
+    differentiable on $(a,b)$, then the derivative with respect to $x$ of the
+    definite integral with respect to $t$ of $f(t)$ from $a$ to $x$ is the
+    function $f$.
+    \begin{align*}
+        g(x) &= \int_{a}^{x} f(t) \ dt \\
+        g'(x) &= f(t)
+    \end{align*}
+
+    \subsection*{Example 5}
+    \begin{align*}
+        \int_{3}^{6} \frac{1}{x} \ dx
+        &= \ln(|x|) \ \Big|_3^6 \\
+        &= \ln(|6|)-\ln(|3|) \\
+        &= (\ln 2 + \ln 3) - \ln 3 \\
+        &= \ln 2
+    \end{align*}
+
+    \subsection*{Example 6}
+    \begin{align*}
+        \int_{1}^{3} e^{-2x} \ 
+        &= -1/2 e^{-2x} \ \Big|_{1}^{3} \\
+        &= (-\frac{1}{2} e^{-6}) - (-\frac{1}{2} e^{-2}) \\
+        &= -\frac{1}{2} e^{-6} + \frac{1}{2} e^{-2}
+    \end{align*}
+
+    \subsection*{Example 7}
+    Find $g'(x)$.
+    \begin{align*}
+        g(x) &= \int_{2}^{x^3} \sin(\ln t) \ dt \\
+        h(x) &= \int_{2}^{x} \sin(\ln t) \ dt \\
+        g(x) &= h(x^3) \\
+        g'(x)&= 3x^2h'(x^3) \\
+        g'(x)&= 3x^2\sin(\ln x^3)
+    \end{align*}
+
+    \section*{Area between curves}
+    If $f(x)\ge g(x)$, then
+    \begin{align*}
+        \int_{a}^{b} f(x) \ dx - \int_{a}^{b} g(x) \ dx = \int_{a}^{b} f(x)-g(x) \ dx
+    \end{align*}
+    If $f(x)$ is not greater or equal to $g(x)$, then
+    \begin{align*}
+        \int_{a}^{b} g(x) \ dx - \int_{a}^{b} f(x) \ dx = \int_{a}^{b} g(x)-f(x) \ dx
+    \end{align*}
+    If $f$ and $g$ intersect, then split the integral at so the bounds are at
+    the intersection point, then apply the previous rules.
+
+    \section*{Symmetry}
+    If an even function is integrated on symmetric bounds, the result will be
+    twice the are under the curve from zero to the first bound.
+    \begin{align*}
+        \int_{-a}^{a} f(x) \ dx = 2 \int_{0}^{a} f(x) \ dx
+    \end{align*}
+    If an odd function is integrated on symmetric bounds, the result will be
+    zero.
+    \begin{align*}
+        \int_{-a}^{a} f(x) \ dx = 0
+    \end{align*}
+
+\end{document}
