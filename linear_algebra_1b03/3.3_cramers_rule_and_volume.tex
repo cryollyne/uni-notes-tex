@@ -1,0 +1,160 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Cramer's Rule and Volume}
+\author{Patrick Chen}
+\date{Oct 28, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\adj{\text{adj}}
+
+\begin{document}
+    \maketitle
+    \section*{Cramer's Rule}
+    For an $n\times n$ matrix $A$ and any vector $b\in \mathbb{R}^n$, we define
+    $\det(A)_i(b)$ as the determinant of the matrix $A$ with the ith column
+    replaced by $b$. If $A$ is invertible, then the solution of $Ax=b$ is given
+    by the following formula
+    \begin{align*}
+        x_i = \frac{\det(A)_i(b)}{\det(A)}
+    \end{align*}
+
+    We can use Cramer's rule to get a explicit formula for the inverse
+    \begin{align*}
+        \adj(A) = (C_{ij})^T \\
+        A^{-1} = \frac{\adj(A)}{\det(A)}
+    \end{align*}
+
+    \section*{Example 1}
+    \begin{align*}
+        A = \begin{bmatrix}
+            1  & 0 & 1 \\
+            0  & 1 & 0 \\
+            -1 & 1 & 1
+        \end{bmatrix} && b=\begin{bmatrix}
+            2 \\
+            1 \\
+            2
+        \end{bmatrix}
+    \end{align*}
+    \begin{align*}
+        \det(A) = 2 \\
+        \det \begin{bmatrix}
+            2  & 0 & 1 \\
+            1  & 1 & 0 \\
+            2 & 1 & 1
+        \end{bmatrix} = 1 \\
+        \det \begin{bmatrix}
+            1  & 2 & 1 \\
+            0  & 1 & 0 \\
+            -1 & 2 & 1
+        \end{bmatrix} = 2 \\
+        \det \begin{bmatrix}
+            1  & 0 & 2 \\
+            0  & 1 & 1 \\
+            -1 & 1 & 2
+        \end{bmatrix} = 3
+    \end{align*}
+    \begin{align*}
+        x_1 = 1/2 \\
+        x_2 = 1 \\
+        x_3 = 3/2
+    \end{align*}
+
+    \subsection*{Example 2}
+    Compute $A^{-1}$ using Cramer's rule
+    \begin{align*}
+        A = \begin{bmatrix}
+            1  & 0 & 1 \\
+            0  & 1 & 0 \\
+            -1 & 1 & 1
+        \end{bmatrix} \\
+        C_{11} = 1 \\
+        C_{12} = 0 \\
+        C_{13} = 1 \\
+        C_{21} = 1 \\
+        C_{22} = 2 \\
+        C_{23} = -1 \\
+        C_{31} = -1 \\
+        C_{32} = 2 \\
+        C_{33} = 1 \\
+        \adj(A) = \begin{bmatrix}
+            1 & 0 & 1 \\
+            1 & 2 & -1 \\
+            -1 & 0 & 1
+        \end{bmatrix}^T \\
+        = \begin{bmatrix}
+            1 & 1 & -1 \\
+            0 & 2 & 0 \\
+            1 & -1 & 1
+        \end{bmatrix} \\
+        A^{-1} = \frac{\adj{A}}{\det{A}} \\
+        = \frac{1}{2} \begin{bmatrix}
+            1 & 1 & -1 \\
+            0 & 2 & 0 \\
+            1 & -1 & 1
+        \end{bmatrix}
+    \end{align*}
+
+    \section*{Relation with area}
+
+    Suppose that $S$ is a region in $\mathbb{R}^2$ with finite area and $T:
+    \mathbb{R}^2 \mapsto \mathbb{R}^2$ is a linear transformation with a
+    standard matrix $A$. The area of $T(S)$ is equal to $|\det A|$ times the
+    area of $S$. The same is true for volumes in $\mathbb{R}^3$ and general
+    n-volumes in $\mathbb{R}^n$.
+
+\end{document}
