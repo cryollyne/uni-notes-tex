@@ -1,0 +1,133 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Evaluating Integrals}
+\author{Patrick Chen}
+\date{Nov 7, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    The rules of derivatives can be inverted into rules of integrals.
+
+    \section*{Substitution Rule}
+    The substitution rule (also called u-substitution) of the integral is the
+    reverse of the chain rule for derivative. The function $f$ must be
+    continuous on the range of $g(x)=u$.
+    \begin{align*}
+        (F(u(x)))' &= f(u(x))u'(x) \\
+        F(u(x)) &= \int f(u(x))u'(x) \ dx
+    \end{align*}
+
+    When using substitution for definite integrals, the bounds needs to be
+    changed to account for the change in integration variable. The bounds can be
+    found by substituting the old bounds in for $x$ and solving for $u$.
+    \begin{align*}
+        \int_{a}^{b} f(u(x)) u'(x) \ dx
+        = \int_{u(a)}^{u(b)} f(u) \ du
+    \end{align*}
+
+    \subsection*{Example 1}
+    Evaluate $\int 2x\sqrt{1+x^2} \ dx$
+    \begin{align*}
+        u &= 1+x^2 \\
+        \frac{du}{dx} &= 2x \\
+        du &= 2x\ dx \\
+        \int 2x\sqrt{1+x^2} \ dx &= \int \sqrt{u}\ 2x\ dx \\
+        &= \int \sqrt{u} \ du \\
+        &= \int u^{\frac{1}{2}} \ du \\
+        &= \frac{2}{3} u^{\frac{3}{2}} + c \\
+        &= \frac{2}{3} (1+x^2)^{\frac{3}{2}} + c
+    \end{align*}
+
+    \subsection*{Example 2}
+    Evaluate $\int x^3\cos(x^4+2) \ dx$
+    \begin{align*}
+        u  &= x^4 + 2 \\
+        du &= 4x^3 dx \\
+        \int x^3\cos(x^4+2) \ dx
+        &= \int \frac{4x^3}{4} \cos(u) \ dx \\
+        &= \frac{1}{4} \int \cos(u) \ du \\
+        &= \frac{1}{4} \sin(u) + c \\
+        &= \frac{1}{4} \sin(x^4 + 2) + c
+    \end{align*}
+
+    \subsection*{Example 3}
+    Evaluate $\int \tan x \ dx$
+    \begin{align*}
+        u &= \cos x \\
+        du &= -\sin x dx \\
+        \int \tan x \ dx
+        &= \int \frac{\sin x}{\cos x} \ dx \\
+        &= \int -\frac{1}{u} \ du \\
+        &= -\ln |u| \\
+        &= -\ln |\cos x|
+    \end{align*}
+
+    \subsection*{Example 4}
+    Evaluate $\int_{0}^{1} \frac{1}{x+4} \ dx$.
+    \begin{align*}
+        u &= x+4 \\
+        du &= dx \\
+        \int_{0}^{1} \frac{1}{x+4} \ dx
+        &= \int_{(0)+4}^{(1)+4} \frac{1}{u} \ du \\
+        &= \int_{4}^{5} \frac{1}{u} \ du \\
+        &= \ln|u| \ \Big|_{4}^{5} \\
+        &= \ln|5| - \ln|4| \\
+        &= \ln(\frac{5}{4})
+    \end{align*}
+
+\end{document}
