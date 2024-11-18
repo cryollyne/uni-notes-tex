@@ -1,0 +1,186 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Vector Spaces}
+\author{Patrick Chen}
+\date{Oct 28, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\z{\pmb{\vec{0}}}
+\newcommand\p{\pmb{+}}
+
+\begin{document}
+    \maketitle
+    A vector space $V$ is a non-empty set together with a binary function $+$
+    and unary functions $c$ for every $c\in \mathbb{R}$ satisfying the following
+    axioms. Here, bold plus ($\p$) represents addition between the abstract
+    objects in the set, regular plus ($+$) represents addition between the
+    scalars and zero ($\z$) represents a abstract zero element in the set that
+    behaves like a additive identity. The abstract addition operator is often
+    just regular addition but it doesn't have to be. The same is true for the
+    zero element.
+
+    \begin{enumerate}
+        \item The vector space is closed under addition
+        \item Addition is associative
+        \item Addition is commutative
+        \item there exists $\z \in V$ such that $v\p\z=v$ for all $v\in V$
+        \item for every $v\in V$, there exists $-v\in V$ such that $v\p(-v)=\z$
+        \item for every $c\in \mathbb{R}$ and $u\in V$, $cu\in V$
+        \item for every $c\in \mathbb{R}$ and $u,v\in V$, $c(u\p v)=cu\p cv$
+        \item for every $c,d\in \mathbb{R}$ and $u\in V$, $(c+d)u=cu\p du$
+        \item for every $c,d\in \mathbb{R}$ and $u\in V$, $c(du)=(cd)u$
+        \item for every $v\in V$, $1v=v$
+    \end{enumerate}
+
+    Side note: A space that satisfies 1-5 is called a abelian group.
+
+    \section*{Real Valued Functions as Vector Spaces}
+    Let $V$ any function from $X$ to $\mathbb{R}$ where $X$ is any set.
+    Define addition on $V$ with inputs $f,g$ in $V$ to be $f(x)+g(x)$.
+    Given a $c$ in $\mathbb{R}$ and $f: X \mapsto \mathbb{R}$, define $(cf)$
+    to be $cf(x)$.
+
+    \begin{itemize}
+        \item Axioms 1 and 6 are immediate.
+        \item Axioms 2 and 3 follow from the definition of addition being the
+            sum of the outputs of the two functions. The outputs are in
+            $\mathbb{R}$ where addition is associative and commutative, thus
+            addition is both associative and commutative in this vector space.
+        \item Axiom 4: $\vec{0}$ can be defined as the constant function that returns
+            zero for all inputs $x$.
+            \begin{align*}
+                g+0       &= g(x)+f(x) \\
+                          &= g(x) + 0 \\
+                          &= g(x) \\
+                          &= g \\
+            \end{align*}
+        \item Axiom 5: $-f$ can be defined as the function whose outputs are the
+            negation of $f$ for all points $x$
+            \begin{align*}
+                (-f)   &= -1\cdot f(x) \\
+                f+(-f) &= f(x) + -f(x) \\
+                       &= 0
+            \end{align*}
+        \item Axiom 7:
+            \begin{align*}
+                c(f+g)&=c(f(x)+g(x)) \\
+                      &= cf(x) + cg(x) \\
+                      &= cf + cg
+            \end{align*}
+        \item Axiom 8:
+            $\mathbb{R}$.
+            \begin{align*}
+                (c+d)u &= (c+d)u(x) \\
+                       &= cu(x)+du(x) \\
+                       &= cu+du
+            \end{align*}
+        \item Axiom 9: The unary function $c$ can be defined as $c\cdot f(x)$.
+            \begin{align*}
+                c(df) &= c(df(x)) \\
+                      &= (cd)f(x) \\
+                      &= (cd)f
+            \end{align*}
+        \item Axiom 10: The scalar 1 is the identity of multiplication in
+            $\mathbb{R}$.
+            \begin{align*}
+                1f &= 1*f(x) \\
+                   &= f(x) \\
+                   &= f
+            \end{align*}
+    \end{itemize}
+
+    \section*{Subspaces}
+    if $V$ is a vector space and $W$ is a non-empty subset of $V$ then we call
+    $W$ a subspace of $V$ if $W$ is closed under addition and scalar
+    multiplication. If $W$ is a subspace of $V$, then $W$ itself is a vector
+    space.
+
+    \section*{Example 1}
+    Prove that $\vec{0}$ is unique.
+
+    Suppose there are two zeros, $\vec{0}, \vec{0}'$.
+    \begin{align*}
+        \vec{0} + \vec{0}' &= \vec{0} & \text{axiom 4} \\
+        \vec{0} + \vec{0}' &= \vec{0}' + \vec{0} & \text{axiom 2} \\
+        \vec{0}' + \vec{0} &= \vec{0}' & \text{axiom 4} \\
+        \vec{0}       &= \vec{0}'
+    \end{align*}
+
+    \section*{Example 2}
+    prove that $-(-v) = v$.
+
+    \begin{align*}
+        -(-v) = v \\
+        0 = v + (-v) \\
+        0 = -v + -(-v) \\
+        v = -(-v)
+    \end{align*}
+
+    \subsection*{Example 3}
+    Subspaces of $\mathbb{R}^2$.
+    \begin{itemize}
+        \item $\mathbb{R}^2$ is a subspace of $\mathbb{R}^2$.
+        \item Lines through the origin is a subspace of $\mathbb{R}^2$.
+        \item $\vec{0}$ is a subspace of $\mathbb{R}^2$.
+    \end{itemize}
+
+    \subsection*{Example 4}
+    Let $V_n$ be the set of all polynomials with degree less than or equal to
+    $n$. $V_n$ is closed under addition because adding two polynomials doesn't
+    increase the degree. Similarly, it is closed in scalar multiplication. This
+    proves the $V_n$ is a subspace.
+\end{document}
