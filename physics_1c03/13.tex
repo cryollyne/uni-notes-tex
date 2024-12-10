@@ -1,0 +1,245 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Simple Harmonic Motion}
+\author{Patrick Chen}
+\date{Nov 26, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    Oscillatory motion is a repetitive back and forth motion about a equilibrium
+    position. Periodic motion is common at all length scales. The period ($T$)
+    is the time to complete a full cycle. The frequency ($f,\nu$) is the amount
+    of times it oscillates per unit time. An example of oscillatory motion is a
+    block on a spring.
+
+    \section*{Simple Harmonic Oscillation}
+    The spring force is a restoring force that pulls the mass back towards the
+    equilibrium point. Simple harmonic motion is a periodic motion. To have
+    simple harmonic motion, the restoring force must be proportional to the
+    displacement. Simple harmonic motion is always a sinusoidal curve.
+
+    \begin{align*}
+        F = -kx \\
+        m \frac{d^2 x}{dt^2} = -k x \\
+        x(t) = A\cos(\omega t + \Phi)
+    \end{align*}
+    \begin{itemize}
+        \item $A$ is the amplitude
+        \item $\omega$ is the angular frequency ($\omega = 2\pi f$)
+        \item $\Phi$ is the phase constant
+    \end{itemize}
+
+    \subsection*{Angular Frequency}
+    The period $T$ is the time needed to complete one cycle.
+    \begin{align*}
+        x(t) &= A\cos(\omega t+\Phi) \\
+        &= A\cos(\omega t+\Phi + 2\pi) \\
+        x(t+T) &= x(t)
+    \end{align*}
+    thus $\omega t = 2\pi$
+    \begin{align*}
+        \omega = \frac{2\pi}{T} = 2\pi f
+    \end{align*}
+    The angular frequency is measured in radians per second.
+
+    \subsection*{Phase}
+    The initial phase determines where the in motion we set $t=0$.
+
+    \section*{Velocity and Acceleration}
+    \begin{align*}
+        x(t) &= A\cos(\omega t + \Phi) \\
+        v(t) &= -A\omega\sin(\omega t + \Phi) \\
+        a(t) &= -A\omega^2\cos(\omega t + \Phi) = -\omega^2x(t) \\
+        v_{max} &= A\omega \\
+        a_{max} &= A\omega^2
+    \end{align*}
+    The maximum velocity occurs when the position is at the equilibrium point.
+    The maximum acceleration occurs when the position is farthest away from the
+    equilibrium point. The phase and amplitude can be computed from the starting
+    positions and velocities.
+
+    \begin{align*}
+        t   &= 0 \\
+        x_0 &= A\cos(\omega t + \Phi) \\
+            &= A\cos(\Phi) \\
+        v_0 &= -A\omega\sin(\omega t + \Phi) \\
+            &= -A\omega\sin(\Phi) \\
+    \end{align*}
+
+    \begin{align*}
+        \frac{v_0}{x_0} &= -\frac{A\omega\sin(\Phi)}{A\cos(\Phi)} \\
+        \frac{v_0}{x_0} &= -\omega\tan(\Phi) \\
+        \tan^{-1}(-\frac{v_0}{\omega x_0}) &= \Phi
+    \end{align*}
+
+    \begin{align*}
+        x_0^2+(\frac{v_0}{\omega})^2 &= (-A\sin(\Phi))^2 + (A\cos(\Phi))^2 \\
+        x_0^2+(\frac{v_0}{\omega})^2 &= A^2\sin^2(\Phi) + A^2\cos^2(\Phi) \\
+        x_0^2+(\frac{v_0}{\omega})^2 &= A^2(\sin^2(\Phi) + \cos^2(\Phi)) \\
+        x_0^2+(\frac{v_0}{\omega})^2 &= A^2 \\
+        \sqrt{x_0^2+(\frac{v_0}{\omega})^2} &= A
+    \end{align*}
+
+    \begin{align*}
+        \Phi = \tan^{-1}(\frac{v_0}{\omega  x_0}) \\
+        A = \sqrt{x_0^2+ (\frac{v_0}{\omega})^2}
+    \end{align*}
+
+    \subsection*{Spring}
+
+    \begin{align*}
+        F &= -kx = ma \\
+        a &= \frac{d^2 x}{dt^2} = -\frac{k}{m} x \\
+        a &= -\omega^2 x \\
+        \omega^2 &= \frac{k}{m} \\
+        \omega &= \sqrt{\frac{k}{m}}
+    \end{align*}
+    The frequency of the oscillations depends on only the material properties of
+    the object and not the amplitude
+
+    \begin{align*}
+        T = \frac{2\pi}{\omega} = \frac{2\pi}{\sqrt{\frac{k}{m}}} \\
+        f = \frac{\omega}{2\pi} = \frac{\sqrt{\frac{k}{m}}}{2\pi}
+    \end{align*}
+
+    \section*{Energy}
+    The oscillator will have both kinetic and spring potential. There are no
+    non-conservative forces in the system.
+    \begin{align*}
+        K &= \frac{1}{2} mv^2 \\
+        &= \frac{1}{2} m \omega^2 A^2 \sin^2(\omega t+ \Phi) \\
+        U &= \frac{1}{2} kx^2 \\
+        &= \frac{1}{2} kA^2 \cos^2(\omega t + \Phi) \\
+        K+U &= \frac{1}{2} A^2 (m\omega^2\sin^2(\omega t + \Phi) + k \cos^2(\omega t + \Phi)) \\
+        &= \frac{1}{2} A^2 (k\sin^2(\omega t + \Phi) + k \cos^2(\omega t + \Phi)) \\
+        &= \frac{1}{2} kA^2 (\sin^2(\omega t + \Phi) + \cos^2(\omega t + \Phi)) \\
+        &= \frac{1}{2} kA^2 \\
+    \end{align*}
+    This could also be written as:
+    \begin{align*}
+        K+U &= \frac{1}{2} mv_{max}^2
+    \end{align*}
+
+    Using these formulas, the max velocity and velocity function with respect to
+    position can be calculated.
+    \begin{align*}
+        E = \frac{1}{2} mv_{max}^2 &= \frac{1}{2} kA^2 \\
+        v_{max}^2 &= \frac{k}{m} A^2 \\
+        v_{max}^2 &= \omega^2 A^2 \\
+        v_{max} &= \sqrt{\omega^2 A^2} \\
+        v_{max} &= \omega A
+    \end{align*}
+
+    \begin{align*}
+        \frac{1}{2} kx^2 + \frac{1}{2} mv^2 &= \frac{1}{2} kA^2 \\
+        kx^2 + mv^2 &= kA^2 \\
+        mv^2 &= kA^2 - kx^2 \\
+        v^2 &= \frac{k}{m} (A^2 - x^2) \\
+        v &= \sqrt{\omega^2 (A^2 - x^2)} \\
+        v &= \omega\sqrt{A^2 - x^2}
+    \end{align*}
+
+    \begin{align*}
+        v_{max} &= \omega A \\
+        v &= \omega \sqrt{A^2-x^2}
+    \end{align*}
+
+    \subsection*{Example 1}
+    A 0.25 kg block is oscillating on a spring with $k=4$ N/m. At $t=0$ s,
+    $V=-0.2$ m/s and $a=+0.5 m/s^2$. Find its total energy and equation of
+    motion.
+
+    \begin{align*}
+        v = -A\omega\sin(\omega t + \Phi) \\
+        -0.2 = -A\sqrt{\frac{k}{m}}\sin(\Phi) \\
+        -0.2 = -A\sqrt{\frac{4}{0.25}}\sin(\Phi) \\
+        -0.2 = -4A\sin(\Phi) \\
+    \end{align*}
+    \begin{align*}
+        a = -A\omega^2\cos(\omega t + \Phi) \\
+        0.5 = -\frac{k}{m} A\cos(\Phi) \\
+        0.5 = -\frac{4}{0.25} A\cos(\Phi) \\
+        0.5 = -16 A\cos(\Phi)
+    \end{align*}
+    Divide velocity equation by acceleration equation:
+
+    \begin{align*}
+        -\frac{0.2}{0.5} = \frac{-4A\sin(\Phi)}{-16A\cos(\Phi)} \\
+        -\frac{0.2}{0.5} = \frac{\sin(\Phi)}{4\cos(\Phi)} \\
+        -1.6 = \tan(\Phi) \\
+        \Phi = 2.12 \text{ or } -1.01
+    \end{align*}
+    Using the sign from the velocity and acceleration, we can determine that
+    $\Phi=2.12$.
+
+    \begin{align*}
+        -0.2 &= -4A\sin(2.12) \\
+        A &= 0.059 m \\
+    \end{align*}
+    \begin{align*}
+        E &= \frac{1}{2} kA^2 \\
+        &= \frac{1}{2} (4)(0.059)^2 \\
+        &= 0.007 J
+    \end{align*}
+
+    \begin{align*}
+        x(t) &= 0.059\cos(4t + 2.12)
+        E &= 0.007 J
+    \end{align*}
+
+\end{document}
