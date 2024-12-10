@@ -1,0 +1,178 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Fluids}
+\author{Patrick Chen}
+\date{Dec 3, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    Solids resists deformations and maintains shape and volume. A solid material
+    is rigid. Fluids flow and are easily deformed in response to an applied
+    force. They take the shape of the container. Liquids are nearly
+    incompressible and gasses are compressible.
+
+    \section*{Pressure}
+    Pressure is the amount of force per unit area. Gasses have pressure because
+    of the collisions of the molecules with the walls of the container. In the
+    SI system, pressure is measured in $N/m^2$ or $Pa$ (Pascal). Alternatively,
+    one atmosphere of pressure is the atmospheric pressure at mean see level at
+    the latitude of Paris, France. $1\ atm = 1.013\times 10^5 Pa$. The imperial
+    unit of pressure is the psi (pounds per square inch). $1 atm = 14.7 psi$.
+
+    \subsection*{Hydrostatic Pressure}
+    Pressure increases deeper in a liquid. Consider a cylinder of water in a
+    swimming pool of volume $V=Ah$.
+    \begin{align*}
+        P_{top} \\
+        P_{bot} &= P_{top} + \Delta P \\
+        \sum F = 0 &= P_{bot}A - (mg + P_{top}A) \\
+        0 &= (P_{top}+\Delta P) A - mg - P_{top}A \\
+        0 &= \Delta P A - mg \\
+        \frac{mg}{A} &= \Delta P \\
+    \end{align*}
+    since $m = \rho V = \rho A h$ where $\rho$ is the density:
+    \begin{align*}
+        \Delta p &= \rho g h
+    \end{align*}
+
+    \subsection*{Pascal's Principle}
+    A pressure change applied to an enclosed liquid is transmitted undiminished
+    to every part of the liquid and to the wall of the container in contact with
+    the liquid. This means that two points at the same height will experience
+    the same pressure.
+
+    \section*{Absolute Pressure}
+    A perfect vacuum with no molecules to collide with the walls of the
+    container is 0 Pa. This is the "absolute zero" of pressure because it is not
+    possible to have a lower pressure.
+
+    \subsection*{Gauge Pressure}
+    Gauge pressure is the difference in pressure compared to some reference
+    point (often the atmospheric pressure $P_1 = 1$ atm). Since it is a relative
+    measurement, it can be either positive or negative.
+    \begin{align*}
+        P_{gauge} = \Delta P = P_2 - P_1
+    \end{align*}
+
+    \subsection*{Example 1}
+    When drinking through a straw, we can reduce the pressure in our lungs by
+    -85 mmHg. Suppose the drink has a density of $0.92\times 10^3\ kg/m^3$ What
+    is the maximum height of straw that we could use.
+
+    \begin{align*}
+        \Delta P &= -85\ mmHg \\
+        \Delta P &= -1.13\times 10^4\ Pa \\
+        \rho gh &= \Delta P \\
+        (0.92) (9.8)h &= -1.13\times 10^4 \\
+        h &= -1.25 \\
+        d &= 1.25\text{ m}
+    \end{align*}
+
+    \subsection*{Buoyancy}
+    A block suspended in water will have a buoyancy force acting on it.
+    \begin{align*}
+        F &= -\rho g V \\
+          &= -\rho g A x \\
+        F &\propto -x \\
+        k &= \rho g A
+    \end{align*}
+    Since the force is proportional to the negative displacement, it is simple
+    harmonic motion.
+
+    \begin{align*}
+        \omega &= \sqrt{\frac{k}{m}} \\
+        &= \sqrt{\frac{\rho g A}{\rho V}} \\
+        &= \sqrt{\frac{g A}{V}}
+    \end{align*}
+
+    \section*{Continuity Equation}
+    For fluid flowing in a tube, mass must be conserved. This means that for
+    incompressible fluids, the volume flowing into a tube must be the same as
+    the volume flowing out of the tube. This means that the velocity times the
+    cross sectional area is constant across
+    the entire tube.
+    \begin{align*}
+        V_1 &= V_2 \\
+        \Delta x_1 A_1 &= \Delta x_2 A_2 \\
+        v_1 A_1 &= v_2 A_2
+    \end{align*}
+
+    The volume flow rate ($Q$) can be defined as:
+    \begin{align*}
+        Q = Av
+    \end{align*}
+
+    \subsection*{Bernoulli's principle}
+    Suppose there is pressure on both sides of a tube acting on the same volume.
+    \begin{align*}
+        W_{tot} &= \Delta K + \Delta U \\
+        P_1A_1\Delta x_1 - P_2A_2\Delta x_2
+                &= (\frac{1}{2} m_2v_2^2 - \frac{1}{2} m_1v_1^2)
+                + (m_2gy_2 - m_1gy_1) \\
+        P_1V-P_2V
+                &= \frac{1}{2} (\rho V)v_2^2 - \frac{1}{2} (\rho V)v_1^2
+                + (\rho V)gy_2 - (\rho V)gy_1 \\
+        P_1-P_2 &= \frac{1}{2} \rho v_2^2 - \frac{1}{2} \rho v_1^2
+                + \rho g y_2 - \rho g y_1\\
+        P_1 + \rho g y_1 + \frac{1}{2} \rho v_1^2
+                &= P_2 + \rho g y_2 + \frac{1}{2} \rho v_2^2
+    \end{align*}
+    This is known as Bernoulli's principle. $P + \rho gy + \frac{1}{2} \rho v^2$
+    is constant throughout the fluid.
+
+\end{document}
