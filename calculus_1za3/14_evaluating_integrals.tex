@@ -130,4 +130,220 @@
         &= \ln(\frac{5}{4})
     \end{align*}
 
+    \section*{Integration by Parts}
+    Integration by part is the reverse of product rule. Often the formula is
+    rearranged to a more convenient form.
+    \begin{align*}
+        \frac{d}{dx} (f(x)g(x)) &=  f'(x)g(x) + f(x)g'(x) \\
+                                &\Downarrow \int \\
+        f(x)g(x) &= \int f'(x)g(x) \ dx + \int f(x)g'(x) \ dx \\
+        \int f(x)g'(x) \ dx &= f(x)g(x)-\int f'(x)g(x) \ dx
+    \end{align*}
+    \begin{align*}
+        f(x) = u &\Rightarrow f'(x)dx =du\\
+        g(x) = v &\Rightarrow g'(x)dx = dv
+    \end{align*}
+    \begin{align*}
+        \int u \ dv = uv - \int v \ du
+    \end{align*}
+
+    When using integration by parts to solve a integral, the values $u$ and $dv$
+    need to be chosen and substituted into the previous formula. For definite
+    integrals, its the same formula and the bounds do not change.
+    \begin{align*}
+        \int_{a}^{b} u \ dv = uv \ \Big|_{a}^{b} - \int_{a}^{b} v \ du
+    \end{align*}
+
+    \subsection*{Example 5}
+    \begin{align*}
+        \int x\sin x \ dx \\
+    \end{align*}
+
+    \begin{align*}
+        x = u &\Rightarrow du = dx \\
+        sinx dx = dv &\Rightarrow v = -cosx \\
+        \int x\sin x \ dx\\
+        \int u \ dv
+        &= uv - \int v \ du \\
+        &= x(-cosx) - \int (-cos) \ du \\
+        &= -xcosx + sin x
+    \end{align*}
+
+    \subsection*{Example 6}
+    \begin{align*}
+        \int x^2 e^x \ dx \\
+    \end{align*}
+    \begin{align*}
+        u = x^2 &\Rightarrow du = 2x dx \\
+        dv = e^x &\Rightarrow v = e^x \\
+        \int x^2 e^x \ dx
+        &= x^2 e^x - \int e^x \cdot 2x \ dx \\
+        &= x^2 e^x - 2\int e^x \cdot x \ dx \\
+        u = x &\Rightarrow du = dx \\
+        dv = e^x &\Rightarrow v = e^x \\
+        &= x^2 e^x - 2(xe^x - \int e^x \ dx) \\
+        &= x^2 e^x - 2(xe^x - e^x) \\
+        &= x^2 e^x - 2xe^x + 2e^x
+    \end{align*}
+
+    \subsection*{Example 7}
+    \begin{align*}
+        \int_{0}^{1} \tan^{-1} x \ dx \\
+    \end{align*}
+    \begin{align*}
+        u = \tan^{-1} x &\Rightarrow du = \frac{1}{x^2+1} dx \\
+        dv = dx &\Rightarrow v = x \\
+        \int_{0}^{1} \tan^{-1} x \ dx
+        &= x \tan^{-1} x \ \Big|_{0}^{1} - \int_{0}^{1} x \frac{1}{x^2+1} \ dx \\
+        u = x^2+1 \\
+        du = 2x \\
+        &= x \tan^{-1} x \ \Big|_{0}^{1} - \int_{1}^{5} \frac{1}{u} \ du \\
+        &= x \tan^{-1} x \ \Big|_{0}^{1} - \ln|u| \ \Big|_{1}^{5} \\
+        &= (1 \tan^{-1} 1 - 0 \tan^{-1} 0) - (\ln 5 - \ln 1) \\
+        &= (1 \frac{\pi}{4} - 0) - (\ln5 - 0) \\
+        &= 1 \frac{\pi}{4} - \ln5
+    \end{align*}
+
+    \subsection*{Example 8}
+    \begin{align*}
+        \int_{1}^{e} x^4(\ln x)^2 \ dx
+    \end{align*}
+    \begin{align*}
+        u = (\ln x)^2 => du = (2 \ln x)/x \\
+        dv = x^4 &\Rightarrow v = x^5/5 \\
+        (\ln x)^2 \frac{x^5}{5} - \int_{1}^{e} \frac{x^5}{5} 2 (\ln x)/x \ dx \\
+        (\ln x)^2 \frac{x^5}{5} - \int_{1}^{e} \frac{x^4}{5} 2 (\ln x) \ dx
+    \end{align*}
+
+    \subsection*{Example 9}
+    \begin{align*}
+        \int e^x \sin x \ dx
+    \end{align*}
+    \begin{align*}
+        u = e^x &\Rightarrow du = e^x dx \\
+        dv = sinx dx &\Rightarrow -\cos x \\
+        I &= -e^x\cos x - \int -\cos x e^x \ dx \\
+        &= -e^x\cos x + \int \cos x e^x \ dx \\
+        u = e^x &\Rightarrow du = e^x \\
+        dv = \cos x &\Rightarrow v = \sin x \\
+        I &= -e^x\cos x + (e^x \sin x - \int \sin x e^x \ dx) \\
+        I &= -e^x\cos x + (e^x \sin x - I) \\
+        2I &= -e^x\cos x + e^x \sin x \\
+        I &= \frac{e^x \sin x - e^x\cos x}{2}
+    \end{align*}
+
+    \subsection*{Example 10}
+    \begin{align*}
+        \int \cos(x) \ln (\sin x) \ dx
+    \end{align*}
+    \begin{align*}
+        u = \sin x \\
+        du = \cos x dx \\
+        I &= \int \ln(u) \ du \\
+        u_1 = \ln u &\Rightarrow du_1 = 1/u \\
+        dv = du &\Rightarrow v = u \\
+        I &= u\ln u - \int u (1/u) \ du \\
+        &= u\ln u - \int 1 \ du \\
+        &= u\ln u - u \\
+        &= u(\ln u - 1) \\
+        &= \sin x(\ln(\sin x) - 1)
+    \end{align*}
+
+    \section*{Powers of Sine and Cosine}
+    If any of the powers are odd, then pick one of the following substitutions.
+    \begin{align*}
+        \int sin^m(x)cos^{2k+1}x \ dx &= \int sin^m (cos^2 x)^k cosx \ dx \\
+                                      &= \int sin^m x (1-sin^2 x)^k cos x \ dx \\
+        u &= sin x \\
+        \int sin^{2k+1} x cos^n x \ dx &= \int (sin^2)^k cos^n sin \ dx \\
+                                       &= \int (1-cos^2)^k cos^n sin \ dx \\
+        u &= cos x
+    \end{align*}
+
+    If both of the powers are even, then use the half angle formulas
+    \begin{align*}
+        \sin^2 x = \frac{1}{2} (1-\cos 2x) \\
+        \cos^2 x = \frac{1}{2} (1+\cos 2x)
+    \end{align*}
+
+    Similar substitutions will work for powers of tan and sec.
+    \begin{align*}
+        \tan^2(x)+1 = \sec^2(x)
+    \end{align*}
+
+    Product Identities
+    \begin{align*}
+        \sin A \cos B = \frac{1}{2} (\sin(A-B)+\sin(A+B)) \\
+        \sin A \sin B = \frac{1}{2} (\cos(A-B)-\cos(A+B)) \\
+        \cos A \cos B = \frac{1}{2} (\cos(A-B)+\cos(A+B))
+    \end{align*}
+
+
+    \subsection*{Example 11}
+    \begin{align*}
+        \int \sin^5 x \cos^2 x \ dx
+    \end{align*}
+    \begin{align*}
+        u &= \cos x \\
+        du &= -\sin x \\
+        I &= \int (sin^2 x)^2 \cos^2 x \sin x \ dx \\
+        I &= \int (1-\cos^2 x)^2 \cos^2 x \sin x \ dx \\
+        I &= -\int (1-u^2)^2 u^2 \ du \\
+        I &= -\int (1-2u^2+u^4) u^2 \ du \\
+        I &= -\int  \ du
+    \end{align*}
+
+    \subsection*{Example 12}
+    \begin{align*}
+        \int sin^4 x \ dx
+    \end{align*}
+    \begin{align*}
+        I &= \int (\sin^2 x)^2 \ dx \\
+        &= \int (\frac{1}{2} (1-\cos 2x))^2 \ dx \\
+        &= \int \frac{1}{4} (1 - 2\cos 2x + \cos^2 2x) \ dx \\
+        &= \frac{1}{4} \int (1 - 2\cos 2x + \cos^2 2x) \ dx \\
+        &= \frac{1}{4} \int (1 - 2\cos 2x + \frac{1}{2} (1+\cos 4x)) \ dx \\
+        &= \frac{1}{4} \int (\frac{3}{2} - 2\cos 2x + \frac{1}{2} \cos 4x)) \ dx \\
+        &= \frac{1}{4} (\frac{3}{2} x - 2 (\frac{1}{2} \sin 2x) + \frac{1}{2} (\frac{1}{4} \sin 4x)) \\
+        &= \frac{1}{4} (\frac{3}{2} x - \sin 2x + \frac{1}{8} \sin 4x) \\
+        &= \frac{3}{8} x - \frac{1}{4} \sin 2x + \frac{1}{32} \sin 4x
+    \end{align*}
+
+    \subsection*{Example 13}
+    \begin{align*}
+        \int tan^6 x sec^4 x \ dx
+    \end{align*}
+    \begin{align*}
+        sec^2 x = 1 + tan^2 x
+    \end{align*}
+    \begin{align*}
+        u = tan x \\
+        du = sec^2 x \\
+        I &= \int u^6 (1+u^2) \ du
+    \end{align*}
+
+    \subsection*{Example 14}
+    \begin{align*}
+        \int \sin 4x \cos 5x \ dx \\
+        = \int 1/2 (\sin(-x) + sin(9x)) \ dx \\
+        = \frac{1}{2} \int - \sin x + \sin 9x \ dx \\
+        = \frac{1}{2} (\cos x - \frac{1}{9} \cos 9x)
+    \end{align*}
+
+    \subsection*{Example 15}
+    \begin{align*}
+        \int sec^2(x) \cos^5(tan(x)) \ dx \\
+        u &= tan x \\
+        du &= sec^2 x\ dx \\
+        &=\int \cos^5(u) \ du \\
+        &=\int (1-\sin^2(u))^2 \cos(u) \ du \\
+        s &= \sin u \\
+        ds &= \cos u\ du \\
+        &=\int (1-s^2)^2 \ ds \\
+        &=\int s^4 -2s^2 + 1 \ dx \\
+        &= \frac{1}{5} s^5 - \frac{2}{3} s^3 + s + c \\
+        &= \frac{1}{5} (\sin u)^5 - \frac{2}{3} (\sin u)^3 + \sin u + c \\
+        &= \frac{1}{5} (\sin (\tan x))^5 - \frac{2}{3} (\sin (\tan x))^3 + \sin (\tan x) + c
+    \end{align*}
+
 \end{document}
