@@ -1,0 +1,119 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Coordinates}
+\author{Patrick Chen}
+\date{Nov 7, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Coordinates}
+    If $B$ is a basis for a vector space $V$, then any $v\in V$ can be written
+    uniquely as a linear combination of the vectors in $B$. The notation $[v]_B$
+    means the coordinates of vector $v$ with respect to the basis $B$. If the
+    basis $B$ contains the vector $v_1,\dots v_n$ and $c_1v_1+\dots+c_nv_n=v$,
+    then $[v]_B=[c_1 \dots c_n]^T$.
+    \begin{align*}
+        A &= \begin{bmatrix}
+            v_1 & \dots & v_n
+        \end{bmatrix} \\
+        A[v]_B &= v \\
+        [v]_B &= A^{-1}v
+    \end{align*}
+
+    \subsection*{Example}
+    \begin{align*}
+        B = \Bigg\{
+            \begin{bmatrix}
+                1 \\ 0 \\ 0
+            \end{bmatrix},
+            \begin{bmatrix}
+                1 \\ 1 \\ 0
+            \end{bmatrix},
+            \begin{bmatrix}
+                1 \\ 1 \\ 1
+            \end{bmatrix}
+        \Bigg\} && v = \begin{bmatrix}
+            2 \\ 3 \\ -1
+        \end{bmatrix}
+    \end{align*}
+    \begin{align*}
+        c_1 v_1 + c_2 v_2 + c_3 v_3 = v \\
+        \begin{bmatrix}
+            1 & 1 & 1 \\
+            0 & 1 & 1 \\
+            0 & 0 & 1 \\
+        \end{bmatrix} \begin{bmatrix}
+            c_1 \\ c_2 \\ c_3
+        \end{bmatrix} = \begin{bmatrix}
+            2 \\ 3 \\ -1
+        \end{bmatrix} \\
+        [v]_B = \begin{bmatrix}
+            -1 \\ 4 \\ -1
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{Example 2}
+    $P_3$ is the set of polynomials with degree $\le 3$ and $B=\{1,x,x^2,x^3\}$.
+    \begin{align*}
+        p &= 1-3x^2+2x^3 \\
+        [p]_B &= \begin{bmatrix}
+            1 \\ 0 \\ -3 \\ 2
+        \end{bmatrix}
+    \end{align*}
+
+\end{document}
