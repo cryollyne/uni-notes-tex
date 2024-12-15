@@ -1,0 +1,146 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Linear Independence and Basis}
+\author{Patrick Chen}
+\date{Nov 4, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Linear Independence}
+    If $V$ is a vector space, we say that $v_1,\dots,v_n\in V$ are linearly
+    independent if the only solution to $c_1v_1+\dots+c_nv_n=0$ has $c_1,\dots
+    c_n = 0$. For infinite dimensions, a set of vectors $B$ in $V$ is linearly
+    independent if every finite subset of $B$ is linearly independent.
+
+    The set $e_1,\dots,e_n$ is maximally linearly independent in $\mathbb{R}^n$
+    because there is not anything that can be added to the set without causing
+    it to become linearly dependent. $\mathbb{R}^n$ cannot be spanned by fewer
+    than $n$ vectors.
+
+    % A linear transformation with finite dimensions form $V$ to $V$ is onto if it
+    % is one-to-one and one-to-one if it is onto. This is not true for linear
+    % transformations with infinite dimensions.
+
+    \section*{Basis for a Vector Space}
+    A subset $B$ is said to be a basis for a vector space $V$ if $B$  is
+    linearly independent and $B$ spans $V$. Every vector space has a basis. In
+    $\mathbb{R}^n$, a $n\times n$ matrix $A$ is invertible if the columns of $A$
+    form a basis.
+
+    \subsection*{Spanning Set Theorem}
+    if $V$ is a vector space and $H = span\{v_1,\dots,v_n\}$ then there is a
+    subset $\{v_1,\dots,v_n\}$ which is a basis for $H$.
+
+    To find this basis, we must filter the vectors that are not in span of all
+    previous vectors. Suppose that after this process, the vectors are not
+    linearly independent. This implies that there is some linear combination
+    vectors that, when added, will equal zero and is not the trivial solution.
+    By rearranging the equation, it is possible to show that there is some
+    vector that is a linear combination of the other vectors and thus in the
+    span of the other vectors. This implies that one of the vectors is a linear
+    combination of the previous vectors. This contradicts with the algorithm
+    used to produce these vectors so thus, the assumption that the vectors are
+    linearly dependent is false. Below is an example of this.
+
+    \begin{align*}
+        c_1v_1 + c_3v_3 + c_5v_5 + c_8v_8 = 0 \\
+        c_8 = -\frac{c_1}{c_8} v_1 -\frac{c_2}{c_8} v_3 -\frac{c_5}{c_8} v_5
+    \end{align*}
+
+    To finding the basis for the columnspace of matrix $A$, we compute the
+    reduced row echelon form of $A$ and take the pivot columns of $A$.
+
+    \subsection*{Rowspace}
+    If $A$ is a $n\times m$ matrix, then the rowspace $row(A)$ is a subset of
+    $\mathbb{R}^m$. Elementary row operations do not change the rowspace.
+    Proving this for swapping and constant multiple is trivial.
+    \begin{align*}
+        r_i \leftarrow r_i + cr_j \\
+        span\{r_1,\dots,r_i+cr_j,\dots,r_n\} \\
+        (r_i+cr_j) \in span\{r_1,\dots,r_i+cr_j,\dots,r_n\} \\
+        (r_i+cr_j) - cr_j \in span\{r_1,\dots,r_i+cr_j,\dots,r_n\} \\
+        r_i \in span\{r_1,\dots,r_i+cr_j,\dots,r_n\}
+    \end{align*}
+
+    Since $r_i$ is still in the span after adding a multiple of a row, $r_i$ is
+    still in the span and this row operation doesn't change the span of the
+    rows. The basis for the rowspace of $A$ is the basis for the columnspace of
+    $A^T$.
+
+    \subsection*{Example 1}
+    Prove that $B=\{1,x,x^2,x^3\dots\}$ is linearly independent.
+    \begin{align*}
+        c_0 + c_1 x + x_2 x^2 + \dots + c_n x^n = 0 \text{ for all values } x
+    \end{align*}
+    This means that for every $x$, this polynomial is equal to zero. Every
+    polynomial of degree $n>0$ has at most $n$ roots. A degree $0$ polynomial
+    can have infinite roots if it is the constant zero function. Since this
+    equality must hold for every $x$, which there are infinite values of, the
+    polynomial must be the zero polynomial with $c_0\dots c_n=0$.
+
+    \subsection*{Example 2}
+    The set $\{\sin x, \cos x\}$ is a subset of functions from $\mathbb{R}$ to
+    $\mathbb{R}$. Prove that this set of functions is linearly independent.
+
+    \begin{align*}
+        c \sin x + d \cos x &= 0 \text{ for all values } x \\
+        \sin x &= -\frac{d}{c} \cos x \\
+    \end{align*}
+    Since this is not true for all values $x$, sin and cos are not scalar
+    multiples of each other and thus not linearly dependent.
+\end{document}
