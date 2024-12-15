@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Dimensions}
+\author{Patrick Chen}
+\date{Nov 12, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+
+    \section*{Dimension}
+    Suppose that $V$ has a finite spanning set. Every basis of $V$ is finite and
+    has the same size. The size of any such basis is called the dimension of
+    $V$, written $\dim(V)$. If $V$ does not have a finite spanning set, then $V$
+    is said to be infinite dimensional.
+
+    Suppose $B=\{v_1\dots v_n\}$ is a basis for $V$. Take $w_1\dots w_k$ is a
+    linearly independent set in $V$.
+    \begin{align*}
+        [w_1]_B,\dots ,[w_k]_B \in \mathbb{R}^n
+    \end{align*}
+    Thus $k$ must be less than or equal to $n$ because $w$ is linearly
+    independent.
+    \begin{align*}
+        c_1[w_1]_B + \dots c_k[w_k]_B = 0
+    \end{align*}
+
+    \begin{enumerate}
+        \item A set of more than $\dim(V)$ vectors cannot be linearly independent
+        \item A set of less than $\dim(V)$ cannot be a spanning set.
+        \item Every linearly independent set of size $\dim(V)$ is a basis of $V$
+        \item Every spanning set of size $\dim(V)$ is a basis of $V$
+        \item Every subspace of $V$ has a dimension less than or equal to $\dim(V)$
+    \end{enumerate}
+
+    The dimension of a subspace of a vector space is less than or equal to the
+    dimension of the parent space.
+
+    \section*{Coordinates as Linear Transformations}
+    Suppose that $B=\{v_1\dots v_n\}$ is a basis for $V$. The map $T: V \mapsto
+    \mathbb{R}^n$ given by $T(v)=[v]_B$ is a linear transformation which is
+    one-to-one and onto. These types of linear transformations are called
+    isomorphisms. Two vector spaces that are isomorphisms are indistinguishable
+    in terms of vector spaces. Every basis with the same dimension is isomorphic
+    to each other.
+
+    \subsection*{Dimension of different spaces}
+    The dimension of the column space is the rank of the matrix. The dimension
+    of the nullspace is the nullity of the matrix. The sum of the rank and
+    nullity is the number of columns of the matrix.
+    \begin{align*}
+        A: m\times n \\
+        rank(A) + nullity(A) = n
+    \end{align*}
+    The dimension of the column space is the amount of pivots columns of a
+    matrix. The size of the basis of the nullspace is the amount of free
+    variables in the reduced row echelon form of the matrix. Since a column in
+    the reduced row echelon can only have a pivot or be a free variable, the
+    amount of columns is the sum of the rank and nullity of the matrix.
+    \begin{align*}
+        dim(Col(A)) = dim(Row(A))
+    \end{align*}
+    Since the column space is the columns that contain the pivots of $A$ and the
+    row space has a basis of the non-zero rows in the reduced row echelon form
+    of $A$, their dimensions will be equal.
+
+    \subsection*{Example 1}
+    Find the dimension of: vectors with $n$ components, polynomials with degree
+    less than or equal to $n$, matrices of size $2\times 2$, matrices of size
+    $3\times 6$, matrices of size $6\times 3$.
+    \begin{enumerate}
+        \item $\dim(\mathbb{R}^n)= n$
+        \item $\dim(P_n)= n+1$
+        \item $\dim(M_{2,2})= 4$
+        \item $\dim(M_{3,6})= 18$
+        \item $\dim(M_{6,3})= 18$
+    \end{enumerate}
+\end{document}
