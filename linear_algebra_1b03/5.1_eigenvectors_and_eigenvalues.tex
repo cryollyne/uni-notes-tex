@@ -1,0 +1,132 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Eigenvectors and Eigenvalues}
+\author{Patrick Chen}
+\date{Nov 14, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    For a $n\times n$ matrix $A$ and a non-zero vector $u\in \mathbb{R}^n$ where
+    $Au=\lambda u$, then $\lambda$ is a eigenvalue and $u$ is a eigenvector. The
+    $\lambda$-eigenspace of $A$ is the set of all eigenvectors with eigenvalues
+    of $\lambda$. The eigenspace is a subspace of $\mathbb{R}^n$ equal to the
+    nullspace of $A-\lambda I$. This means that if a eigenvector is scaled, it
+    will still be an eigenvector.
+
+    \begin{align*}
+        Au = \lambda u \\
+        Au - \lambda u = 0 \\
+        (A-\lambda I)u = 0
+    \end{align*}
+    Since $u\ne \vec{0}$, the determinant of $A-\lambda I$ must be zero.
+
+    \subsection*{Example 1}
+    Check if $6$ is a eigenvalue of the following matrix.
+    \begin{align*}
+        A &= \begin{bmatrix}
+            1 & 3 & 2 \\
+            2 & 1 & 3 \\
+            3 & 2 & 1
+        \end{bmatrix} \\
+        Au &= 6u \\
+        Au-6u &= 0 \\
+        (A-6I)u &= 0 \\
+        A-6I &= \begin{bmatrix}
+            -5 & 3 & 2 \\
+            2 & -5 & 3 \\
+            3 & 2 & -5
+        \end{bmatrix} \\
+        rref(A-6I) &= \begin{bmatrix}
+            1 & 0 & -1 \\
+            0 & 1 & -1 \\
+            0 & 0 & 0
+        \end{bmatrix} \\
+        u &= \begin{bmatrix}
+            x_3 \\ x_3 \\ x_3
+        \end{bmatrix} \\
+        u &= x_3 \begin{bmatrix}
+            1 \\ 1 \\ 1
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{Example 2}
+    $\lambda=2$ is a eigenvalue
+    \begin{align*}
+        A &= \begin{bmatrix}
+            1 & 1 & 0 \\
+            1 & 1 & 0 \\
+            0 & 0 & 2
+        \end{bmatrix} \\
+        A-2I &= \begin{bmatrix}
+            -1 & 1 & 0 \\
+            1 & -1 & 0 \\
+            0 & 0 & 0
+        \end{bmatrix} \\
+        rref(A-2I) &= \begin{bmatrix}
+            1 & -1 & 0 \\
+            0 & 0 & 0 \\
+            0 & 0 & 0
+        \end{bmatrix} \\
+        u &= x_1 \begin{bmatrix}
+            1 \\ 1 \\ 0
+        \end{bmatrix} + x_2 \begin{bmatrix}
+            0 \\ 0 \\ 1
+        \end{bmatrix}
+    \end{align*}
+
+\end{document}
