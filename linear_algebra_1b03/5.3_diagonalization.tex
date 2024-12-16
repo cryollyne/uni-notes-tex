@@ -1,0 +1,269 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Diagonalization}
+\author{Patrick Chen}
+\date{Nov 18, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Linear independence of eigenvectors}
+    If $A$ is a $n\times n$ matrix and $v_1,\dots,v_k$ are eigenvectors for distinct
+    eigenvalues $\lambda_1,\dots,\lambda_k$, then $v_1,\dots,v_k$ are linearly
+    independent.
+
+    \subsection*{Proof}
+    If there is exactly one eigenvector and one eigenspace, the eigenvectors are
+    trivially linearly independent. Assume that $\{v_1,\dots,v_i\}$ is linearly
+    independent.
+    \begin{align*}
+        c_1v_1 + \dots + c_iv_i + c_{i+1}v_{i+i} &= \vec{0} & (1)\\
+        A(c_1v_1 + \dots + c_iv_i + c_{i+1}v_{i+i}) &= A \vec{0} \\
+        c_1\lambda_1v_1 + \dots + c_i\lambda_iv_i + c_{i+1}\lambda_{i+1}v_{i+1} &= \vec{0} & (2) \\
+    \end{align*}
+    Multiply (1) by $\lambda_{i+1}$
+    \begin{align*}
+        c_1\lambda_{i+1}v_1 + \dots + c_i\lambda_{i+1}v_i + c_{i+1}\lambda_{i+1}v_{i+1} &= 0 & (3)
+    \end{align*}
+    Subtract (3) from (2)
+    \begin{align*}
+        (c_1\lambda_1v_1 + \dots + c_i\lambda_iv_i + c_{i+1}\lambda_{i+1}v_{i+1}) -
+        (c_1\lambda_{i+1}v_1 + \dots + c_i\lambda_{i+1}v_i + c_{i+1}\lambda_{i+1}v_{i+1})
+        &= \vec{0} - \vec{0} \\
+        c_1(\lambda_1-\lambda_{i+1})v_1 + \dots +
+        c_i(\lambda_i-\lambda_{i+1})v_i +
+        c_{i+1}(\lambda_{i+1}-\lambda_{i+1})v_{i+1} &= \vec{0} \\
+        c_1(\lambda_1-\lambda_{i+1})v_1 + \dots +
+        c_i(\lambda_i-\lambda_{i+1})v_i &= \vec{0} \\
+    \end{align*}
+    Since $\{v_1,\dots,v_i\}$ is linearly independent, then for all $n$,
+    $c_n(\lambda_n-\lambda_{i+1}) = 0$. Using the zero product property, either
+    $c_n=0$ or $\lambda_n-\lambda_{i+1}=0$, but since the eigenvalues are
+    distinct, $c_n$ must be equal to zero. Thus,
+    \begin{align*}
+        c_1,\dots,c_i &= 0 \\
+        c_1v_1 + \dots + c_iv_i + c_{i+1}v_{i+i} &= \vec{0} \\
+        0v_1 + \dots + 0v_i + c_{i+1}v_{i+i} &= \vec{0} \\
+        c_{i+1}v_{i+i} &= \vec{0} \\
+        c_{1+i} = 0
+    \end{align*}
+    Therefore $\{v_1,\dots,v_i,v_{i+1}\}$ is linearly independent. Using the
+    inductive hypothesis, every eigenvector belonging to distinct eigenvalues
+    are linearly independent.
+
+    \section*{Similarity}
+    For two $n\times n$ matrices $A$ and $B$, we sat that $A$ is similar to $B$
+    if there exists a invertible matrix $P$ such that $P^{-1}AP=B$. If $A$ and
+    $B$ are similar then they have the same characteristic polynomial and thus,
+    have the same eigenvalues.
+
+    \begin{align*}
+        det(B-\lambda I) &= det(P^{-1}AP - \lambda I) \\
+        &= det(P^{-1}(A- \lambda I)P ) \\
+        &= det(P^{-1})det((A- \lambda I )det(P) \\
+        &= det(A- \lambda I )
+    \end{align*}
+
+    \section*{Diagonalization}
+    If a $n\times n$ matrix $A$ have $n$ different eigenvalues
+    then $A$ is diagonalizable. $A$ is similar to a diagonal matrix iff there
+    are $n$ linearly independent eigenvectors for $A$. In $P^{-1}AP=D$, the
+    columns of P are the eigenvectors and the diagonals of $D$ are the
+    eigenvalues.
+
+    \begin{align*}
+        P &= \begin{bmatrix}
+            v_1 & v_2 & \dots & v_n
+        \end{bmatrix} \\
+        D &= \begin{bmatrix}
+            \lambda_1 & 0 & & 0 \\
+            0 & \lambda_2 & & 0 \\
+              &   & \ddots &   \\
+            0 & 0 &   & \lambda_n
+        \end{bmatrix}
+    \end{align*}
+
+    From the construction of $D$, we can show that $P$ contains the
+    eigenvectors.
+    \begin{align*}
+        P^{-1}AP &= D \\
+        AP &= PD \\
+        AP &= \begin{bmatrix}
+            Av_1 & Av_2 & \dots & Av_n
+        \end{bmatrix} \\
+        PD &= \begin{bmatrix}
+            \lambda_q v_1 & \lambda_2 v_2 & \dots & \lambda_n v_n
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{Algorithm for Diagonal}
+    \begin{enumerate}
+        \item Suppose $\lambda_1,\dots,\lambda_k$ are eigenvalues of $A$.
+        \item For each eigenvalue, determine the basis for the eigenspace. If
+            any eigenspace has a dimension less than it's algebraic
+            multiplicity, it is not diagonalizable.
+        \item Otherwise, collect all the bases and put them in the columns of a
+            matrix $P$.
+        \item $P$ will be invertible and $AP=PD$ where $D$ is a diagonal matrix
+            that has eigenvalue corresponding with the columns of $P$.
+    \end{enumerate}
+
+    \subsection*{Powers of Diagonal Matrices}
+    The powers of a diagonal matrix is the power of the elements in the diagonal
+    matrix. If a matrix is diagonalizable, then the powers of that matrix can be
+    easily computed by first diagonalizing it and raising the diagonal matrix to
+    the power.
+    \begin{align*}
+        D = \begin{bmatrix}
+            d_1 & 0 \\
+            0 & d_2
+        \end{bmatrix} \\
+        D^k = \begin{bmatrix}
+            d_1^k & 0 \\
+            0 & d_2^k
+        \end{bmatrix}
+    \end{align*}
+
+    \begin{align*}
+        A^k &= (PDP^{-1})(PDP^{-1})\dots(PDP^{-1}) \\
+            &= PD(P^{-1}P)D(P^{-1}P)\dots(P^{-1}P)DP^{-1} \\
+            &= PDD\dots DP^{-1}) \\
+            &= PD^kP^{-1}) \\
+    \end{align*}
+
+    \subsection*{Eigenvector Basis}
+    Let $B$ be a basis constructed from the eigenvectors of a transformation
+    $T$.
+    \begin{align*}
+        [T]_B &= \begin{bmatrix}
+            [T(v_1)]_B & [T(v_1)]_B & \dots & [T(v_n)]_B
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            \lambda_1 e_1 & \lambda_2 e_2 & \dots & \lambda_n e_n
+        \end{bmatrix}
+    \end{align*}
+    The standard matrix for a linear transformation with respect to the basis of
+    eigenvectors is a diagonal matrix.
+
+    \subsection*{Example 1}
+    \begin{align*}
+        A &= \begin{bmatrix}
+            2 & 1 \\
+            1 & 2
+        \end{bmatrix} \\
+        x_{1} &= \begin{bmatrix}
+            1 \\ 1
+        \end{bmatrix}, Ax_1 = 3x_1 \\
+        x_{2} &= \begin{bmatrix}
+            -1 \\ 1
+        \end{bmatrix}, Ax_2 = 1x_2 \\
+        P &= \begin{bmatrix}
+            1 & -1 \\
+            1 & 1
+        \end{bmatrix} \\
+        P^{-1} &= \frac{1}{2} \begin{bmatrix}
+            1 & 1 \\
+            -1 & 1
+        \end{bmatrix} \\
+        P^{-1}AP &= \begin{bmatrix}
+            3 & 0 \\
+            0 & 1
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{Example 2}
+    \begin{align*}
+        A &= \begin{bmatrix}
+            1 & 1 & 0 \\
+            1 & 1 & 0 \\
+            0 & 0 & 2 \\
+        \end{bmatrix} \\
+        T_{A}&: \mathbb{R}^3 \mapsto \mathbb{R}^3 \\
+        A &= [T_A]_{\{e1,e2,e3\}} \\
+        B &= \Bigg\{ \begin{bmatrix}
+            1 \\ 1 \\ 0
+        \end{bmatrix}, \begin{bmatrix}
+            0 \\ 0 \\ 1
+        \end{bmatrix}, \begin{bmatrix}
+            1 \\ -1 \\ 0
+        \end{bmatrix}
+        \Bigg\} \\
+        [T]_B &= \begin{bmatrix}
+            2 & 0 & 0 \\
+            0 & 2 & 0 \\
+            0 & 0 & 0
+        \end{bmatrix}
+    \end{align*}
+
+    \subsection*{Example 3}
+    \begin{align*}
+        V &= span\{\sin x, \cos x\} \\
+        dim(V) &= 2 \\
+        f &\in V \\
+        T(f) &= \frac{df}{dx} \\
+        T: V &\mapsto V \\
+        B &= \{\sin x, \cos x\} \\
+        [T]_B &= \begin{bmatrix}
+            [T(v_1)]_B & [T(v_2)]_B
+        \end{bmatrix} \\
+        &= \begin{bmatrix}
+            0 & -1 \\
+            1 & 0
+        \end{bmatrix}
+    \end{align*}
+
+\end{document}
