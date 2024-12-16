@@ -1,0 +1,134 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Characteristic Equation}
+\author{Patrick Chen}
+\date{Nov 18, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+
+    \subsection*{Finding eigenvalues}
+    If $\lambda$ is an eigenvalue for $A$, then $A-\lambda I=0$ has a
+    non-trivial solution and is not invertible. This is equivalent to finding
+    when the determinant of $A-\lambda I$ is equal to zero. In a upper and lower
+    triangular matrix, the eigenvalues are the values along the diagonal.
+    \begin{align*}
+        \det(A-\lambda I) = 0
+    \end{align*}
+
+    This determinant will give a polynomial of degree $n$. This is called the
+    characteristic polynomial.
+    \begin{itemize}
+        \item The eigenvalues of $A$ are solutions of the characteristic
+            equation of $A$.
+        \item The algebraic multiplicity of an eigenvalue $\lambda$ is degree of
+            the $\lambda$ root in the characteristic equation.
+        \item The geometric multiplicity of $\lambda$ is the dimension of the
+            $\lambda$-eigenspace.
+        \item The geometric multiplicity is always less than or equal to the
+            algebraic multiplicity.
+    \end{itemize}
+
+    \subsection*{Example 1}
+    \begin{align*}
+        A &= \begin{bmatrix}
+            1 & 1 \\
+            0 & 1
+        \end{bmatrix} \\
+        det(A-\lambda I) &= det\begin{bmatrix}
+            1-\lambda & 1 \\
+            0 & 1-\lambda
+        \end{bmatrix} \\
+        &= (1-\lambda)^2
+    \end{align*}
+    $\lambda=1$ is the only eigenvalue and has a algebraic multiplicity of 2.
+    \begin{align*}
+        \begin{bmatrix}
+            0 & 1 \\
+            0 & 0
+        \end{bmatrix}u &= \begin{bmatrix}
+            0 \\ 0
+        \end{bmatrix} \\
+        u &= t \begin{bmatrix}
+            1 \\ 0
+        \end{bmatrix}
+    \end{align*}
+    The dimension of the 1-eigenspace has a dimension of 1, thus a geometric
+    multiplicity of 1.
+
+    \subsection*{Example 2}
+    Find the eigenvalues of the following matrix.
+    \begin{align*}
+        A &= \begin{bmatrix}
+            1 & -7 & 3 & 4 \\
+            0 & 2 & 1 & -1 \\
+            0 & 0 & 6 & 3 \\
+            0 & 0 & 0 & -1 \\
+        \end{bmatrix}
+    \end{align*}
+    \begin{align*}
+        A-\lambda I &= \begin{bmatrix}
+            1-\lambda & -7 & 3 & 4 \\
+            0 & 2-\lambda & 1 & -1 \\
+            0 & 0 & 6-\lambda & 3 \\
+            0 & 0 & 0 & -1-\lambda \\
+        \end{bmatrix} \\
+        det(A-\lambda I) &= (1-\lambda)(2-\lambda)(6-\lambda)(-1-\lambda) = 0 \\
+        \lambda &= 1,2,6,-1
+    \end{align*}
+\end{document}
