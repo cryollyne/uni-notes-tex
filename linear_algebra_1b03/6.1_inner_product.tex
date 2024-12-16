@@ -1,0 +1,208 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Inner Product}
+\author{Patrick Chen}
+\date{Nov 28, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Dot product}
+    The dot product $u\cdot v$ is a special case of inner product $\langle
+    u,v\rangle$ on $\mathbb{R}^n$.
+    \begin{align*}
+        u\cdot v = u^T v = \sum_n u_nv_n
+    \end{align*}
+    The dot product satisfies the following properties:
+    \begin{enumerate}
+        \item $u\cdot v = v\cdot u$
+        \item $u\cdot (v+w) = u\cdot v + u\cdot w$
+        \item $(cu)\cdot v = c(u\cdot v)$
+        \item $u\cdot u \ge 0$
+        \item $u\cdot u = 0$ iff $u=0$
+    \end{enumerate}
+    Properties (4) and(5) are very important for dot products.
+
+    \section*{Length and Angle}
+    Let $u,v\in\mathbb{R}^n$.
+    \begin{itemize}
+        \item $||u||$ represents the magnitude of $u$
+        \item $r$ represents the distance between $u$ and $v$
+        \item $\theta$ represents the angle between $u$ and $v$
+    \end{itemize}
+    \begin{align*}
+        ||u|| &= \sqrt{u\cdot u} = \sqrt{u_1^2 +u_2^2 + \dots + u_n^2} \\
+        r &= ||u-v|| \\
+        \cos(\theta)  &= \frac{u\cdot v}{||u||\ ||v||} \\
+    \end{align*}
+
+    \subsection*{Orthogonality}
+    Using cosine law
+    \begin{align*}
+        ||u||^2 + ||v||^2 - 2||u||||v||\cos(\theta)
+        &= ||u-v||^2 \\
+        &= (u-v)\cdot(u-v) \\
+        &= (u\cdot u) - 2(u \cdot v) + (v\cdot v) \\
+        ||u||^2 + ||v||^2 - 2||u||||v||\cos(\theta)
+        &= ||u||^2  + ||v||^2 - 2(u\cdot v) \\
+        -2u\cdot v &= -2 ||u|| ||v|| \cos(\theta) \\
+        \frac{u\cdot v}{||u|| ||v||}&=  \cos(\theta)
+    \end{align*}
+    If $\theta = \frac{\pi}{2}$, then $\cos\theta$ is zero. Two vectors are orthogonal
+    to each other if their dot products are zero.
+
+    \subsection*{Set of orthogonal vectors}
+    A set of vectors $\{v_1,\dots,v_n\}$ are orthogonal if all vectors in the
+    set are non-zero and all pairs of vectors have a dot product of zero. Often
+    the $e_1,\dots,e_n$ basis vectors are used as orthogonal vectors. A set of
+    orthogonal vectors are always linearly independent.
+
+    \subsection*{Proof of linear independence}
+    Suppose there is a orthogonal set $\{v_1,\dots,v_k\}$ and $c_1v_1+\dots+c_kv_k = 0$
+    \begin{align*}
+        (c_1v_1+\dots+c_kv_k) \cdot v_1 &= 0 \cdot v_1 \\
+        c_1(v_1\cdot v_1)+\dots+c_k(v_k\cdot v_1) &= 0 \\
+        c_1||v_1||^2+0+\dots+0 &= 0 \\
+        c_1||v_1||^2 &= 0 \\
+        c_1 &= 0
+    \end{align*}
+    By using this same process with each of the vectors in the orthogonal set,
+    all of the coefficients must be equal to zero and thus, orthogonal sets are
+    linearly independent.
+
+    \subsection*{Orthogonal Basis}
+    The coordinates in an orthogonal basis with dot products. If $w\in
+    span\{v_1,\dots,v_k\}$, then:
+    \begin{align*}
+        w &= c_1v_1 + \dots + c_kv_k \\
+        w\cdot v_i &= c_1 (v_1\cdot v_i) + \dots + c_i(v_i\cdot v_i) + \dots + c_k(v_k\cdot v_i)\\
+        w\cdot v_i &= c_1 (0) + \dots + c_i||v_i||^2 + \dots + c_k(0)\\
+        w\cdot v_i &= c_i ||v_i||^2 \\
+        \frac{w\cdot v_i}{||v_i||^2} &= c_i
+    \end{align*}
+    Often orthonormal basis are used. Since vectors in an orthonormal basis are
+    both mutually orthogonal and unit length, $||v_i||^2 = 1$ and thus, the
+    division is necessary.
+    \begin{align*}
+        c_i = w\cdot v_i
+    \end{align*}
+
+    \subsection*{Example 1}
+    Find $[w]_B$
+    \begin{align*}
+        B = \Bigg\{
+            \begin{bmatrix}
+                1 \\ 0 \\ 1
+            \end{bmatrix},
+            \begin{bmatrix}
+                -1 \\ 1 \\ 1
+            \end{bmatrix},
+            \begin{bmatrix}
+                1 \\ 2 \\ -1
+            \end{bmatrix}
+       \Bigg\},\quad w = \begin{bmatrix}
+        2 \\ 3 \\ 1
+       \end{bmatrix}
+    \end{align*}
+    \begin{align*}
+       ||v_1|| &= 2 \\
+       ||v_2|| &= 3 \\
+       ||v_3|| &= 6 \\
+       \frac{w\cdot v_1}{||v_1||^2} &= \frac{3}{2} \\
+       \frac{w\cdot v_2}{||v_2||^2} &= \frac{2}{3} \\
+       \frac{w\cdot v_3}{||v_3||^2} &= \frac{7}{6} \\
+       w &= \frac{3}{2} v_1 + \frac{2}{3} v_2 + \frac{7}{6} v_3 \\
+       [w]_B &= \renewcommand{\arraystretch}{1.4}\begin{bmatrix}
+            \frac{3}{2} \\ \frac{2}{3} \\ \frac{7}{6}
+       \end{bmatrix}
+    \end{align*}
+
+    \section*{Orthogonal complement}
+    Suppose that $W$ is a subspace of $\mathbb{R}^n$. The orthogonal complement
+    of $W$, written $W^\perp$ is defined as all vectors that are orthogonal to
+    $W$.
+    \begin{align*}
+        W^\perp &= \{ u\in\mathbb{R}^n : u\cdot w = 0 \text{ for all } w \in W\} \\
+        W\cap W^\perp &= \{0\}
+    \end{align*}
+
+    The orthogonal complex is a subspace and as such is closed under addition
+    and scalar multiplication. For any $w\in W$ and $u,v\in W^\perp$:
+    \begin{align*}
+        w \cdot (u+v) &= w\cdot u + w\cdot v \\
+        &= 0 + 0 \\
+        &= 0 \\
+        cw &= w\cdot cu \\
+        &= c(w\cdot u) \\
+        &= c(0) \\
+        &= 0
+    \end{align*}
+    The intersection of $W$ and $W^\perp$ is $\{\vec{0}\}$.
+    \begin{align*}
+        w &\in W \\
+        w &\in W^\perp \\
+        w \cdot w &= 0 \\
+        \therefore w &= \vec{0}
+    \end{align*}
+    The vector space $W$ is contained inside the orthogonal computed of the
+    orthogonal complex of $W$ If $w\in W$ and $u\in W^\perp$, $w\cdot u = 0$
+    therefore $w\in (W^\perp)^\perp$.
+    \begin{align*}
+        W \subseteq (W^\perp)^\perp
+    \end{align*}
+
+\end{document}
