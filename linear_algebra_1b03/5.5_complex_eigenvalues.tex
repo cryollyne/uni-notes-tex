@@ -1,0 +1,236 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Complex Eigenvalues}
+\author{Patrick Chen}
+\date{Nov 19, 2024}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Complex Numbers}
+    The imaginary unit $i$ is a number defined to be a number such that
+    $i^2=-1$. Complex numbers take the form $z=a+bi$.
+    \begin{itemize}
+        \item Addition: $(a+bi) + (c+di) = (a+c) + (b+d)i$
+        \item Multiplication: $(a+bi) \cdot (c+di) = (ac-bd) + (ad+bc)i$
+        \item Conjugate: $\overline{a+bi} = a-bi$
+        \item Magnitude: $||z|| = \sqrt{z\bar{z}} = \sqrt{a^2+b^2}$
+        \item Division: $\frac{1}{z} = \frac{1}{z} \frac{\bar{z}}{\bar{z}} = \frac{\bar{z}}{a^2+b^2}$
+    \end{itemize}
+
+    Complex addition and multiplication are both associative and commutative.
+    Complex numbers are useful because every non-constant complex polynomial of
+    degree $n$ has $n$ (possibly repeated) root when considering complex
+    polynomials.
+    \begin{align*}
+        r &= \sqrt{a^2+b^2} \\
+        a &= r\cos(\theta) \\
+        b &= r\sin(\theta) \\
+        z &= r(\cos(\theta) + i\sin(\theta)) = re^{i\theta}
+    \end{align*}
+    Complex Numbers can also be represented as angle and magnitude in what is
+    called polar coordinates. The angle is measured from the x-axis,
+    counter-clockwise.
+
+    \section*{Complex Eigenvalues}
+    $\mathbb{C}^n$ is a complex vector space where addition and scalar
+    multiplication is done component-wise. For a complex $n\times n$ matrix $A$,
+    we say $\lambda\in \mathbb{C}$ is a eigenvalue of $A$ if for some non-zero
+    $u\in \mathbb{C}^n$, $Au=\lambda u$. Linear systems, matrices, determinants,
+    eigenvalues, and diagonalization all remain unchanged when extending from
+    $\mathbb{R}^n$ to $\mathbb{C}^n$.
+
+    \subsection*{General Diagonalization for Complex Matrices}
+    A matrix $A$ is only diagonalizable when the algebraic multiplicity equals
+    the geometric multiplicity. Every symmetric real matrix has only real valued
+    eigenvalues and is diagonalizable. If the matrix has $n$ different
+    eigenvalues, then $A$ is diagonalizable.
+
+    \subsection*{General Notion of an eigenvalue}
+    Suppose that $T: V \mapsto V$ is a linear transformation defined on a vector
+    space $V$. If $T(v)=\lambda v$ for some non-zero $v\in V$, we say that
+    $\lambda$ is a eigenvalue for $T$ and $v$ is a eigenvector for $\lambda$.
+
+    \subsection*{Example 1}
+    \begin{align*}
+        A = \begin{bmatrix}
+            0 & -1 \\
+            1 & 0
+        \end{bmatrix} \\
+        det(A-\lambda I) = \lambda^2 + 1 \\
+        \lambda = \pm i
+    \end{align*}
+
+    \begin{align*}
+        \lambda &= i \\
+        A-\lambda I &= \begin{bmatrix}
+            -i & -1 \\
+            1 & -i
+        \end{bmatrix} \\
+        rref(A-\lambda I) &= \begin{bmatrix}
+            1 & -i \\
+            0 & 0
+        \end{bmatrix} \\
+        z_1 - iz_2 &= 0 \\
+        z_1 &= iz_2 \\
+        z &= t \begin{bmatrix}
+            i \\ 1
+        \end{bmatrix}
+    \end{align*}
+
+    \begin{align*}
+        \lambda &= -i \\
+        A-\lambda I &= \begin{bmatrix}
+            i & -1 \\
+            1 & i
+        \end{bmatrix} \\
+        rref(A-\lambda I) &= \begin{bmatrix}
+            1 & i \\
+            0 & 0
+        \end{bmatrix} \\
+        z_1 + iz_2 &= 0 \\
+        z_1 &= -iz_2 \\
+        z &= t \begin{bmatrix}
+            -i \\ 1
+        \end{bmatrix}
+    \end{align*}
+
+    \begin{align*}
+        P &= \begin{bmatrix}
+            i & -i \\
+            1 & 1
+        \end{bmatrix} \\
+        P^{-1} &= \frac{1}{2i} \begin{bmatrix}
+            1 & i \\
+            -1 & i
+        \end{bmatrix} \\
+        D &= \begin{bmatrix}
+            i & 0 \\
+            0 & -i
+        \end{bmatrix} \\
+        A &= 
+        \begin{bmatrix}
+            i & -i \\
+            1 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            i & 0 \\
+            0 & -i
+        \end{bmatrix}
+        \frac{1}{2i} \begin{bmatrix}
+            1 & i \\
+            -1 & i
+        \end{bmatrix} \\
+        &= \frac{1}{2i}
+        \begin{bmatrix}
+            i & -i \\
+            1 & 1
+        \end{bmatrix}
+        \begin{bmatrix}
+            i & 0 \\
+            0 & -i
+        \end{bmatrix}
+        \begin{bmatrix}
+            1 & i \\
+            -1 & i
+        \end{bmatrix} \\
+    \end{align*}
+
+    \subsection*{Example 2}
+    \begin{align*}
+        A &= \begin{bmatrix}
+            1 & -1 & 2 \\
+            0 & 2 & 1 \\
+            0 & 0 & 3 \\
+        \end{bmatrix} \\
+        \lambda = 1,2,3
+    \end{align*}
+    Since there are three distinct eigenvalues and the matrix $A$ is $3\times3$,
+    the matrix is diagonalizable.
+
+    \subsection*{Example 3}
+    Suppose that there is a transformation $T$ from infinitely differentiable
+    function ($C^\infty$) to infinitely different functions. Find the
+    eigenvalues for $T$.
+    \begin{align*}
+        T: C^\infty \mapsto C^\infty \\
+        T(f) = \frac{df}{dx}
+    \end{align*}
+
+    \begin{align*}
+        \frac{df}{dx} = \lambda f \\
+        f = ke^{\lambda x}
+    \end{align*}
+    Every $\lambda\in\mathbb{C}$ is a eigenvalue
+
+    \subsection*{Example 4}
+    Suppose that there is a linear transformation $T$ from polynomials to
+    polynomials. Find the eigenvalues for $T$.
+    \begin{align*}
+        T: P \mapsto P \\
+        T(p) = xp
+    \end{align*}
+
+    \begin{align*}
+        T(p) = \lambda p
+        p &= a_0 + a_1 x + \dots a_nx^n \\
+        T(p) &= a_0 x + a_1x^2 + \dots a_nx^{n+1}
+    \end{align*}
+    If $\lambda\ne0$, then $a_0=0$, and all the other coefficients are zero by
+    induction. If $\lambda=0$, then $p=0$, thus there are no eigenvalues.
+
+\end{document}
