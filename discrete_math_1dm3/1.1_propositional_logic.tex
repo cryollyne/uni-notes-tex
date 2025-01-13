@@ -1,0 +1,213 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Propositional Logic}
+\author{Patrick Chen}
+\date{Jan 6, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    A proposition is a declarative sentence with either a true or false value.
+    Usually, propositions are denoted by lowercase letters: $p,q,r$
+    \subsection*{Operators}
+    \begin{itemize}
+        \item Negation $\neg$ (NOT): $\neg p$ is the opposite of $p$.
+        \item conjunction $\wedge$ (AND): $p\wedge q$ is true when both $p$ and
+            $q$ are true.
+        \item disjunction $\vee$ (OR): $p\vee q$ is true when either $p$ or
+            $q$ is true.
+        \item Exclusive disjunction $\oplus$ (XOR): $p\oplus q$ is true when exactly one of $p$
+            and $q$ is true but not both.
+        \item Implication $\rightarrow$: conditional statement $p\rightarrow q$
+            is false when $p$ is true and $q$ is false, and true otherwise.
+            \begin{itemize}
+                \item if $p$, then $q$
+                \item $q$ if $p$
+                \item $p$ is sufficient for $q$
+                \item $q$ unless $\neg p$
+            \end{itemize}
+        \item Biconditional $\leftrightarrow$ (EQ): biconditional statement
+            $p\leftrightarrow q$ is the formalism for $(p \rightarrow q)\wedge(q
+            \rightarrow p)$.
+            \begin{itemize}
+                \item $p$ if and only if $q$
+            \end{itemize}
+    \end{itemize}
+
+    \section*{Manipulations of operators}
+    Two statements are equivalent if both have the same truth value. Equivalence
+    of statements is shown with the "$\equiv$" symbol. 
+
+    \subsection*{Implication}
+    If $p \rightarrow q$ then:
+    \begin{itemize}
+        \item converse: $q \rightarrow q$
+        \item contrapositive $\neg q \rightarrow \neg p$
+        \item inverse: $\neg p \rightarrow \neg q$
+    \end{itemize}
+    $p \rightarrow q \equiv \neg q \rightarrow \neg p$
+
+    \subsection*{Laws}
+    \begin{itemize}
+        \item Identity: $p \wedge T \equiv p$ and $p \vee F \equiv p$
+        \item Domination: $p \wedge F \equiv F$ and $p \vee T \equiv T$
+        \item Idempotent: $p \wedge p \equiv p$ and $p \vee p \equiv p$
+        \item Double Negation $\neg(\neg p) \equiv p$
+        \item Commutative: $p \wedge q \equiv q \wedge p$
+            and $p \vee q \equiv q \vee p$
+        \item Negation: $p \vee \neg p \equiv T$ and $p \wedge \neg p \equiv F$
+        \item Associative: $(p \vee q) \vee r \equiv p \vee (q \vee r)$
+            and $(p \wedge q) \wedge r \equiv p \wedge (q \wedge r)$
+        \item Distribution: $p \vee (q \wedge r) \equiv (p \vee q) \wedge (p \vee r)$
+            and $p \wedge (q \vee r) \equiv (p \wedge q) \vee (p \wedge r)$
+        \item De Morgan's: $\neg (p \vee q) \equiv \neg p \wedge \neg q$
+            and $\neg (p and q) \equiv \neg p \vee \neg q$
+        \item Absorption: $p \vee (p \wedge q) \equiv p$
+            and $p \wedge (p \vee q) \equiv p$
+        \item Implication: $p \rightarrow q \equiv \neg p \vee q$
+    \end{itemize}
+
+    \subsection*{Tautology}
+    A tautology is a statement that is always true. If the statement
+    $p \leftrightarrow q$ is a tautology, then $p \equiv q$
+
+    \subsection*{Example 1}
+    Show that $p \rightarrow q = \neg q \rightarrow \neg p$
+    \begin{align*}
+        p \rightarrow q &= \neg p \vee q  & \text{Implication} \\
+                        &= q \vee \neg p & \text{Commutative} \\
+                        &= \neg (\neg q) \vee (\neg p) & \text{Double Negative}\\
+                        &= \neg q \rightarrow \neg p & \text{implies}
+    \end{align*}
+
+    \subsection*{Example 2}
+    Show that $(p \rightarrow r) \wedge (q \rightarrow r) = (p \vee q) \rightarrow r$
+    \begin{align*}
+        (p \rightarrow r) \wedge (q \rightarrow r)
+        &= (\neg p \vee r) \wedge (\neg q \vee r) & \text{Implication} \\
+        &= (\neg p \wedge \neg q) \vee r & \text{Distribution} \\
+        &= \neg (p \vee q) \vee r & \text{De Morgan's} \\
+        &= (p \vee q) \rightarrow r & \text{Implication}
+    \end{align*}
+
+    \section*{Propositional Functions}
+    In zero order logic, there are no quantifiers (for all, there exists, etc.).
+    In order to extent Propositional logic, propositional functions are needed.
+    \subsection*{Quantifiers}
+    \begin{itemize}
+        \item Universal quantification of $P(x)$ is the proposition "$P(x)$ for
+            all values of x in the domain". This is denoted by $\forall x P(x)$.
+            If the proposition holds for all values in the domain, then
+            $\forall x P(x)$ evaluates to true, but if even one value in the
+            domain does not satisfy the proposition, then $\forall x P(x)$
+            evaluates to false.
+        \item Existential quantifiers of $P(x)$ is the proposition "There exists
+            an x in the domain such that $P(x)$". This is denoted by
+            $\exists x P(x)$. If the proposition $P(x)$ is true for even a
+            single value $x$ in the domain, then $\exists x P(x)$ is true. If
+            there are no values $x$ in the domain that satisfies the
+            proposition, then $\exists x P(x)$ is false.
+    \end{itemize}
+
+    \subsection*{Manipulations of quantifiers}
+    A negation can be brought inside a quantifier by inverting the quantifier.
+    \begin{align*}
+        \neg \forall x P(x) &= \exists x \neg P(x) \\
+        \neg \exists x P(x) &= \forall x \neg P(x)
+    \end{align*}
+    A negation can also be brought inside a propositional function.
+    \begin{align*}
+        \neg \forall x (x^2>x) = \exists x \neg (x^2>x) = \exists x (x^2 \le x)
+    \end{align*}
+
+    \subsection*{Example 3}
+    Show that
+    $\neg \forall x (P(x) \rightarrow Q(x)) = \exists x (P(x) \wedge \neg Q(x))$
+    \begin{align*}
+        \neg \forall x (P(x) \rightarrow Q(x))
+        &= \neg \forall x (\neg P(x) \vee Q(x)) & \text{ Implication}\\
+        &= \exists x \neg (\neg P(x) \vee Q(x)) & \text{ Quantifier}\\
+        &= \exists x (P(x) \wedge \neg Q(x)) & \text{ De Morgan's}\\
+    \end{align*}
+
+    \subsection*{Nested Quantifiers}
+    When quantifiers are nested, they are read left to right. Quantifiers of the
+    same type commute, but quantifiers of different types do not commute. For
+    example, let $P(x)$ = student $x$ falls asleep during lecture $y$. $\exists
+    x \forall y P(x)$ means that there is a student that falls asleep during all
+    lectures. $\forall y \exists x P(x)$ means that in every lecture, there is a
+    student that falls asleep.
+    \begin{align*}
+        \forall x \forall y P(x,y) = \forall y \forall x P(x,y) \\
+        \exists x \exists y P(x,y) = \exists y \exists x P(x,y) \\
+        \forall x \exists y P(x,y) \ne \exists y \forall x P(x,y) \\
+    \end{align*}
+    Although the quantifiers do not commute, then can imply other propositions
+    with nested quantifiers are true.
+    \begin{align*}
+        \exists x \forall y P(x,y) \rightarrow \forall y \exists x P(x,y)
+    \end{align*}
+
+    \subsection*{Example 4}
+    Is $\forall x \exists y (x^2-y^2 = 1)$ true for the domain $x,y\in \mathbb{R}$
+    \begin{align*}
+        \text{If } x &= \frac{1}{2} \\
+        \text{Then } y^2 &= -\frac{3}{4}
+    \end{align*}
+    Since no real number squared to a negative, this proposition is false.
+
+\end{document}
