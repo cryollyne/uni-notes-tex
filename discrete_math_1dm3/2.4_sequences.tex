@@ -1,0 +1,238 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Sequences}
+\author{Patrick Chen}
+\date{Jan 30, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Sequences}
+    A sequence is a function from a subset of integers to a set $S$. Usually,
+    the subset is the set of natural numbers $\mathbb{N}$ or positive integers
+    $\mathbb{Z}^+$. A finite sequence is called a string. Below, the expression
+    on the left denotes a infinite sequence and the expression on the right
+    denotes a finite sequence.
+    \[
+        \{a_n\} \quad \{a_n\}_{n=A}^{B}
+    \]
+    \begin{itemize}
+        \item $a_n$ is a term in the sequence
+        \item $A$ is where the sequence begins
+        \item $B$ is where the sequence ends.
+    \end{itemize}
+    \subsection*{Progression}
+    A geometric progression is
+    \[
+        \{a\cdot r^k\}_{k=0}^n = \{a, a\cdot r, a\cdot r^2, \dots, a\cdot r^n\}
+    \]
+    A arithmetic progression is:
+    \[
+        \{a+kd\}_{k=0}^n = \{a, a+d, a+2d, \dots, a+nd\}
+    \]
+    \subsection*{Recurrences}
+    A recurrence relation is a sequence where the next term depends on the
+    previous values.
+    \[
+        a_{n+1} = f(a_n)
+    \]
+    For a recursive sequence to have a unique closed form formula, there must be
+    initial conditions for the sequence.
+
+    \section*{Summations}
+    Given a sequence $\{a_k\}_{k=0}^n$, the partial sum of the sequence is
+    denoted by $S_n$.
+    \begin{align*}
+        S_n = \sum_{k=0}^n a_k
+    \end{align*}
+
+    The index of the sum can be changes.
+    \begin{align*}
+        \sum_{i=m}^{n} a_i = \sum_{i=m+k}^{n+k} a_{i-k} &&
+        \sum_{i=m}^{n} a_i = \sum_{i=m-k}^{n-k} a_{i+k}
+    \end{align*}
+
+    \subsection*{Summations of Geometric Progression}
+    The sum of a geometric progression is:
+    \begin{align*}
+        \sum_{k=0}^n ar^k
+    \end{align*}
+    If $r=1$, then
+    \begin{align*}
+        S_n &= \sum_{k=0}^n a \\
+        &= (n+1)a
+    \end{align*}
+    If $r \ne 1$, then
+    \begin{align*}
+        S_n &= \sum_{k=0}^n ar^k \\
+        rS_n &=\sum_{k=0}^n ar^{k+1} \\
+        rS_n &=\sum_{k=1}^{n+1} ar^{k} \\
+             &= \Big(\sum_{k=1}^{n} ar^{k}\Big) + ar^{n+1} \\
+             &= \Big(\sum_{k=1}^{n} ar^{k}\Big) + ar^{n+1} \\
+             &= \Big(\sum_{k=0}^{n} ar^{k}\Big) + a(r^{n+1} - 1) \\
+        rS_n &= S_n + a(r^{n+1} - 1) \\
+        S_n (r - 1) &= a(r^{n+1} - 1) \\
+        S_n  &= \frac{a(r^{n+1} - 1)}{r - 1} \\
+    \end{align*}
+    Thus,
+    \[
+        \sum_{k=0}^n ar^k = \begin{cases}
+            \frac{a(r^{n+1} - 1)}{r - 1}, &\text{ if } r\ne 1\\
+            (n+1)a &\text{ if } r = 1
+        \end{cases}
+    \]
+    When the sum is to infinity:
+    \begin{align*}
+        \sum_{k=0}^\infty ar^k
+        &= \lim_{n\to \infty} \sum_{k=0}^n ar^k \\
+        &= \lim_{n\to \infty} \begin{cases}
+            \frac{a(r^{n+1} - 1)}{r - 1}, &\text{ if } r\ne 1\\
+            (n+1)a &\text{ if } r = 1
+        \end{cases} \\
+        &= \begin{cases}
+            \frac{-a}{r - 1}, &\text{ if } |r| < 1 \\
+            DNE &\text{ if } |r| \ge 1
+        \end{cases} \\
+        &= \begin{cases}
+            \frac{a}{1 - r}, &\text{ if } |r| < 1 \\
+            DNE &\text{ if } |r| \ge 1
+        \end{cases}
+    \end{align*}
+
+    \subsection*{Common Summations}
+    There are a closed form solutions for many summations
+    \begin{align*}
+        \sum_{i=1}^{n} c &= cn \\
+        \sum_{i=1}^{n} i &= \frac{n(n+1)}{2} \\
+        \sum_{i=1}^{n} i^2 &= \frac{n(n+1)(2n+1)}{6} \\
+        \sum_{i=1}^{n} i^3 &= \bigg(\frac{n(n+1)}{2}\bigg)^2 \\
+        \sum_{k=0}^n ar^k &= \frac{a(r^{n+1} - 1)}{r - 1} \\
+        \sum_{k=0}^\infty x^k &= \frac{1}{1-x} \\
+        \sum_{k=1}^\infty kx^{k-1} &= \frac{1}{(1-x)^2} \\
+    \end{align*}
+
+    \subsection*{Double Sum}
+    For a sequence with two indices $\{a_{i,j}\}_{i,j\in \mathbb{Z}}$, the sum
+    is written as a double sum.
+    \[
+        \sum_i\sum_j a_{i,j}
+    \]
+    For finite sums, the order of evaluation does not matter and can be
+    exchanged.
+    \[
+        \sum_i\sum_j a_{i,j} = \sum_j\sum_i a_{i,j}
+    \]
+
+    \section*{Cardinality}
+    For finite sets, the cardinality is the amount of elements in the set. For
+    infinite set, if there is a bijection from one set to another, then they
+    have the same cardinality. If there is an injection from a set $A$ to a set
+    $B$, then the cardinality of $A$ is less than or equal to $B$
+    \[
+        A \hookrightarrow B \Rightarrow |A| \le |B|
+    \]
+
+    \subsection*{Countable Sets}
+    A set $A$ is countable if either $A$ is finite or there is a bijection
+    $f: A \mapsto \mathbb{Z}^+$. This is equivalent to being able to list the
+    elements of the set, indexed by $\mathbb{Z}^+$.
+    \begin{itemize}
+        \item Any subset of countable sets is countable.
+        \item The union of two countable sets is countable.
+    \end{itemize}
+    If a set is not countable, then it is called uncountable. The cardinality of
+    a countable set is denoted by $\aleph_0$.
+
+    \subsection*{Example 1}
+    The set of odd positive integers $A$ is a countable set.
+    \[
+        f: \mathbb{Z}^+ \mapsto A,\ f(n) = 2n+1
+    \]
+    Since $f$ is bijective, the cardinality of $A$ and $\mathbb{Z}^+$ is the
+    same and thus, it is countable.
+
+    \subsection*{Example 2}
+    Is $|\mathbb{Z}| = \mathbb{Z}^+$?
+    \[
+        \mathbb{Z} = \{0, 1, -1, 2, -2, 3, -3, \dots, n, -n, \dots\}
+    \]
+    Since there is an integer indexed list of elements for the set $\mathbb{Z}$,
+    it is a countable set.
+
+    \subsection*{Example 3}
+    Prove that the set of real numbers in between zero and one
+    $\mathbb{R}_{(0,1)}$ is an uncountable set.
+
+    Assume that (0,1) is countable and $d_{i,j}$ is an digit in base ten
+    \begin{align*}
+        r_{1} = 0.d_{11}d_{12}d_{13}d_{14}\dots \\
+        r_{2} = 0.d_{21}d_{22}d_{23}d_{24}\dots \\
+        r_{3} = 0.d_{31}d_{32}d_{33}d_{34}\dots \\
+        r_{4} = 0.d_{41}d_{42}d_{43}d_{44}\dots \\
+        \vdots
+    \end{align*}
+    Let $r=0.d_1d_2d_3d_4\dots$ be a new number such that
+    \[
+        d_i = \begin{cases}
+            4, &\text{ if } d_{ii} \ne 4 \\
+            5, &\text{ if } d_{ii} = 4
+        \end{cases}
+    \]
+    $r$ cannot be equal to any number in the list since $d_i \ne d_{ii}$. Thus
+    it is not in the list of numbers, therefore, the set of real numbers from
+    zero to one is not countable.
+\end{document}
