@@ -1,0 +1,238 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Functions}
+\author{Patrick Chen}
+\date{Jan 23, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\ceil}[1]{\lceil#1\rceil}
+\newcommand{\floor}[1]{\lfloor#1\rfloor}
+
+\begin{document}
+    \maketitle
+    A function is a mapping between two sets that maps an element from the input
+    set to exactly one element of the output set. If $f$ is a function that
+    takes an element of the set $A$ as the input and outputs a element of the
+    set $B$, then it is written as $f: A\mapsto B$
+
+    \subsection*{Representations}
+    \begin{itemize}
+        \item Implicit representation
+            \begin{align*}
+                f&: \mathbb{R} \mapsto \mathbb{R} \\
+                y &= f(x) \\
+                f(x) &= x^2 \\
+                y-x^2 &= 0
+            \end{align*}
+        \item Set representation
+            \begin{align*}
+                \{(a,3), (b,1), (c, 4),(d,3)\}
+            \end{align*}
+    \end{itemize}
+    \subsection*{Terminology}
+    For a function $f: A \mapsto B$:
+    \begin{itemize}
+        \item Domain: The domain is $A$
+        \item Codomain: The codomain is $B$
+        \item Image: For any $x\in A$, $f(x)$ is called the image of $A$.
+        \item Preimage: If for a $y\in B$, there is an $x\in A$ such that
+            $f(x)=y$, then $x$ is called the preimage of $y$.
+        \item Range: The range is the set of all possible outputs of $f$.
+        \item Image of a set: The image of a set $X\subseteq A$ is a set with
+            all the elements mapped through the function.
+            \[
+                f(X) = \{ f(x) \ |\ x\in X\}
+            \]
+    \end{itemize}
+
+    a function is real-valued if codomain is $\mathbb{R}$
+    a function is integer-valued if codomain is $\mathbb{Z}$
+
+    \subsection*{Operations}
+    \begin{itemize}
+        \item Two functions $f$ and $g$ are equal if:
+            \begin{itemize}
+                \item $f$ and $g$ have the same domain.
+                \item $f$ and $g$ have the same codomain.
+                \item $f(x) = g(x)$ for all values $x$ in the domain.
+            \end{itemize}
+        \item Addition: $(f+g)(x) = f(x) + g(x)$
+        \item Multiplication: $(fg)(x) = f(x)g(x)$
+    \end{itemize}
+
+    \subsection*{Types of Functions}
+    \begin{itemize}
+        \item A function $f$ is increasing if
+            \[
+                \forall x,y\in\mathbb{R}: (x\le y) \rightarrow (f(x)\le f(y))
+            \]
+        \item A function $f$ is strictly increasing if
+            \[
+                \forall x,y\in\mathbb{R}: (x<y) \rightarrow (f(x)<f(y))
+            \]
+        \item A function $f$ is decreasing if
+            \[
+                \forall x,y\in\mathbb{R}: (x\le y) \rightarrow (f(x)\ge f(y))
+            \]
+        \item A function $f$ is strictly decreasing if
+            \[
+                \forall x,y\in\mathbb{R}: (x<y) \rightarrow (f(x)>f(y))
+            \]
+    \end{itemize}
+    \begin{itemize}
+        \item A function is injective (one-to-one) if for all values in the
+            range, there is only one value in the domain that maps to it.
+            \[
+                f(a) = f(b) \Rightarrow a=b
+            \]
+            Every strictly increasing function $f$ is injective. \\
+            Proof: \\
+            Suppose $x\ne y$. Since $x\ne y$, $x<y$ or $x>y$ \\
+            If $x<y$, then $f(x)<f(y)$ since $f$ is strictly increasing.
+            Thus $f(x)\ne f(y)$. \\
+            If $x>y$, then $f(x)>f(y)$ since $f$ is strictly increasing.
+            Thus $f(x)\ne f(y)$.
+        \item A function $f: A \mapsto B$ is surjective (onto) if the range is the entire
+            codomain
+            \[
+                \forall b\in B\ \exists a\in A\ (f(a)=b)
+            \]
+        \item A function is bijective if it is both injective and surjective.
+    \end{itemize}
+
+    \subsection*{Bijective Functions}
+    For a function $f: A \mapsto B$, the following properties hold.
+    \begin{itemize}
+        \item range of $f$ is codomain $B$. This is because bijective functions
+            are surjective and by definition, onto.
+        \item Cardinality of domain and codomain is same size $|A|=|B|$. This is
+            because $f$ is a one-to-one correspondence.
+        \item the cardinality of preimage of each $b\in B$ is one. Since $f$ is
+            injective, the preimage is unique.
+    \end{itemize}
+    \subsection*{Function Composition}
+    The composition of functions $f: A \mapsto B$ and $g: B \mapsto C$ is
+    defined as
+    \begin{align*}
+        f \circ g: A&\mapsto C \\
+        x &\mapsto g(f(x))
+    \end{align*}
+
+    \subsection*{Inverse Functions}
+    A function $g: B \mapsto A$ is said to be the inverse if a function $f: A
+    \mapsto B$ if their composition is the identity. An inverse function of $f$
+    only exists if $F$ is bijective.
+    \begin{align*}
+        (g \circ f) (x) = id(x) = x
+    \end{align*}
+
+    \subsection*{Graph of a function}
+    The graph of a function is a set or ordered pair
+    \begin{align*}
+        \{ (a, f(a))\ |\ a \in A\}
+    \end{align*}
+
+    \subsection*{Important Functions}
+    \begin{itemize}
+        \item Floor function $f: \mathbb{R} \mapsto \mathbb{Z}$ is the largest
+            integer that is less than or equal to the input.
+            \[
+                f(x) = \floor{x}
+            \]
+        \item Ceiling function $f: \mathbb{R} \mapsto \mathbb{Z}$ is the
+            smallest integer that is greater than or equal to the input.
+            \[
+                f(x) = \ceil{x}
+            \]
+        \item Factorial $f: \mathbb{N} \mapsto \mathbb{Z}^+$
+            \[
+                f(x) = \begin{cases}
+                    1,              &\text{ if }x = 0\\
+                    x \cdot f(x-1)  &\text{ otherwise})
+                \end{cases}
+            \]
+    \end{itemize}
+
+    \subsection*{Example}
+    Prove that $\floor{2x} = \floor{x} + \floor{x+ \frac{1}{2}}$ for all $x\in
+    \mathbb{R}$ \\
+    let $x = n + \epsilon$ \\
+    If $0 \le \epsilon < \frac{1}{2}$
+    \begin{align*}
+        \floor{2x} &= \floor{2n+2\epsilon} \\
+        &= 2n + \floor{2\epsilon} \\
+        &= 2n
+    \end{align*}
+    \begin{align*}
+        \floor{x} + \floor{x + \frac{1}{2}}
+        &= \floor{n+\epsilon} + \floor{n + \epsilon + \frac{1}{2}} \\
+        &= n + \floor{\epsilon} + n + \floor{\epsilon + \frac{1}{2}} \\
+        &= 2n
+    \end{align*}
+    If $\frac{1}{2} \le \epsilon < 1$
+    \begin{align*}
+        \floor{2x} &= \floor{2n+2\epsilon} \\
+        &= 2n + \floor{2\epsilon} \\
+        &= 2n + 1
+    \end{align*}
+    \begin{align*}
+        \floor{x} + \floor{x + \frac{1}{2}}
+        &= n + \floor{\epsilon} + n + \floor{\epsilon + \frac{1}{2}} \\
+        &= 2n + 1\\
+    \end{align*}
+
+\end{document}
