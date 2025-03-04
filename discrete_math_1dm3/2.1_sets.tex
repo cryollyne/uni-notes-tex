@@ -1,0 +1,276 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Sets}
+\author{Patrick Chen}
+\date{Jan 20, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Sets}
+    A set is an unordered collections of distinct objects. They are represented
+    by curly brackets. An empty set is denoted by $\emptyset$. If $a$ is a
+    member of the set $A$, then it is denoted by $a\in A$. If a set is small,
+    then the roster method is usually used. The roster method is just writing
+    all of the members. If there is a pattern, then ellipses can be used. The
+    members of a set can be described by set builder notation.
+    \[
+        A = \{a_1,\ a_2,\ \dots\}
+    \]
+    \subsection*{Tuples}
+    A n-tuple $(a_1,a_2,\dots,a_n)$ is an ordered collection of $n$ elements.
+    \subsection*{Common Sets}
+    \begin{itemize}
+        \item Natural Numbers $\mathbb{N} = \{0,1,2,3,4,\dots\}$
+        \item Integers $\mathbb{Z} = \{\dots,-4,-3,-2,-1,0,1,2,3,4,\dots\}$
+        \item Positive Integers $\mathbb{Z}^+ = \{1,2,3,4,\dots\}$
+        \item Rational $\mathbb{Q}^+ = \{ \frac{p}{q}\ |\ p\in\mathbb{Z},q\in\mathbb{Z},q\ne 0\}$
+        \item Real $\mathbb{R}$
+        \item Positive Real $\mathbb{R}^+$
+        \item Universal Set $U$
+    \end{itemize}
+    The Universal set is the set of all elements in a bounding set.
+
+    \subsection*{Set Builder Notation}
+    Let $\mathbb{K}$ be a set and $P$ be a proposition.
+    \[
+        A = \{x \in \mathbb{K}\ |\ P\}
+    \]
+    A represents a set that contain all the elements of $\mathbb{K}$ such that
+    the proposition $P$ holds. $\mathbb{K}$ is considered the bounding set.
+
+    \subsection*{Interval Notation}
+    \begin{align*}
+        [a,b] = \{x\in \mathbb{R}\ |\ a \le x \le b\} \\
+        [a,b) = \{x\in \mathbb{R}\ |\ a \le x < b\} \\
+        (a,b] = \{x\in \mathbb{R}\ |\ a < x \le b\} \\
+        (a,b) = \{x\in \mathbb{R}\ |\ a < x < b\}
+    \end{align*}
+
+    \subsection*{Set operations}
+    \begin{itemize}
+        \item Equal: $A=B$ if and only if $\forall x (x\in A \leftrightarrow x
+            \in B)$
+            \begin{align*}
+                \{1,3,5,7\} &= \{1,1,1,5,5,7,7,4\} \\
+                \{1,2,3\} &\ne \{\{1,2\},3\} \\
+                \emptyset &\not\in \{1,2,3,4,5\}
+            \end{align*}
+
+        \item Subset: $A \subseteq B$ if and only if
+            $\forall x (x \in A \rightarrow x \in B)$
+            \begin{itemize}
+                \item $A \subseteq A$
+                \item If $A=B$ then $A\subseteq B$
+            \end{itemize}
+            \begin{align*}
+                \{1,3,5,7\} &\subseteq \{1,2,3,4,5,6,7,8,9\} \\
+                \{1\} &\subseteq \{1,2,3,4,5,6,7,8,9\} \\
+                \{\{1,2\}\} &\subseteq \{\{1,2\},3\} \\
+                \{1,3\} &\not\subseteq \{\{1,2\},3\} \\
+                \emptyset &\subseteq \{1,2,3,4,5\} \\
+            \end{align*}
+
+        \item Proper subset: $A \subset B$ if and only if
+            $(A\subseteq B) \wedge (A\ne B)$
+
+        \item Cardinality: $|A|$. The cardinality is the size of the set.
+            \begin{align*}
+                |\emptyset| &= 0 \\
+                |\{1,2,2,4\}| &= 3 \\
+                |\{\{1,2\},3\}| &= 2
+            \end{align*}
+
+        \item Power set: $\mathcal{P}(A)$ The set of all possible unique subsets.
+            $\mathcal{P}(A) = \{B\ |\ B \subseteq A\}$
+            \begin{align*}
+                \mathcal{P}(\{1,2,3\}) = \{\emptyset,\{1\}, \{2\}, \{3\},
+                \{1,2\}, \{1,3\}, \{2,3\}, \{1,2,3\}\}
+            \end{align*}
+
+        \item Cartesian product: The Cartesian product $A \times B$ is the
+            collection of all pairs $(a,b)$ with $a\in A$ and $b\in B$. Elements
+            of the Cartesian product are tuples.
+            \begin{align*}
+                A \times B = \{(a,b)\ |\ a\in A, b\in B\}
+            \end{align*}
+            The Cartesian product can be extended to work on multiple sets
+            \[
+                A_1\times A_2\times \dots\times A_n = \{(a_1,a_2,\dots,a_n)\
+                |\ a_1\in A_1,\ a_2\in A_2,\ \dots\ ,\ a_n\in A_n\}
+            \]
+
+        \item Union: The union of $A$ and $B$ is the elements that are in either
+            or both sets.
+            \[
+                A\cup B = \{x\ |\ x\in A \vee x\in B\}
+            \]
+
+        \item Intersection: The intersection of $A$ and $B$ is the elements that
+            both sets.
+            \[
+                A\cap B = \{x\ |\ x\in A \wedge x\in B\}
+            \]
+
+        \item Two sets are disjoint if they have no shared elements.
+            \[
+                A \cap B = \emptyset
+            \]
+
+        \item The difference between $A$ and $B$ is all the elements in $A$ that
+            are not in $B$.
+            \[
+                A-B = \{x\ |\ x\in A \wedge x\not\in B\}
+            \]
+
+        \item The complement of a set $A$ is everything that is not in $A$.
+            \[
+                \overline{A} = U-A
+            \]
+
+        \item Symmetric Difference: the symmetric difference of $A$ and $B$ are
+            all the elements in exactly one set but not both.
+            \[
+                A \oplus B = \{x\ |\ x\in A\cup B \wedge x\not\in A\cap B\}
+            \]
+    \end{itemize}
+
+    \subsection*{Example}
+    Show that $A-B = A\cap \overline{B}$
+    \begin{align*}
+        x\in (A-B) &= x \in A \wedge x \not\in B \\
+        &= x\in A \wedge x\in\overline{B} \\
+        &= x\in A\cap\overline{B}
+    \end{align*}
+
+    \section*{Set Identities}
+    \begin{itemize}
+        \item Identity
+            \begin{align*}
+                A\cup \emptyset &= A \\
+                A\cap U &= A
+            \end{align*}
+        \item Domination:
+            \begin{align*}
+                A\cup U &= U \\
+                A\cap \emptyset &= \emptyset
+            \end{align*}
+        \item Commutative:
+            \begin{align*}
+                A \cup B = B \cup A \\
+                A \cap B = B \cap A
+            \end{align*}
+        \item Associative
+            \begin{align*}
+                A \cup (B \cup C) = (A \cup B) \cup C \\
+                A \cap (B \cap C) = (A \cap B) \cap C
+            \end{align*}
+        \item Complementation:
+            \[
+                \overline{\overline{A}} = A
+            \]
+        \item DeMorgan's:
+            \begin{align*}
+                \overline{A\cap B} &= \overline{A} \cup \overline{B} \\
+                \overline{A\cup B} &= \overline{A} \cap \overline{B}
+            \end{align*}
+        \item Distributive
+            \begin{align*}
+                A\cup (B\cap C) &= (A\cup B) \cap (A\cup C) \\
+                A\cap (B\cup C) &= (A\cap B) \cup (A\cap C)
+            \end{align*}
+        \item Negation:
+            \begin{align*}
+                A\cup\overline{A}&=U \\
+                A\cap\overline{A}&=\emptyset
+            \end{align*}
+        \item Absorption
+            \begin{align*}
+                A\cup(A\cap B) &= A \\
+                A\cap(A\cup B) &= A \\
+            \end{align*}
+    \end{itemize}
+    \subsection*{Example}
+    Show that $A\oplus B=(A-B)\cup(B-A)$
+    \begin{align*}
+        (A-B)\cup (B-A)
+        &= (A\cap\overline{B})\cup(B\cap\overline{A}) & \text{Definition} \\
+        &= ((A\cap\overline{B})\cup B)\cap((A\cap\overline{B})\cup \overline{A}) & \text{Distributive}\\
+        &= ((A\cup B) \cap (\overline{B}\cup B)) \cap ((A\cup \overline{A}) \cap(\overline{B}\cup\overline{A})) & \text{Distributive} \\
+        &= ((A\cup B) \cap U) \cap (U \cap(\overline{B}\cup\overline{A})) \\
+        &= (A\cup B) \cap (\overline{B}\cup \overline{A}) \\
+        &= (A\cup B) \cap \overline{A\cap B} & \text{DeMorgan}\\
+        &= (A\cup B) - (A\cap B) \\
+        &= A\oplus B & \text{Definition}
+    \end{align*}
+
+    \subsection*{Union Notations}
+    Let $A_1,\dots,A_n$ be sets. The union and intersections of many sets can be
+    written with the big union and big intersection notation.
+    \begin{align*}
+        \bigcup_{i=1}^n A_i = A_1 \cup \dots \cup A_n \\
+        \bigcap_{i=1}^n A_i = A_1 \cap \dots \cap A_n
+    \end{align*}
+
+    \subsection*{Multiset}
+    A multiset is a generalization of set which allows repetition. The notation
+    we use for showing notation of an element is $n.a$ where $a$ is the element
+    and $n$ is the amount of notation.
+    \[
+        A = \{a_1.n_1,\ a_2.n_2\ \dots\}
+    \]
+\end{document}
