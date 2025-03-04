@@ -1,0 +1,331 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{ebproof}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Inference}
+\author{Patrick Chen}
+\date{Jan 13, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Inference}
+    We denote a inference as one (or more) premises leading to a conclusion. If
+    $p_1,\dots,p_n$ are premises and $q$ is a conclusion, then an inference is
+    $(p_1 \wedge \dots \wedge p_n) \rightarrow q$.
+
+    \[
+        \begin{prooftree}
+            \hypo{p_1}
+            \hypo{\dots}
+            \hypo{p_n}
+            \infer3{q}
+        \end{prooftree}
+    \]
+
+    If there are propositional functions, then 
+    \[
+        \begin{prooftree}
+            \hypo{\forall x P(x)}
+            \infer1{P(c) \text{ for all $c$ in the domain}}
+        \end{prooftree}
+        \quad
+        \begin{prooftree}
+            \hypo{\exists x P(x)}
+            \infer1{P(c) \text{ for some $c$ in the domain}}
+        \end{prooftree}
+    \]
+
+    \begin{itemize}
+        \item Modus Ponens
+            \[
+                \begin{prooftree}
+                    \hypo{p \rightarrow q}
+                    \hypo {p}
+                    \infer2{q}
+                \end{prooftree}
+            \]
+        \item Modus Tollens
+            \[
+                \begin{prooftree}
+                    \hypo{p \rightarrow q}
+                    \hypo{\neg q}
+                    \infer2{\neg p}
+                \end{prooftree}
+            \]
+        \item Hypothetical Syllogism
+            \[
+                \begin{prooftree}
+                    \hypo{p \rightarrow q}
+                    \hypo{q \rightarrow r}
+                    \infer2{p \rightarrow r}
+                \end{prooftree}
+            \]
+        \item Disjunctive Syllogism
+            \[
+                \begin{prooftree}
+                    \hypo{p \vee q}
+                    \hypo{\neg p}
+                    \infer2{q}
+                \end{prooftree}
+            \]
+        \item Addition
+            \[
+                \begin{prooftree}
+                    \hypo{p}
+                    \infer1{p \vee q}
+                \end{prooftree}
+            \]
+        \item Simplification
+            \[
+                \begin{prooftree}
+                    \hypo{p \wedge q}
+                    \infer1{q}
+                \end{prooftree}
+            \]
+        \item Conjunction
+            \[
+                \begin{prooftree}
+                    \hypo{p}
+                    \hypo{q}
+                    \infer2{p \wedge q}
+                \end{prooftree}
+            \]
+        \item Resolution
+            \[
+                \begin{prooftree}
+                    \hypo{p \vee q}
+                    \hypo{\neg p \vee r}
+                    \infer2{q \vee r}
+                \end{prooftree}
+            \]
+    \end{itemize}
+
+    \subsection*{Example}
+    \[
+        \begin{prooftree}
+            \hypo{\neg p \wedge q}
+            \hypo{r \rightarrow p}
+            \hypo{\neg r \rightarrow s}
+            \hypo{s \rightarrow t}
+            \infer4{t}
+        \end{prooftree}
+    \]
+    Since $\neg p$ is true from $r \rightarrow p$ we see that $\neg r$ must be
+    true.
+
+    \[
+        \begin{prooftree}
+            \hypo{\neg p \wedge q}
+            \hypo{r \rightarrow p}
+            \infer2{\neg r}
+        \end{prooftree}
+    \]
+    From $\neg r \rightarrow s$ and $\neg r$, we see that $s$ must be true
+    (modus ponens).
+
+    \[
+        \begin{prooftree}
+            \hypo{\neg r}
+            \hypo{\neg r \rightarrow s}
+            \infer2{s}
+        \end{prooftree}
+    \]
+    From $s \rightarrow t$ and $s$ we conclude that $t$ must be true.
+
+    \[
+        \begin{prooftree}
+            \hypo{s}
+            \hypo{s \rightarrow t}
+            \infer2{t}
+        \end{prooftree}
+    \]
+
+    \subsection*{Example 2}
+    \[
+        \begin{prooftree}
+            \hypo{(p \wedge q) \vee r}
+            \hypo{r \rightarrow s}
+            \infer2{p \vee s}
+        \end{prooftree}
+    \]
+    If $r$ is false, then $(p \wedge q) \vee r$, $p \wedge q$ must be T.
+    Therefore, $p$ is true and hence $p \vee s$ is true.
+    \[
+        \begin{prooftree}
+            \hypo{\neg r}
+            \hypo{(p \wedge q) \vee r}
+            \infer2{p \wedge q}
+            \infer1{p}
+            \infer1{p \vee s}
+        \end{prooftree}
+    \]
+    If $r$ is true, then $s$ is true from $r \rightarrow s$, therefore $p \vee
+    s$ is true.
+    \[
+        \begin{prooftree}
+            \hypo{r}
+            \hypo{r \rightarrow s}
+            \infer2{s}
+            \infer1{p \vee s}
+        \end{prooftree}
+    \]
+
+    \subsection*{Example 3}
+    Determine whether the following argument is valid.
+    \[
+        \begin{prooftree}
+            \hypo{p \rightarrow r}
+            \hypo{q \rightarrow r}
+            \hypo{\neg r}
+            \infer3{p \vee q}
+        \end{prooftree}
+    \]
+    This argument is not valid.
+    \[
+        \begin{prooftree}
+            \hypo{p \rightarrow r}
+            \hypo{\neg r}
+            \infer2{\neg p}
+            \hypo{q \rightarrow r}
+            \hypo{\neg r}
+            \infer2{\neg q}
+            \infer2{\neg p \wedge \neg q}
+            \infer1{\neg (p \vee q)}
+        \end{prooftree}
+    \]
+
+    \section*{Proofs}
+    \subsection*{Nomenclature}
+    \begin{itemize}
+        \item Theorem: and important mathematical result
+        \item Proposition: less important mathematical result
+        \item Lemma a result that is needed to prove a theorem
+        \item Corollary: a result that directly follows from a theorem
+    \end{itemize}
+
+    \subsection*{Methods of Proofs}
+    \begin{itemize}
+        \item Direct proof: use all lines of reasoning. In a direct proof, we
+            show that $P(c) \rightarrow Q(c)$ for any arbitrary $c$ in the
+            domain. We start with a hypothesis $P(c)$ and work to show that
+            $Q(c)$ is true.
+        \item Proof by contraposition: proving the contraposition. Since $P(c)
+            \rightarrow Q(c) \equiv \neg Q(c) \rightarrow \neg P(c)$, we can
+            prove that $\neg Q(c) \rightarrow \neg P(c)$.
+        \item Proof by contradiction: assume that the theorem is false, then use
+            lines of reasoning until there is a contradiction. If we wish to
+            prove that $P(c) \rightarrow Q(c)$, for some $c$ in the domain, we
+            want to show that $P(c) \wedge \neg Q(c)$ is false.
+        \item Proof by cases: proving all cases of a theorem. If we have as
+            statement that can be expressed as multiple cases $P(c)\equiv P_1(c)
+            \vee P_2(c) \vee \dots P_n(c)$, then we need to show that all
+            possible cases is true, or equivalently $(P_1(c) \rightarrow Q(c))
+            \wedge \dots \wedge (P_n(c) \rightarrow Q(c))$.
+    \end{itemize}
+
+    \subsection*{Example}
+    $P(n) = $ $n$ is odd\\
+    $Q(n) = $ $n^2$ is odd\\
+    Prove that $P(n) \rightarrow Q(n)$ \\
+    If $n$ is odd, then $n=2k+1$ for some $k\in \mathbb{Z}$. \\
+    $n^2 = (2k+1)^2 = 4k^2+4k+1 = 2(2k^2+2k) + 1 = 2k'+1$
+
+    \subsection*{Example 2}
+    For integers $m$ and $n$, show that if $nm$ is even, then either $m$ or $n$
+    is even. \\
+    Using contraposition, if $m$ and $n$ is odd, then $mn$ is odd.
+    \begin{align*}
+        m &= 2k_1 + 1 \\
+        n &= 2k_2 + 1 \\
+        mn &= (2k_1 + 1) (2k_2 + 1) \\
+        &= 4k_1k_2 + 2k_1 + 2k_2 + 1 \\
+        &= 2(2k_1k_2 + k_1 + k_2) + 1 \\
+        &= 2k' + 1 \\
+        \text{where } k' &= 2k_1k_2 + k_1 + k_2
+    \end{align*}
+
+
+    \subsection*{Example 3}
+    For all real number $x$, prove that $x \le |x|$. \\
+    $P(x)\equiv\forall x (x\le|x|)\equiv (\forall x<0\ (x\le |x|)) \wedge
+    (\forall x \ge 0\ (x\le|x|))$ \\
+    If $x<0$ then negative $<$ positive. \\
+    If $x\ge 0$, then $|x| = x \le x$
+    therefore $x\le |x|$
+
+    \subsection*{Example 4}
+    Prove that $\sqrt{2}$ is irrational.
+    Suppose that $\sqrt{2}$ is rational. Then:
+    \begin{align*}
+        \sqrt{2} = \frac{a}{b}
+    \end{align*}
+    where $a$ and $b$ are coprime (no common factors).
+    \begin{align*}
+        b\sqrt{2} &= a \\
+        2b^2 &= a^2
+    \end{align*}
+    Since $2b^2$ is even, $a^2$ is even, thus $a=2k$.
+    \begin{align*}
+        2b^2 &= (2k)^2 \\
+             &= 4k^2 \\
+        b^2  &= 2k^2
+    \end{align*}
+    Thus, $b$ is also even and have a common factor of 2. This is a
+    contradiction, therefore the assumption is false. Thus, $\sqrt{2}$ must be
+    irrational.
+
+\end{document}
