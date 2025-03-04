@@ -1,0 +1,129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Matrices}
+\author{Patrick Chen}
+\date{Feb 6}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    A matrix with $m$ rows and $n$ columns is called an $m\times n$ matrix and
+    can be considered a 2d array. If $m=n$, then the matrix is square.
+    \begin{align*}
+        \begin{bmatrix}
+            a_{11} & a_{12} & \\
+            a_{21} & a_{22} &\dots \\
+                   & \vdots &
+        \end{bmatrix}
+    \end{align*}
+    Two matrices are equal if they have the same dimension and all their
+    elements are equal. The sum and difference is done entry-wise.
+    \[
+        C = A + B \Leftrightarrow c_{ij} = a_{ij} + b_{ij}
+    \]
+    For a $m\times k$ matrix $A$ and a $k \times n$ matrix $B$ then the product
+    is a $m\times n$ matrix defined as follows. Matrix multiplication is not
+    commutative.
+    \begin{align*}
+        C = AB \Leftrightarrow c_{ij} = \sum_{r=1}^k a_{ir}b_{rj}
+    \end{align*}
+    The identity matrix (denoted by $I$) is a matrix with ones along the diagonal and zeros in
+    all other elements. It has the special property that any matrix multiplied
+    with it will result in the same matrix.
+    \[
+        I \Leftrightarrow i_{ij} = \begin{cases}
+            1, &\text{ if } i = j\\
+            0, &\text{ otherwise}
+        \end{cases}
+    \]
+    The power of a matrix is the repeated multiplication of that matrix with
+    itself. A matrix to the power of zero is the identity matrix.
+    \[
+        A^n = \underbrace{A A \dots A}_{n}
+    \]
+    The inverse of a $n\times n$ matrix $A$ is a matrix $B$ such that the
+    product of the two is the identity matrix.
+    \[
+        A^{-1} A = I
+    \]
+    The transpose of a $n\times m$ matrix $A$ is a $m\times n$ matrix $A^T$. The
+    transpose of a matrix if another matrix that is reflected about the main
+    diagonal.
+    \[
+        B = A^T \Leftrightarrow b_{ij} = a_{ji}
+    \]
+    A symmetric matrix $A$ is a matrix such that $A=A^T$
+
+    \subsection*{Zero-One Matrix}
+    A zero-one matrix is a matrix where all the elements are either zero or one.
+    There are some operations that work on them
+    \begin{itemize}
+        \item The join of $A$ and $B$ is
+            \[
+                C=A \vee B \Leftrightarrow c_{ij} = a_{ij} \vee b_{ij}
+            \]
+        \item The meet of $A$ and $B$ is
+            \[
+                C=A \wedge B \Leftrightarrow c_{ij} = a_{ij} \wedge b_{ij}
+            \]
+        \item The boolean product of two matrices
+            \[
+                C=A\odot B \Leftrightarrow (a_{i1} \wedge b_{1j}) \vee (a_{i2} \wedge b_{2j})\dots
+            \]
+    \end{itemize}
+
+\end{document}
