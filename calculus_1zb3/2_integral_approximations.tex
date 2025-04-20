@@ -1,0 +1,113 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Approx}
+\author{Patrick Chen}
+\date{Jan 22, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Integral Approximation}
+    \begin{align*}
+        S_m &= \sum_{n=1}^{m} a_n \\
+        R_m &= \sum_{n=m+1}^{\infty} a_n \\
+        S_\infty &= S_m + R_m \\
+        S_\infty &\approx S_m + \int_{m}^{\infty} f(x) \ dx \\
+        \int_{m+1}^{\infty} f(x) \ dx \le S&-S_m \le \int_{m}^{\infty} f(x) \ dx
+    \end{align*}
+    If $f(x)$ is positive continuous and monotonic decreasing then
+    \begin{align*}
+        \sum_{n=1}^{\infty} a_n \le S_m + \int_{m}^{\infty} f(x) \ dx
+    \end{align*}
+
+    \subsection*{Example}
+    Approximate $\sum_{n=1}^{\infty} \frac{1}{n^2}$
+    \begin{enumerate}
+        \item using only the fourth partial sum.
+        \item within an error of 0.03.
+    \end{enumerate}
+
+    \begin{align*}
+        S-S_4 = R_4 &\le \int_{4}^{\infty} 1/x^2 \ dx \\
+        &\le \Big[-1/x\Big]_4^{\infty} \\
+        &\le -\frac{1}{\infty} - -\frac{1}{4} \\
+        S-S_4&\le \frac{1}{4}
+    \end{align*}
+
+    \begin{align*}
+        S-S_m &\le 0.03 \\
+        S-S_m \le \int_{m}^{\infty} \frac{1}{x^2} \ dx &\le 0.03 \\
+        \Big[-\frac{1}{x} \Big]_m^\infty &\le 0.03 \\
+        \frac{1}{m} &\le 0.03 \\
+        m &\ge \frac{1}{0.03} \\
+        m &\ge 33.\bar{3}
+    \end{align*}
+    Since we are looking for the minimum possible approximation (that
+    has to be a whole number), $m=34$.
+
+    \section*{Alternating Series Approximation}
+    An alternating series that has terms whose absolute value is  monotonic
+    decreasing will oscillate between being greater than and being less than the
+    convergent value.
+    \[
+        |S - S_m| = \Big|\sum_{n=m+1}^{\infty} (-1)^n b_n\Big| \le b_{m+1}
+    \]
+    For something like $b_n= \frac{1}{n^2}$, just using 5 terms will give only
+    an error of $\frac{1}{5^2} = 0.04$. Since alternating series converge much
+    faster, integral approximations not needed as often.
+
+\end{document}
