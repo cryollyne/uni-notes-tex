@@ -1,0 +1,341 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Sequences}
+\author{Patrick Chen}
+\date{Jan 13, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    A sequence is a ordered list of real values. The list may or may not be
+    infinite length. A sequence can be expressed either explicitly where there
+    is a formula for the nth term or recursively where each term relies on the
+    previous terms. A sequence is convergent if it approaches a value when the
+    limit is taken, otherwise it is
+    divergent.
+    \begin{align*}
+        \Big(\lim_{n\rightarrow\infty} a_n = L\Big) &\Rightarrow \text{ convergent} \\
+        \Big(\lim_{n\rightarrow\infty} a_n \ne L\Big) &\Rightarrow \text{ divergent}
+    \end{align*}
+    For a recursive sequence, if the limit exists, it must be a fixed point of
+    the recursion relation.
+    \[
+        \Big(\lim_{n\to \infty} a_{n+1}=f(a_n)\Big) \Rightarrow \Big(f(L)=L\Big)
+    \]
+
+    \subsection*{Example}
+    For the following series, find the limit assuming that it exists.
+    \begin{align*}
+        a_{n+1} = \sqrt{a_n + 2} \\
+        a_1 = 0 \\
+    \end{align*}
+    \begin{align*}
+        L &= \sqrt{L+2} \\
+        L^2 &= L+2 \\
+        L^2 - L - 2 &= 0 \\
+        (L-2)(L+1) &= 0 \\
+        L &= 2, -1
+    \end{align*}
+    Since $-1$ can not be the result of a square root in the domain of real
+    numbers, $L=2$
+
+    \section*{Series}
+    A series is an infinite sum of a sequence.
+    \begin{align*}
+        \sum_{n=1}^{\infty} a_n = \lim_{m\to \infty} \sum_{n=1}^{m} a_n
+    \end{align*}
+    If the limit exists, then the series is convergent. Otherwise the series is
+    divergent. A m-th partial sum $S_m$ is the sum containing the first m
+    vales.
+    \begin{gather*}
+        S_m = \sum_{n=1}^{m} a_n \\
+        S = S_\infty = \lim_{m\to \infty} S_m
+    \end{gather*}
+
+    \subsection*{Geometric Series}
+    \begin{align*}
+        \sum_{i=1}^{n} ar^{i-1} = \frac{a(1-r^n)}{1-r}
+    \end{align*}
+    Convergence:
+    \begin{align*}
+        \lim_{n\to \infty} S_n &= \lim_{n\to \infty} \frac{a}{1-r} (1-r^n) \\
+        &= \frac{a}{1-r} (1-\lim_{n\to \infty} r^n)
+    \end{align*}
+    If $|r|<1$, then the limit will be zero and the result is $\frac{a}{1-r}$.
+    If $|r|>1$, then the limit will diverge to infinity. If $r=1$, then the sum
+    will add a constant an infinite amount of times and will diverge to
+    infinity. If $r=-1$, the sum will osculate and not converge.
+
+    \subsection*{P-Series}
+    \begin{align*}
+        \sum_{n=1}^{\infty} \frac{1}{n^p}
+    \end{align*}
+    The p-series converge for all $p>1$ and diverge for all $p\le 1$
+
+    \subsection*{Alternating Series}
+    An alternating series is a series that alternates between adding and
+    subtracting a term. If $b_n>0$ then:
+    \[
+        \sum_{n=1}^{\infty} (-1)^n b_n
+    \]
+
+    \section*{Convergence}
+    A sequence $\{a_n\}_{n=1}^{\infty}$ is bounded if for all $n$, $a < a_n < b$
+    for some values $a$, $b$. A sequence is monotonic increasing if $a_n \le
+    a_{n+1}$ and is monotonic decreasing if $a_n \ge a_{n+1}$. A sequence that
+    is both bonded and monotonic will converge.
+
+    \subsection*{Example}
+    Use induction to show that the sequence $a_n = \sqrt{a_n + 2}$, $a_1=0$ is
+    monotonic increasing. \\
+    Base Case:
+    \begin{align*}
+        a_1 &= 0 \\
+        a_2 &= \sqrt{a_1 + 2} \\
+        &= \sqrt{0+2} \\
+        &= \sqrt{2} \\
+        0 &\le \sqrt{2} \\
+        \therefore a_1 &\le a_2
+    \end{align*}
+    Assume $0\le a_{k} \le a_{k+1}$ \\
+    $2 \le  a_k + 2 \le a_{k+1}$ \\
+    Since square roots is monotonic increasing, $\sqrt{2} \le  \sqrt{a_k + 2} \le \sqrt{a_{k+1}+2}$ \\
+    Thus, $0 \le a_{k+1} \le a_{k+2}$ for all $k$
+
+    \subsection*{Example 2}
+    \begin{align*}
+        \sum_{n=1}^{\infty} \ln(\frac{n}{n+1})
+    \end{align*}
+    \begin{align*}
+        \sum_{n=1}^{\infty} \ln(\frac{n}{n+1})
+        &= \sum_{n=1}^{\infty} \ln(n) - \ln(n+1) \\
+        &= \lim_{m\to \infty} \sum_{n=1}^{m} \ln(n) - \ln(n+1) \\
+        &= \lim_{m\to \infty} \Big(\ln(1) - \ln(2)\Big) + \Big(\ln(2) - \ln(3)\Big) + \dots + \ln(m+1) \\
+        &= \lim_{m\to \infty} \ln(1) - \ln(m + 1) \\
+        &= -\infty
+    \end{align*}
+    Therefore, this series diverges.
+
+    \subsection*{Absolute and Conditional Convergence}
+    If a positive series converges, then a series with any sign change will also
+    converge.
+    \[
+        \Big(\sum_{n=1}^{\infty} |a_n| \text{ converges}\Big) \Rightarrow
+        \Big(\sum_{n=1}^{\infty} a_n \text{ converges}\Big)
+    \]
+    Assume $\sum |a_n|$ converges.
+    \[
+        0 \le a_n + |a_n| \le 2|a_n|
+    \]
+    By comparison test, $\sum (a_n + |a_n|)$ will converge if $\sum |a_n|$
+    converges. Since $\sum(a_n+|a_n|)$ and $\sum |a_n|$ both converges, the
+    difference between them will also converge.
+    \[
+        \sum (a_n + |a_n|) - \sum |a_n| = \sum a_n
+    \]
+    If $\sum |a_n|$ diverges but $\sum a_n$ converges, it is said to be
+    conditionally convergent.
+
+    \subsection*{Divergence Test}
+    If the Limit of a sequence converges to a non-zero constant, then the series
+    will diverge.
+    If the term goes to zero, this doesn't imply it will converge.
+    \begin{align*}
+        \Big(\lim_{m\to \infty} a_m \ne 0\Big)
+        \Rightarrow \Big(\sum_{n=1}^{\infty} a_n \text{ diverges}\Big)
+    \end{align*}
+    Proof:
+    \begin{align*}
+        a_n &= S_m - S_{m-1} \\
+        L &= \lim_{m\to \infty} S_m \\
+    \end{align*}
+    \begin{align*}
+        \lim_{m\to \infty} S_m - S_{m-1} &= \lim_{m\to \infty} a_m \\
+        L-L &= \lim_{m\to \infty} a_m \\
+        0 &= \lim_{m\to \infty} a_m
+    \end{align*}
+
+    \subsection*{Integral Test}
+    The integral test works by comparing the area under the graph of a function
+    $f(n)=a_n$ with the area of a summation. If a $f(n)$ is positive,
+    continuous, and monotonic decreasing, then the convergence of the integral
+    of $f(x)$ will imply the convergence of the series. The $f(x)$ only needs to
+    be monotonic decreasing after a certain point $a$ for this test to work.
+    \[
+        \Big(\int_{a}^{\infty} f(x) \ dx \text{ converges}\Big)
+        \Rightarrow \Big(\sum_{n=a}^{\infty} a_n \text{ converges}\Big)
+    \]
+
+    \subsection*{Example}
+    \begin{align*}
+        \sum_{n=2}^{\infty} \frac{1}{n\ln(n)}
+    \end{align*}
+    \begin{align*}
+        \text{Let } f(x) = \frac{1}{x\ln(x)}
+    \end{align*}
+    $f(x)$ is positive for values of $n\ge 2$ and continuous for $n\ge 2$. Since
+    the denominator is always growing, then $f(x)$ is monotonic decreasing.
+    \begin{align*}
+        \int_{2}^{\infty} \frac{1}{x\ln(x)} \ dx \\
+        u = \ln(x) \\
+        du = \frac{1}{x} dx \\
+        \int_{\ln(2)}^{\infty} \frac{1}{u} \ du
+    \end{align*}
+    Since this integral diverges, the series will also diverge.
+
+    \subsection*{Comparison Test}
+    If there are to series $A$ and $B$ with $0\le a_n \le b_n$, then if $A$ diverges
+    to infinity, then $B$ will diverge to infinity. If $B$ converges to a finite
+    value and $a_n$ is monotonic, then $A$ will converge because $a_n$ is
+    monotonic and bounded.
+
+    \subsection*{Limit Comparison Test}
+    For two series $A$ and $B$, if the limit of the ratio between terms $L$ is a
+    non-zero finite value, then $A$ will converge if and only if $B$ converges
+    and $A$ will diverge if and only if $B$ diverges.
+    \[
+        \lim_{n\to \infty} \frac{a_n}{b_n} = L
+    \]
+
+    \subsection*{Alternating Series Test}
+    An alternating series converges if $b_n$ is monotonic decreasing and the
+    limit goes to zero.
+    \[
+        b_n \ge b_{n+1}, \quad \lim_{n\to \infty} b_n = 0
+    \]
+    % when split S_even and S_odd is monotonic and bounded
+    If the limit does not go to zero, the divergence test shows that it
+    diverges. If the terms are not monotonic decreasing, it may or may not
+    converge.
+
+    \subsection*{Ratio Test}
+    In a geometric series, the next term is a ratio of the previous term. Since
+    the geometric series is absolutely convergent, any sequence that behaves
+    like geometric series will be absolutely convergent.
+    \[
+        \sum_{n=1}^{\infty} ar^{n-1} = a + ar + ar^2 + \dots
+    \]
+    Given a series, if the limit of the absolute value of the ratio between
+    consecutive terms is less than 1, then it will converge. If it is greater
+    than 1, it will diverge. The ratio test does not provide any useful
+    information if the ratio is equal to 1.
+    \[
+        \lim_{n\to \infty} \Big|\frac{a_n}{a_{n+1}}\Big| = L
+    \]
+    \begin{align*}
+        \big(L = 1\big) &\Rightarrow \text{ No useful information} \\
+        \big(L < 1\big) &\Rightarrow \text{ Convergence} \\
+        \big(L > 1\big) &\Rightarrow \text{ Divergence} \\
+    \end{align*}
+
+    \subsection*{Root Test}
+    The root test is more powerful than the ratio test but is much more painful
+    to work with.
+    \begin{align*}
+        \sqrt[n]{|a_n|}
+        &= |a_n|^{\frac{1}{n}} \\
+        &= |a|^{\frac{1}{n}}|r|^{\frac{n-1}{n}} \\
+        \lim_{n\to \infty} |a_n|^{\frac{1}{n}} &= |r|
+    \end{align*}
+    \[
+        L = \lim_{n\to \infty} \sqrt[n]{|a_n|}
+    \]
+    \begin{align*}
+        \big(L = 1\big) &\Rightarrow \text{ No useful information} \\
+        \big(L < 1\big) &\Rightarrow \text{ Convergence} \\
+        \big(L > 1\big) &\Rightarrow \text{ Divergence} \\
+    \end{align*}
+
+    \subsection*{Example}
+    Does the following series converge? Use the ratio test.
+    \begin{align*}
+        \sum_{n=1}^{\infty} \frac{3\cdot 5\cdot 7\cdots (2n+1)}{2n!}
+    \end{align*}
+    \begin{align*}
+        | \frac{a_{n+1}}{a_n} |
+        &= 
+        \frac{\frac{3\cdot 5\cdot 7\cdots (2(n+1)+1)}{(2(n+1))!}}
+        {\frac{3\cdot 5\cdot 7\cdots (2n+1)}{2n!}} \\
+        &= 
+        \frac{\frac{3\cdot 5\cdot 7\cdots (2n+1)\cdot(2n+3)}{(n+1)(n+2)\cdot(2n)!}}
+        {\frac{3\cdot 5\cdot 7\cdots (2n+1)}{2n!}} \\
+        &= 
+        \frac{2n+3} {(n+1)(n+2)} \\
+        \lim_{n\to \infty} | \frac{a_{n+1}}{a_n} |
+        &= \lim_{n\to \infty} \frac{2n+3} {(n+1)(n+2)} \\
+        &= 0
+    \end{align*}
+    Since the limit goes to zero, this sequence is absolutely convergent.
+
+    \subsection*{Example 2}
+    Does the following series converge? Use the root test.
+    \begin{align*}
+        \sum_{n=1}^{\infty} \Big(\frac{n^2+2n+1}{3n^2+n}\Big)^{2n}
+    \end{align*}
+    \begin{align*}
+        a_n           &= \Big(\frac{n^2+2n+1}{3n^2+n}\Big)^{2n} \\
+        \sqrt[n]{a_n} &= \bigg(\Big(\frac{n^2+2n+1}{3n^2+n}\Big)^{2n}\bigg)^{\frac{1}{n}} \\
+                      &= \Big(\frac{n^2+2n+1}{3n^2+n}\Big)^{2} \\
+        \lim_{n\to \infty} \sqrt[n]{a_n} 
+                      &= \lim_{n\to \infty} \Big(\frac{n^2+2n+1}{3n^2+n}\Big)^{2} \\
+                      &= \Big(\lim_{n\to \infty} \frac{n^2+2n+1}{3n^2+n}\Big)^{2} \\
+                      &= \Big(\frac{1}{3}\Big)^{2} \\
+                      &= \frac{1}{9}
+    \end{align*}
+    Thus, this series is absolutely convergent.
+
+\end{document}
