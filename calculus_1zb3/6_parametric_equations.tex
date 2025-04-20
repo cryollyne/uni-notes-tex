@@ -1,0 +1,164 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Parametric Function}
+\author{Patrick Chen}
+\date{March 5, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    A parametric function are functions describing the position along some axis
+    for a given parameter. Typically, these functions are continuous and the
+    parameter is named $t$. A 2D parametric function can be plotted by varying
+    the value of $t$ and plotting the $x$ and $y$ positions. The direction of
+    increasing $t$ along the curve is called the orientation of the
+    parametrization. This is typically indicated by arrows.
+    \[
+        x = f(t) \quad y = g(t)
+    \]
+    Any function $f: \mathbb{R} \mapsto \mathbb{R}$ can be trivially
+    parameterized as $x=t$ and $y=f(t)$
+
+    \section*{Isolation}
+    A plot for a parametric function may be plotted more easily by isolating and
+    substituting $t$.
+    \subsection*{Example}
+    \[
+        x = \ln(t) \quad y=\frac{t^4+1}{2t^2}
+    \]
+    \begin{align*}
+        x   &= \ln(t) \\
+        e^x &= t \\
+        y   &=\frac{t^4+1}{2t^2} \\
+        &=\frac{(e^x)^4+1}{2(e^x)^2} \\
+        &=\frac{e^{4x}+1}{2e^{2x}} \\
+        &=\frac{e^{2x} + e^{-2x}}{2} \\
+        &=\cosh(2x)
+    \end{align*}
+
+    \section*{Parametric Differentiation}
+    Parametric functions can be differentiated by dividing the $y$-derivative with
+    respect to $t$ by the $x$-derivative with respect to $t$. Let $y = h(x)$.
+    \begin{align*}
+        \frac{dy}{dt} &= \frac{d}{dt} h(x)  \\
+        \frac{dy}{dt} &= \Big(\frac{d}{dx} h(x)\Big) \frac{dx}{dt} \\
+        \frac{d}{dx} h(x) &= \frac{\Big(\frac{dy}{dt}\Big)}{\Big(\frac{dx}{dt}\Big)} \\
+        \frac{dy}{dx} &= \frac{\Big(\frac{dy}{dt}\Big)}{\Big(\frac{dx}{dt}\Big)}
+    \end{align*}
+
+    \begin{itemize}
+        \item if $\frac{dy}{dt}$ is zero and $\frac{dx}{dt}$ is not zero, it is
+            a horizontal tangent.
+        \item if $\frac{dx}{dt}$ is zero and $\frac{dy}{dt}$ is not zero, it is
+            a vertical tangent.
+    \end{itemize}
+
+    \subsection*{Higher Derivatives}
+    \begin{align*}
+        \frac{d}{dt}(\frac{dy}{dx}) &= \frac{d}{dx}(\frac{dy}{dx}) \cdot\frac{dx}{dt} \\
+        &= \frac{d^2y}{dx^2} \frac{dx}{dt} \\
+    \end{align*}
+    Thus
+    \begin{align*}
+        \frac{d^2y}{dx^2} = \frac{\frac{d}{dt} (\frac{dy}{dx})}{\frac{dx}{dt}} \\
+        \frac{d^ny}{dx^n} = \frac{\frac{d}{dt} \frac{d^{n-1} y}{dx^{n-1}}}{\frac{dx}{dt}}
+    \end{align*}
+
+    \section*{Parametric Integration}
+    Parametric functions can be integrated as follows.
+    \[
+        \int_{a}^{b} f(x) \ dx = \int_{t_0}^{t_1} y(t) \frac{dx}{dt} \ dt
+    \]
+
+    \subsection*{Example}
+    Integrate the following parametric function on the interval $x\in[0,\pi]$
+    \[
+        x(t) = t-\sin(t),\quad y(t)=1-\cos(t)
+    \]
+    \begin{align*}
+        x=0 &\Rightarrow t=0 \\
+        x=\pi &\Rightarrow t=\pi
+    \end{align*}
+
+    \begin{align*}
+        \frac{d}{dt} x(t) = 1-\cos (t)
+    \end{align*}
+    \begin{align*}
+        \int_{0}^{\pi} y(t)(\frac{dx}{dt}) \ dt
+        &= \int_{0}^{\pi} (1-\cos t)(1-\cos t) \ dx \\
+        &= \int_{0}^{\pi} 1 - 2\cos t + \cos^2 t \ dx \\
+        &= \int_{0}^{\pi} 1 - 2\cos t + \frac{1}{2} (1 + \cos 2t) \ dx \\
+        &= \Big[\frac{3}{2} t - 2\sin t +\frac{1}{4} \cos 2t\Big]_0^\pi \\
+        &= \frac{3}{2} \pi
+    \end{align*}
+
+    \subsection*{Arclength}
+    \begin{align*}
+        \int_c ds = \int_{t_0}^{t_1} \sqrt{\Big(\frac{dx}{dt}\Big)^1 + \Big(\frac{dy}{dt}\Big)^2} \ dt
+    \end{align*}
+
+    \subsection*{Surface Area of Revolution}
+    about the x-axis
+    \begin{align*}
+        \int_I 2\pi r ds = \int_{t_0}^{t_1} 2\pi y(t) \sqrt{\Big(\frac{dx}{dt}\Big)^2 + \Big(\frac{dy}{dt}\Big)^2} \ dt
+    \end{align*}
+    about the y-axis
+    \begin{align*}
+        \int_I 2\pi r ds = \int_{t_0}^{t_1} 2\pi x(t) \sqrt{\Big(\frac{dx}{dt}\Big)^2 + \Big(\frac{dy}{dt}\Big)^2} \ dt
+    \end{align*}
+
+\end{document}
