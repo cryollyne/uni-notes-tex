@@ -1,0 +1,135 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Surface Area of a Revolution}
+\author{Patrick Chen}
+\date{Feb 10, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    The surface area of a rotated shape can be approximated by the frustum of a
+    cone.
+    \[
+        A_{frustum} = \frac{2\pi(R+r)s}{2}
+    \]
+    where
+    \begin{itemize}
+        \item $R$ is the larger radius
+        \item $r$ is the smaller radius
+        \item $s$ is the side length
+    \end{itemize}
+    When integrating, $R=r+dr\Rightarrow R\approx r$, thus $\frac{r+R}{2} \approx r$.
+    \[
+        SA = \int_I 2\pi r \ ds
+    \]
+    \begin{itemize}
+        \item When Revolving around the $x$ axis:
+            \[
+                \int_I 2\pi r \ ds = \int_{a}^{b} 2\pi f(x) \sqrt{1+(f'(x))^2} \ dx
+            \]
+        \item When Revolving around the $y$ axis:
+            \[
+                \int_I 2\pi r \ ds = \int_{a}^{b} 2\pi x \sqrt{1+(f'(x))^2} \ dx
+            \]
+    \end{itemize}
+
+    \subsection*{Example}
+    Find the surface area of the revolution of the curve $y=x^3$ on the
+    interval $[1,2]$ about the x-axis.
+    \[
+        f(x) = x^3
+    \]
+    \begin{align*}
+        \int_{1}^{2} 2\pi f(x) \sqrt{1+(f'(x))^2} \ dx
+        &= 2\pi \int_{1}^{2} x^3 \sqrt{1+(3x^2)^2} \ dx \\
+        &= 2\pi \int_{1}^{2} x^3 \sqrt{1 + 9x^4} \ dx \\
+        u &= 1 + 9x^4 \\
+        du &= 36x^3 \\
+        I &= \frac{1}{18} \pi \int_{10}^{145} u^{\frac{1}{2}} \ dx \\
+        I &= \frac{1}{18} \pi \Big[ \frac{2}{3} u^{\frac{3}{2}}\Big]_{10}^{145} \\
+        I &= \frac{1}{27} \pi (145^{\frac{3}{2}} - 10^{\frac{3}{2}})
+    \end{align*}
+
+    \subsection*{Example}
+    Find the surface area of a revolution of the curve $y=x^2$ on the interval
+    $x\in [0,2]$ about the y-axis.
+    \[
+        f(x) = x^2
+    \]
+    \begin{align*}
+        \int_{0}^{2} 2\pi x \sqrt{1+(f'(x))^2} \ dx
+        &= \int_{0}^{2} 2\pi x \sqrt{1+(2x)^2} \ dx \\
+        &= \int_{0}^{2} 2\pi x \sqrt{1 + 4x^2} \ dx \\
+        u &= 1 + 4x^2 \\
+        du &= 8x \\
+        I &= \frac{\pi}{4} \int_{1}^{17} u^{\frac{1}{2}} \ dx \\
+          &= \frac{\pi}{4} \Big[ \frac{2}{3} u^{\frac{3}{2}}\Big]_1^{17} \\
+        &= \frac{\pi}{6} (17^{\frac{3}{2}} - 1)
+    \end{align*}
+    Now in terms of $y$
+    \[
+        f(y) = \sqrt{y}, \quad y\in[0, 4]
+    \]
+    \begin{align*}
+        \int_{0}^{4} 2 \pi f(y) \sqrt{1+(f'(y))^2} \ dy
+        &= \int_{0}^{4} 2 \pi \sqrt{y} \sqrt{1+(\frac{1}{2\sqrt{y}})^2} \ dy \\
+        &= \int_{0}^{4} 2 \pi \sqrt{y} \sqrt{1+\frac{1}{4y}} \ dy \\
+        &= \int_{0}^{4} 2 \pi \sqrt{y+\frac{1}{4}} \ dy \\
+        &= \frac{4\pi}{3} [(y+ \frac{1}{4} )^3/2]_0^4 \\
+        &= \frac{\pi}{6} (17^{\frac{3}{2}} - 1)
+    \end{align*}
+\end{document}
