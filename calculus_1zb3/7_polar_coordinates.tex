@@ -1,0 +1,121 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Polar Coordinates}
+\author{Patrick Chen}
+\date{March 6, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    Polar coordinated describe a point by the angle and distance.
+    \begin{align*}
+        r^2 = x^2 + y^2, &\quad \tan\theta = \frac{y}{x} \\
+        x=r\cos\theta, &\quad y=r\sin\theta
+    \end{align*}
+    By some convention, the principal angle is $-\pi< \theta \le \pi$ although,
+    a principal angle of $0 \le \theta < 2\pi$ is also common.
+
+    \subsection*{Negative Radius}
+    A point with a $\theta \in (-\pi, \pi]$ and $r > 0$ can also be expressed
+    with a negative radius.
+    \begin{align*}
+        \theta &\mapsto \theta + \pi \\
+        r      &\mapsto -r
+    \end{align*}
+
+    \subsection*{Example 1}
+    \[
+        r = \frac{1}{cos(\theta) + sin(\theta)}
+    \]
+    \begin{align*}
+        r &= \frac{1}{cos(\theta) + sin(\theta)} \\
+        rcos(\theta) + rsin(\theta) &= 1 \\
+        x + y &= 1 \\
+        y &= 1-x
+    \end{align*}
+    This is a straight line with slope $-1$ and y-intercept $1$.
+
+    \subsection*{Example 2}
+    \begin{align*}
+        r &= \sin \theta \\
+        r^2 &= r \sin \theta \\
+        x^2 + y^2 &= y \\
+        x^2 + y^2 - 2(\frac{1}{2} y) + (\frac{1}{2})^2 &= (\frac{1}{2})^2 \\
+        x^2 + (y-\frac{1}{2})^2 &= (\frac{1}{2})^2
+    \end{align*}
+    This is a circle with radius $r=\frac{1}{2}$ and origin $O=(0, \frac{1}{2})$.
+
+    \section*{Shapes in polar Coordinates}
+    \subsection*{Graphing}
+    A graph of a polar equation $r=g(\theta)$ is the set of all points in the
+    plane what satisfy the equation. $\theta$ does not need to be a principal
+    angle and $r$ does not need to be positive. Sometimes it is easier to
+    convert a polar function into a Cartesian function.
+
+    \subsection*{Circle}
+    A circle is described with $r(\theta) = c$ where $c$ is a constant. The
+    radius of this circle is $|c|$.
+
+    \section*{Polar Tangents}
+    The derivative of a polar function can be calculated the same way a
+    parametric function's derivative is calculated with $x=r\cos \theta$, and
+    $y=r\sin \theta$.
+    \begin{align*}
+        \frac{dy}{dx} = \frac{\Big(\frac{dy}{d\theta}\Big)}{\Big(\frac{dx}{d\theta}\Big)}
+        = \frac{\frac{dr}{d\theta} \sin(\theta) + r\cos(\theta)}{\frac{dr}{d\theta} \cos(\theta) - r\sin(\theta)}
+    \end{align*}
+\end{document}
