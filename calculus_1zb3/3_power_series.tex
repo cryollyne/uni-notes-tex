@@ -1,0 +1,425 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Power Series}
+\author{Patrick Chen}
+\date{Jan 29, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    A power series is a sum of powers. The output of a power series is a
+    function.
+    \[
+        \sum_{n=0}^{\infty} c_n (x-a)^n
+    \]
+    The domain of the function is the set of all $x\in \mathbb{R}$ where the
+    series converges. The power series is said to be centered on $a$. When $a=0$, the
+    series is a 0-centered power series. The interval of convergence is centered
+    on $a$. The difference between the center and where it diverges is called
+    the radius of convergence $R$.
+
+    \subsection*{Example}
+    \begin{align*}
+        \sum_{n=0}^{\infty} \frac{3^nx^n}{n+1}
+    \end{align*}
+    Using ratio test:
+    \begin{align*}
+        \lim_{n\to \infty} \Big|\frac{a_{n+1}}{a_n}\Big|
+        &= \lim_{n\to \infty}
+        \bigg|\frac{\frac{3^{n+1}x^{n+1}}{n+2}} {\frac{3^nx^n}{n+1}}\bigg| \\
+        &= \lim_{n\to \infty} \Big|\frac{3x(n+1)} {n+2}\Big| \\
+        &= 3\cdot|x|
+    \end{align*}
+    This series will absolutely converge when $3\cdot|x| < 1$ and diverge when
+    $3\cdot|x|>1$.
+
+    \begin{align*}
+        x &= \frac{1}{3} \\
+        \sum_{n=0}^{\infty} \frac{3^n (\frac{1}{3})^n}{n+1}
+        &= \sum_{n=0}^{\infty} \frac{1}{n+1} \\
+        &= \sum_{n=1}^{\infty} \frac{1}{n}
+    \end{align*}
+    This will diverge because the $p=1$.
+
+    \begin{align*}
+        x &= -\frac{1}{3} \\
+        \sum_{n=0}^{\infty} \frac{3^n (-\frac{1}{3})^n}{n+1}
+        &= \sum_{n=0}^{\infty} \frac{(-1)^n}{n+1} \\
+    \end{align*}
+    Using the alternating series test, this will converge. Thus the interval of
+    convergence is $x\in[-\frac{1}{3,} \frac{1}{3})$
+
+    \subsection*{Example 2}
+    Find the center and radius of convergence for the following series
+    \begin{align*}
+        \sum_{n=1}^{\infty} \frac{(x-2)^n}{5^nn^2}
+    \end{align*}
+    \begin{align*}
+        \lim_{n\to \infty} \Big| \frac{a_{n+1}}{a_n} \Big|
+        &= \lim_{n\to \infty} \bigg|\frac{\frac{(x-2)^{n+1}}{5^{n+1}(n+1)^2}}{\frac{(x-2)^n}{5^nn^2}}\bigg| \\
+        &= \lim_{n\to \infty} \Big|\frac{(x-2)n^2}{5(n+1)^2}\Big| \\
+        &= \frac{|x-2|}{5}
+    \end{align*}
+    \begin{align*}
+        \frac{|x-2|}{5} < 1 \\
+        |x-2| < 5
+    \end{align*}
+    \[
+        a = 2,\ R = 5
+    \]
+
+    \subsection*{Example 3}
+    \begin{align*}
+        \sum_{n=0}^{\infty} n!x^n
+    \end{align*}
+    \begin{align*}
+        \lim_{n\to \infty} \Big|\frac{a_{n+1}}{a_n}\Big|
+        &= \lim_{n\to \infty} \Big|\frac{(n+1)!x^{n+1}}{n!x^n}\Big| \\
+        &= \lim_{n\to \infty} |x|(n+1) \\
+        &= \infty
+    \end{align*}
+    This power series diverges for all non-zero values $x$
+
+    \subsection*{Example 4}
+    \begin{align*}
+        \sum_{n=1}^{\infty} \frac{x^n}{n!}
+    \end{align*}
+    \begin{align*}
+        \lim_{n\to \infty} \Big|\frac{a_{n+1}}{a_n}\Big|
+        &= \lim_{n\to \infty} \Big|\frac{\frac{x^{n+1}}{(n+1)!}}{\frac{x^n}{n!}}\Big| \\
+        &= \lim_{n\to \infty} \frac{|x|}{n+1} \\
+        &= 0
+    \end{align*}
+    This power series converges for all finite values $x$
+
+    \section*{Functions as Power Series}
+    Functions can be represented as power series. For example,
+    $f(x)=\frac{1}{1-x}$ is represented by the following power series.
+    \begin{align*}
+        \sum_{n=0}^{\infty} x^n,\ -1 < x < 1
+    \end{align*}
+    Using geometric series formula:
+    \begin{align*}
+        \sum_{n=0}^{\infty} x^n
+        &= \sum_{n=1}^{\infty} x^{n-1} \\
+        &= \frac{1}{1-x}
+    \end{align*}
+
+    \subsection*{Example}
+    \begin{align*}
+        \frac{4x}{2-x} = 4x \cdot (\frac{1}{2-x}) \\
+        = \frac{4x}{2} \frac{1}{1-(\frac{x}{2})} \\
+        = 2x \Big(\sum_{n=0}^{\infty} (\frac{x}{2})^n\Big) \\
+        = 2x \Big(\sum_{n=0}^{\infty} (\frac{x}{2})^n\Big)
+    \end{align*}
+
+    \subsection*{Example 2}
+    Find the power series of $f(x) = \frac{1}{(1-x)^2}$
+    \begin{align*}
+        f(x) &= \frac{d}{dx} (\frac{1}{1-x}) \\
+        &= \frac{d}{dx} \Big(\sum_{n=0}^{\infty} x^n\Big) \\
+        &= \sum_{n=0}^{\infty} \Big(\frac{d}{dx} x^n\Big) \\
+        &= 0 + \sum_{n=1}^{\infty} (nx^{n-1}) \\
+        &= \sum_{n=0}^{\infty} (n+1)x^{n} \\
+    \end{align*}
+    The radius of convergence is the same because by the ratio test, $\frac{n+2}{n+1}$
+    will approach $1$ and not affect the outcome when multiplied.
+
+    \subsection*{Example 3}
+    Find the power series of $f(x) = \ln(1-x)$.
+    \begin{align*}
+        f(x) &= \ln(1-x) \\
+        f'(x) &= -\frac{1}{1-x} \\
+        f'(x) &= -\Big(\sum_{n=0}^{\infty} x^n\Big) \\
+        \int f'(x) dx &= -\int \Big(\sum_{n=0}^{\infty} x^n\Big) dx \\
+        f(x) &= -\sum_{n=0}^{\infty} \Big(\int x^n dx\Big) \\
+        f(x) &= -\sum_{n=0}^{\infty} \Big(\frac{x^{n+1}}{n+1}\Big) + c
+    \end{align*}
+    Finding the constant of integration:
+    \begin{align*}
+        f(0) &= -\sum_{n=0}^{\infty} (\frac{0^{n+1}}{n+1}) + c \\
+        \ln(1-0) &= -\sum_{n=0}^{\infty} (0) + c \\
+        0 &= c
+    \end{align*}
+    Thus,
+    \begin{align*}
+        f(x) = -\sum_{n=0}^{\infty} (\frac{x^{n+1}}{n+1}) \\
+        f(x) = -\sum_{n=1}^{\infty} (\frac{x^{n}}{n})
+    \end{align*}
+
+    \section*{Taylor and MacLaurin Series}
+    Suppose $f(x)$ has a zero-centered power series. $f(0)$ is the constant term
+    of the power series. $f'(0)$ is the $x$ term of the power series.
+    $\frac{f''(0)}{2}$ is the $x^2$ term of the power series. In general,
+    $\frac{1}{n!} [\frac{d^n}{dx^n}f](0)$ is the $x^n$ term of the power series.
+    \begin{align*}
+        f(x) &= c_0 + c_1 x + c_2 x^2 + c_3 x^3 + \dots \\
+        f'(x) &= c_1 + 2 c_2 x + 3 c_3 x^2 + 4 c_4 x^3 \dots \\
+        f'''(x) &= 2 c_2 + 6 c_3 x + 12 c_4 x^2 + 20 c_5 x^3\dots
+    \end{align*}
+    \begin{align*}
+        f(x) &= \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} x^n \\
+        \text{where } f^{(n)}(x) &= \frac{d^n}{dx^n} f(x)
+    \end{align*}
+
+    The Taylor series is an extension of the MacLaurin Series where the series
+    may not be centered at zero. When finding a Taylor series, it may be better
+    to not simplify the expressions of the derivative to help when finding a
+    pattern.
+    \begin{align*}
+        \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!} (x-a)^n
+    \end{align*}
+
+    \subsection*{Common Taylor Series}
+    \begin{center}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}[c]{c|c|c}
+        $f(x)$ & power series & domain \\
+        \hline
+        $\frac{1}{1-x}$
+        & $\sum_{n=0}^\infty x^n$
+        & $-1 < x < 1$ \\
+
+        $e^x$
+        & $\sum_{n=0}^\infty \frac{x^n}{n!}$
+        & $x\in\mathbb{R}$ \\
+
+        $\cos(x)$
+        & $\sum_{n=0}^\infty \frac{(-1)^nx^{2n}}{2n}!$
+        & $x\in\mathbb{R}$ \\
+
+        $\sin(x)$
+        & $\sum_{n=0}^\infty \frac{(-1)^nx^{2n+1}}{2n+1}!$
+        & $x\in\mathbb{R}$
+    \end{tabular}
+    \end{center}
+
+    \subsection*{Taylor Polynomial}
+    A $m^{th}$ order Taylor polynomial $T_m(x)$ is the partial sum of the Taylor
+    series.
+    \[
+        T_m(x) = \sum_{n=0}^{m} \frac{f^{(n)}(a)}{n!} (x-a)^n
+    \]
+
+    \subsection*{Taylor Remainder Theorem}
+    The absolute difference between a function and its $m^{th}$ Taylor
+    polynomial is $R_m(x)$. It is always less than the next term of the Taylor
+    series with the $(m+1)^{th}$ derivative of the function replaced with the
+    supremum of the $(m+1)^{th}$ derivative of the function.
+    \[
+        |f(x) - T_m(x)| = R_m(x) \le \frac{M|x-a|^{m+1}}{(m+1)!}, \quad
+        M \ge sup|f^{(m+1)}(x)|
+    \]
+
+    \subsection*{Example}
+    Find the 0-centered power series for $f(x)=e^x$
+    \begin{align*}
+        f(0) &= e^0 = 1 \\
+        f'(0) &= e^0 = 1 \\
+        f'''(0) &= e^0 = 1 \\
+        f^{(n)}(0) &= e^0 = 1
+    \end{align*}
+    \begin{align*}
+        f(x) &= \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!} x^n \\
+             &= \sum_{n=1}^{\infty} \frac{1}{n!} x^n \\
+             &= \sum_{n=1}^{\infty} \frac{x^n}{n!}
+    \end{align*}
+
+    \subsection*{Example 2}
+    Find the Taylor series for $f(x) = \frac{1}{x^2}$ centered at $a=2$
+    \begin{align*}
+        f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(2)}{n!} (x-2)^n
+    \end{align*}
+    \begin{center}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}[c]{c|c|c}
+        n & $f^{(n)}(x)$ & $f^{(n)}(2)$ \\
+        \hline
+        0 & $x^{-2}$ & $\frac{1}{2^2}$ \\
+        1 & $(-2)x^{-3}$ & $\frac{-2}{2^3}$ \\
+        2 & $(-3)(-2)x^{-4}$ & $\frac{(-3)(-2)}{2^4}$ \\
+        3 & $(-4)(-3)(-2)x^{-5}$ & $\frac{(-4)(-3)(-2)}{2^4}$ \\
+        n & $\frac{(-1)^n(n+1)!}{x^{n+2}}$ & $\frac{(-1)^n(n+1)!}{2^{n+2}}$ \\
+    \end{tabular}
+    \end{center}
+    \[
+        f^{(n)}(2) = \frac{(-1)^n (n+1)!}{2^{n+2}}
+    \]
+
+    \begin{align*}
+        \frac{1}{x^2} &= \sum_{n=0}^{\infty} \frac{\frac{(-1)^n (n+1)!}{2^{n+2}}}{n!} (x-2)^n \\
+        &= \sum_{n=0}^{\infty} \frac{(-1)^n(n+1)}{2^{n+2}} (x-2)^n
+    \end{align*}
+
+    \subsection*{Example 3}
+    Find the Taylor series for $f(x)=\ln(x)$ centered at $a=5$.
+    \begin{align*}
+        \sum_{n=0}^{\infty} \frac{f^{(n)}(5)}{n!} (x-5)^n
+    \end{align*}
+
+    \begin{center}
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}[c]{c|c|c}
+        n & $f^{(n)}(x)$ & $f^{(n)}(5)$ \\
+        \hline
+        0 & $\ln(x)$ & $\ln(5)$ \\
+        1 & $\frac{1}{x}$ & $\frac{1}{5}$ \\
+        2 & $\frac{-1}{x^2}$ & $\frac{-1}{5^2}$ \\
+        3 & $\frac{(-1)(-2)}{x^3}$ & $\frac{(-1)(-2)}{5^3}$ \\
+        4 & $\frac{(-1)(-2)(-3)}{x^4}$ & $\frac{(-1)(-2)(-3)}{5^4}$ \\
+        n & $\frac{(-1)^{n-1}(n-1)!}{x^n}$ & $\frac{(-1)^{n-1}(n-1)!}{5^n}$ \\
+    \end{tabular}
+    \end{center}
+
+    \begin{align*}
+        f(x) &= \frac{\ln(5)}{0!}(x-5)^0 + \sum_{n=1}^{\infty} \frac{\frac{(-1)^{n-1}(n-1)!}{5^n}}{n!} (x-5)^n \\
+             &= \ln(5) + \sum_{n=1}^{\infty} \frac{(-1)^{n-1}}{n5^n} (x-5)^n
+    \end{align*}
+
+    \subsection*{Example 4}
+    \begin{align*}
+        \sum_{n=0}^{\infty} \frac{1}{2^n n!}
+        &= \sum_{n=0}^{\infty} \frac{(\frac{1}{2})^n}{n!} \\
+        &= \sum_{n=0}^{\infty} \frac{x^n}{n!},\ x = \frac{1}{2} \\
+        &= e^x,\ x = \frac{1}{2} \\
+        &= e^{\frac{1}{2}} \\
+        &= \sqrt{e}
+    \end{align*}
+    \subsection*{Example 5}
+    \begin{align*}
+        \sum_{n=0}^{\infty} \frac{(-1)^n\pi^{2n}}{(9^n)(2n)!}
+        &= \sum_{n=0}^{\infty} \frac{(-1)^n\frac{\pi^{2n}}{3^{2n}}}{(2n)!} \\
+        &= \sum_{n=0}^{\infty} \frac{(-1)^n(\frac{\pi}{3})^{2n}}{(2n)!} \\
+        &= \sum_{n=0}^{\infty} \frac{(-1)^nx^{2n}}{(2n)!},\ x=\frac{\pi}{3} \\
+        &= \cos(x),\ x=\frac{\pi}{3} \\
+        &= \cos(\frac{\pi}{3}) \\
+        &= \frac{1}{2}
+    \end{align*}
+    \subsection*{Example 6}
+    \begin{align*}
+        \sum_{n=0}^{\infty} \frac{(-1)^n\pi^{2n+2}}{4^n(2n+1)!}
+        &= 2\pi \sum_{n=0}^{\infty} \frac{(-1)^n\pi^{2n+1}}{(2^{2n+1})(2n+1)!} \\
+        &= 2\pi \sum_{n=0}^{\infty} \frac{(-1)^n(\frac{\pi}{2})^{2n+1}}{(2n+1)!} \\
+        &= 2\pi \sum_{n=0}^{\infty} \frac{(-1)^nx^{2n+1}}{(2n+1)!},\ x= \frac{\pi}{2} \\
+        &= 2\pi \sin(x),\ x= \frac{\pi}{2} \\
+        &= 2\pi \sin(\frac{\pi}{2}) \\
+        &= 2\pi
+    \end{align*}
+
+    \subsection*{Example 7}
+    Find $T_4(x)$ about $x=0$ for $f(x)=\cos(x)$ and estimate the upper bound on
+    the error using the Taylor remainder estimate on the interval $[-2,2]$.
+    \begin{align*}
+        T_4(x) &= \sum_{n=0}^{4} \frac{f^{(n)}(0)}{n!} x^n \\
+               &= f(0) + f'(0)x + \frac{f''(0)}{2} x^2 + \frac{f^{(3)}(0)}{6} x^3 + \frac{f^{(4)}(0)}{24} x^4 \\
+               &= 1 - \frac{x^2}{2} + \frac{x^4}{24}
+    \end{align*}
+    \begin{align*}
+        |\cos(x) - T_4(x)| &\le \frac{M|x-a|^{m+1}}{(m+1)!} \\
+        \frac{M|x-a|^{m+1}}{(m+1)!} &= \frac{M|x|^{5}}{5} \\
+        \forall x\in[-2,2] &,\ |x| \le 2 \\
+        |\cos(x) - T_4(x)| &\le M \frac{2^5}{5!} \\
+        |\cos(x) - T_4(x)| &\le M \frac{4}{15}
+    \end{align*}
+    \begin{align*}
+        M &\ge sup_{[-2,2]}|f^{(m+1)}(x)| \\
+        sup_{[-2,2]}|f^{(m+1)}(x)|
+          &= sup_{[-2,2]}|f^{(5)}\cos(x)| \\
+          &= sup_{[-2,2]}|-\sin(x)| \\
+          &= 1 \\
+        \therefore M &= 1
+    \end{align*}
+    \begin{align*}
+        |\cos(x) - T_4(x)| &\le \frac{4}{15}
+    \end{align*}
+
+    \section*{Binomial Series}
+    \begin{align*}
+        (1+x)^m &=
+        \binom{m}{0} +
+        \binom{m}{1} x +
+        \binom{m}{2} x^2 + \dots +
+        \binom{m}{m} x^m \\
+        \binom{n}{k} &= \frac{n!}{k!(n-k)!}
+    \end{align*}
+    \begin{align*}
+        (1+x)^m &= \sum_{n=0}^{m} \binom{m}{n} x^n \\
+                &= 1 + \sum_{n=1}^{m} \frac{k(k-1)(k-1)(k-3)\dots(k-n+1)}{n!}x^n
+    \end{align*}
+    Since for any term greater than $m$ will have a zero factor,
+    \[
+        (1+x)^k = \sum_{n=1}^{\infty} \binom{k}{n} x^n
+        = 1+\sum_{n=1}^{\infty} \frac{k(k-1)\dots(k-n+1)}{n!}
+    \]
+
+    \subsection*{Example}
+    Use binomial series to find the zero-centered power series for
+    $f(x)=\frac{1}{\sqrt{4+x}}$.
+
+    \begin{align*}
+        \frac{1}{\sqrt{4+x}}
+        &= (4+x)^{-\frac{1}{2}} \\
+        &= \frac{1}{2} (1+\frac{x}{4})^{-\frac{1}{2}} \\
+        &= \frac{1}{2} (1 + u)^{-\frac{1}{2}},\ u = \frac{x}{4} \\
+        &= \frac{1}{2} \Big(1+\sum_{n=1}^{\infty} \binom{-\frac{1}{2}}{n} u^n\Big) \\
+        &= \frac{1}{2} \Big(1+\sum_{n=1}^{\infty} \binom{-\frac{1}{2}}{n} \frac{x^n}{4^n}\Big) \\
+        &= \frac{1}{2} \Big(1 + \sum_{n=1}^{\infty} \frac{(-\frac{1}{2})(-\frac{3}{2})\dots(-\frac{1}{2}-n+1)}{n!} \frac{x^n}{4^n}\Big) \\
+        &= \frac{1}{2} + \frac{1}{2}\sum_{n=1}^{\infty} (-1)^n \frac{(1)(3)(5)\dots(2n-1)}{n!2^n} \frac{x^n}{2^{2n}} \\
+        &= \frac{1}{2} + \sum_{n=1}^{\infty}
+        \frac{(-1)^n\ (1)(3)(5)\dots(2n-1)}{n!\ 2^{3n+1}} x^n
+    \end{align*}
+\end{document}
