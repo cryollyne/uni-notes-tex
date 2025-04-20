@@ -1,0 +1,220 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Multivariate Functions}
+\author{Patrick Chen}
+\date{March 12, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Single Variables Functions}
+    Single variable functions have one independent variable and one dependent
+    variable. They can be graphed in $\mathbb{R}^2$.
+
+    \section*{Multi Variable Functions}
+    Functions with $n$ independent variables and $1$ dependent variables can be
+    graphed in $\mathbb{R}^{n+1}$. In three dimensions with the axis $(x,y,z)$,
+    the axis is usually ordered by the right hand rule. For $z=f(x,y)$, the
+    domain is a set of $(x,y)$ pairs. The range is some interval on $z$ axis.
+    \[
+        f: \mathbb{R}^2 \mapsto \mathbb{R}
+    \]
+
+    \subsection*{Example}
+    Find the domain of the following functions
+    \begin{itemize}
+        \item $z = \sqrt{4-x^2-y^2}$
+            \begin{align*}
+                4-x^2-y^2 &> 0 \\
+                2^2 &> x^2+y^2
+            \end{align*}
+            The domain is the inside and border of a circle on the xy-plane
+            with a radius of 2.
+            \[
+                D = \{(x,y)\in \mathbb{R}^2\ |\ x^2+y^2 \le 4\}
+            \]
+        \item $z=\ln(x^2-y^2-1)$
+            \begin{align*}
+                x^2-y^2-1 &> 0 \\
+                x^2 - y ^2 &> 1
+            \end{align*}
+            This is a graph of a hyperbola.
+    \end{itemize}
+
+    \subsection*{Level Sets}
+    A level set (also called contours) is a set of points in the domain where
+    the function has the same value. Since a function can only result in one
+    output, level sets cannot cross each other.
+    \[
+        L_k = \{(x,y)\in \mathbb{R}^2\ |\ f(x,y) = k\}
+    \]
+
+    \section*{Limits and Continuity in 3D}
+    For a function of two variables $f(x,y)$, a limit exists if for all
+    directions, the limit approaches the same value $L$. A function is
+    continuous at a point $(a,b)$ if when the limit as $(x,y)$ approaches
+    $(a,b)$, $f(a,b)=f(x,y)$.
+    \begin{align*}
+        \lim_{(x,y)\to (a,b)} f(x,y) = L
+    \end{align*}
+
+    Most of the single variable rules apply to the multi variable limits except
+    for H'Lopital's rule. H'Lopital's rule only applies to single variables.
+    \begin{align*}
+        \lim_{(x,y)\rightarrow(a,b)} f(x,y) = L
+        \lim_{(x,y)\rightarrow(a,b)} g(x,y) = G
+    \end{align*}
+    \begin{align*}
+        \lim_{(x,y)\rightarrow(a,b)} kf(x,y) &= kL \\
+        \lim_{(x,y)\rightarrow(a,b)} f(x,y) + g(x,y) &= L + G \\
+        \lim_{(x,y)\rightarrow(a,b)} f(x,y)g(x,y) &= LG \\
+        \lim_{(x,y)\rightarrow(a,b)} \frac{f(x,y)}{g(x,y)} &= \frac{L}{G}
+    \end{align*}
+
+    \subsection*{Example}
+    \begin{align*}
+        \lim_{(x,y)\to (0,0)} \frac{x^2-y^2}{x^2+y^2}
+    \end{align*}
+    When $x$ is fixed to $0$
+    \begin{align*}
+        \lim_{y\to 0} \frac{-y^2}{y^2} = -1
+    \end{align*}
+    When $y$ is fixed to $0$
+    \begin{align*}
+        \lim_{x\to 0} \frac{x^2}{x^2} = 1
+    \end{align*}
+    Since the directional limits do not agree with each other, the limit does
+    not exist.
+
+    \subsection*{Example 2}
+    \begin{align*}
+        \lim_{(x,y)\to (0,0)} \frac{xy}{x^2+y^2}
+    \end{align*}
+    Fix $x=0$
+    \begin{align*}
+        \lim_{y\to 0} \frac{(0)y}{(0)^2+y^2} = \lim_{y\to 0} \frac{0}{y^2} =  0
+    \end{align*}
+    Fix $y=0$
+    \begin{align*}
+        \lim_{x\to 0} \frac{x(0)}{x^2+(0)^2} = 
+        \lim_{x\to 0} \frac{0}{x^2} = 0
+    \end{align*}
+    Fix $x=y$
+    \begin{align*}
+        \lim_{x\to 0} \frac{xx}{x^2+x^2} = \lim_{x\to 0} \frac{x^2}{2x^2} = \frac{1}{2}
+    \end{align*}
+    Since the directional limits do not agree with each other, the limit does
+    not exist.
+
+    \subsection*{Example 3}
+    \begin{align*}
+        \lim_{(x,y)\to (0,0)} \frac{xy^2}{x^2+y^4}
+    \end{align*}
+    Fix $x=0$
+    \begin{align*}
+        \lim_{y\to 0} \frac{(0)y^2}{(0)^2+y^4} = \lim_{y\to 0} \frac{0}{y^4} = 0
+    \end{align*}
+    Fix $y=0$
+    \begin{align*}
+        \lim_{x\to 0} \frac{x(0)^2}{x^2+(0)^4} = \lim_{x\to 0} 0/x^2 = 0
+    \end{align*}
+    Fix $y=mx$
+    \begin{align*}
+        \lim_{x\to 0} \frac{x(mx)^2}{x^2+m^4x^4}
+        = \lim_{x\to 0} \frac{m^2x^3}{x^2(1+m^4x^2)}
+        = \lim_{x\to 0} \frac{m^2x}{1+m^4x^2} = \frac{0}{1} = 0
+    \end{align*}
+    Fix $x=y^2$
+    \begin{align*}
+        \lim_{y\to 0} \frac{y^2y^2}{(y^2)^2+y^4} = \lim_{y\to 0} \frac{y^4}{2y^4} = \frac{1}{2}
+    \end{align*}
+    Even though every directional limit from linear directions is zero, since
+    there is one path that doesn't agree with the other limits, the limit
+    doesn't exist.
+
+    \subsection*{Multi Variable Squeeze Theorem}
+    Given $f(x,y) \le g(x,y) \le h(x,y)$ and that the limit of $f(x,y)$ and
+    $h(x,y)$ approaches the same finite value, the limit of $g(x,y)$ must
+    approach the same finite value.
+    \[
+        \Big(\lim_{(x,y)\to(a,b)}f(x,y)=L\ \text{ and } \lim_{(x,y)\to(a,b)}h(x,y)=L\Big)
+        \Rightarrow \lim_{(x,y)\to(a,b)}g(x,y)=L
+    \]
+    If $0\le |g(x,y)-L|\le h(x,y)$ and $h(x,y)$ approaches zero, then
+    $g(x,y)=L$.
+
+    \subsection*{Example 4}
+    \[
+        f(x,y) = \frac{xy^2}{x^2+y^2} 
+    \]
+    \begin{align*}
+        0 \le |f(x,y)| &\le \Big|\frac{xy^2}{x^2+y^2}\Big| \\
+        0 \le |f(x,y)| &\le \frac{|x|y^2}{x^2+y^2} \\
+        0 \le |f(x,y)| &\le \frac{|x|(x^2+y^2)}{x^2+y^2} \\
+        0 \le |f(x,y)| &\le |x|
+    \end{align*}
+    Thus,
+    \begin{align*}
+        0 \le \lim_{(x,y)\to (0,0)} |f(x,y)| &\le \lim_{x\to 0} |x| \\
+        0 \le \lim_{(x,y)\to (0,0)} |f(x,y)| &\le 0
+    \end{align*}
+    Therefore by squeeze theorem,
+    \[
+        \lim_{(x,y)\to (0,0)} f(x,y) = 0
+    \]
+
+\end{document}
