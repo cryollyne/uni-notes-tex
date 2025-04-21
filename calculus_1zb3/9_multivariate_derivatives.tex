@@ -1,0 +1,311 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Multivariate Derivatives}
+\author{Patrick Chen}
+\date{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Partial Derivative}
+    In two dimensions, the partial derivative a of function $f(x,y)$ with
+    respect to a variable is the one dimensional derivative with the other
+    variable fixed.
+    \begin{align*}
+        \frac{\partial}{\partial x} f(x,y) &= \lim_{h\to 0} \frac{f(x+h,y)-f(x,y)}{h} \\
+        \frac{\partial}{\partial y} f(x,y) &= \lim_{h\to 0} \frac{f(x,y+h)-f(x,y)}{h}
+    \end{align*}
+    In general, the partial derivative of a multivariate function
+    $f(x_1,x_2,\dots,x_n)$ with respect to $x_i$ is the one dimensional
+    derivative with all other independent variables fixed.
+    \[
+        \frac{\partial f}{\partial x_i} = \lim_{h\to 0} \frac{f(\dots,x_{i-1},x_i + h, x_{i+1}, \dots) - f(x_1,x_2,\dots,x_n)}{h}
+    \]
+    Partial derivatives are sometimes written using subscript notation.
+    \[
+        \frac{\partial f}{\partial x} = f_x(x,y,\dots)
+    \]
+
+    \subsection*{Higher Partial Derivatives}
+    Higher partial derivatives of a function is calculated the same way that
+    regular higher derivatives are calculated.
+    \[
+        \frac{\partial^2 f}{\partial x^2} = \frac{\partial  }{\partial x} \frac{\partial f}{\partial x}
+    \]
+    When differentiating with respect to two different variables, it is written
+    as follows. Note that the subscript notation and the Leibniz have reversed
+    order.
+    \[
+        f_{yx}(x,y) = \frac{\partial}{\partial x} \frac{\partial}{\partial y}
+        f(x,y) = \frac{\partial^2 f}{\partial x \partial y}
+    \]
+    Clairaut's Theorem: If the both mixed partial derivatives of a function is
+    locally continuous, then the partial derivatives commute.
+    \[
+        \frac{\partial}{\partial x} \frac{\partial f}{\partial y} =
+        \frac{\partial}{\partial y} \frac{\partial f}{\partial x} =
+        \frac{\partial^2 f}{\partial x \partial y}
+    \]
+
+    \subsection*{Example 1}
+    \begin{align*}
+        g(x,y) &= xe^{x-y} \\
+        \frac{\partial g}{\partial x} &= e^{x-y} + xe^{x-y} \\
+                                      &= e^{x-y}(1+x) \\
+        \frac{\partial g}{\partial y} &= xe^{x-y} (-1) \\
+                                      &= -xe^{x-y}
+    \end{align*}
+
+    \subsection*{Example 2}
+    \begin{align*}
+        f(x,y,z) &= \frac{z\arctan(xy)}{y} \\
+        \frac{\partial f}{\partial x}
+        &= \frac{z}{y} \cdot \frac{1}{1+(xy)^2} \cdot y \\
+        &= \frac{z}{1+x^2y^2} \\
+        \frac{\partial f}{\partial y}
+        &= z \cdot \frac{\Big(\frac{\partial }{\partial y} \arctan(xy)\Big)y-\arctan(xy)}{y^2} \\
+        &= \frac{z}{y^2} \Big(\frac{xy}{1+x^2y^2} - \arctan(xy)\Big) \\
+        \frac{\partial f}{\partial z}
+        &= \frac{\arctan(xy)}{y} 
+    \end{align*}
+
+    \section*{Tangent Planes}
+    A tangent line to $y=f(x)$ at $a$ is a line passing through $(a,f(a))$ that is
+    parallel to the graph of $f(x)$ at $a$.
+    \[
+        y = \frac{df}{dx}x+b
+    \]
+    A tangent plane to a function $z=f(x,y)$ passing through a point $(x_0,y_0)$
+    is a plane such that is is passing the point $(a,b,f(a,b))$.
+    \[
+        z = f_x(a,b)x + f_y(a,b)y + z_0
+    \]
+    Thus
+    \[
+        z = f_x(x_0,y_0)(x-x_0) + f_y(x_0,y_0)(y-y_0) + f(x_0,y_0)
+    \]
+    The tangent plane is also called the linearization of a function at a point.
+    The first degree Taylor polynomial $T_1(x,y)$ is a tangent plane.
+
+    \subsection*{Example}
+    Find the tangent plane to $z=4x^2+y^2$ at (x,y)=(1,2)
+    \begin{align*}
+        f(1,2)   &= 8 \\
+        f_x(x,y) &= 8x \\
+        f_x(1,2) &= 8 \\
+        f_y(x,y) &= 2y \\
+        f_y(1,2) &= 4 \\
+        z        &= 8x + 4y + z_0 \\
+        8        &= 8(1) + 4(2) + z_0 \\
+        z_0      &= -8 \\
+        z        &= 8x + 4y - 8
+    \end{align*}
+
+    \section*{Differential}
+    For low changes in $x$ and $y$, the difference in $z$ can be approximated
+    with differentials.
+    \begin{align*}
+        \Delta z &\approx f_x(x,y)\Delta x + f_y(x,y)\Delta y \\
+        dz &= f_x(x,y)dx + f_y(x,y)dy
+    \end{align*}
+
+    \subsection*{Example}
+    Given the function $u=\frac{t^4}{s^3}$, use the total differential to find
+    the change in $u$ if $s$ decreases by $0.2$ and $t$ increases by $0.1$ when
+    $(s,t)=(2,1)$.
+    \begin{align*}
+        \Delta u &\approx f_s(s,y) \Delta s + f_t(s,t) \Delta t \\
+        f_s(s,t) &= -\frac{3t^4}{s^4} \\
+        f_t(s,t) &= \frac{4t^3}{s^3} \\
+        \Delta u &\approx -\frac{3t^4}{s^4} \Delta s + \frac{4t^3}{s^3} \Delta t \\
+        \Delta u &\approx -\frac{3(1)^4}{(2)^4} (-0.2) + \frac{4(1)^3}{(2)^3} (0.1) \\
+        \Delta u &\approx \frac{7}{80}
+    \end{align*}
+
+    \subsection*{Example 2}
+    The volume of a cylinder is $V=\pi r^2h$. What is the absolute error of
+    the volume of a cylinder if the cylinder is measured to have a height of
+    $14\text{m}\pm0.2$ and a radius of $3\text{m}\pm0.2$
+    \begin{align*}
+        dV &= \frac{\partial V}{\partial r} dr + \frac{\partial V}{\partial h} dh \\
+           &= 2\pi rh\ dr + \pi r^2\ dh \\
+           &= 2\pi (3)(14)\ dt + \pi (3)^2\ dh \\
+           &= 84 \pi\ dr + 9 \pi\ dh \\
+        \Delta V &\approx 84 \pi (0.2) + 9 \pi (0.2) \\
+                 &\approx 18.6 \pi \\
+        V  &= \pi r^2h \pm \text{err} \\
+        V  &= \pi 3^2\cdot 14 \pm \text{err} \\
+        V  &= 126 \pi\ \text{m}^3\pm 18.6 \pi\ \text{m}^3
+    \end{align*}
+
+    \subsection*{Multivariate Chain Rule}
+    For 2 variables
+    \begin{align*}
+        z &= f(x,y) \\
+        x &= g(t) \\
+        y &= h(t) \\
+    \end{align*}
+    \begin{align*}
+        \frac{dz}{dt} &= \frac{\partial z}{\partial x} \frac{dx}{dt}
+        + \frac{\partial z}{\partial y} \frac{dy}{dt}
+    \end{align*}
+    For $n$ variables
+    \begin{align*}
+        f: \mathbb{R} \mapsto \mathbb{R}^n \\
+        g: \mathbb{R}^n \mapsto \mathbb{R} \\
+        \mathbf{y} = f(x) \\
+        z = g(\mathbf{y})
+    \end{align*}
+    \begin{align*}
+        \frac{\partial x}{\partial z} = \sum_i^n \frac{\partial x}{\partial y_i} \frac{\partial y_i}{\partial z}
+    \end{align*}
+    When evaluating derivatives of multivariate function, it may be advantages
+    to draw tree diagrams showing the dependencies of the functions.
+
+    \section*{Implicit Differentiation}
+    In single variable
+    \[
+        y = \frac{d}{dx} f(x) \Rightarrow \frac{d}{dx} g(y) = g'(y) \frac{dy}{dx}
+    \]
+    Given a function $F(x,y)=k$ where $F$ is differentiable and $k$ is a
+    constant. We can assume that $y$ can be locally represented as a function of
+    $x$.
+    \begin{align*}
+        w &= F(x,y) \\
+        y &= f(x) \\
+        \frac{dw}{dx} &= \frac{\partial F}{\partial x} + \frac{\partial F}{\partial y} \frac{dy}{dx} \\
+        0 &= \frac{\partial F}{\partial x} + \frac{\partial F}{\partial y} \frac{dy}{dx} \\
+        \frac{\partial F}{\partial y} \frac{dy}{dx} &= - \frac{\partial F}{\partial x}  \\
+        \frac{dy}{dx} &= - \frac{\frac{\partial F}{\partial x}}{\frac{\partial F}{\partial y}} \\
+        \frac{dy}{dx} &= -\frac{F_x}{F_y}
+    \end{align*}
+    For multiple variables $F(x_1,\dots,x_n) = k$:
+    \[
+        \frac{\partial x_i}{\partial x_j} = -\frac{F_{x_j}}{F_{x_i}}
+    \]
+    All relations can be made to be in that form by subtracting one side form
+    the other.
+    \[
+        \Big(f(x_1,x_2,\dots)=g(x_1,x_2,\dots)\Big) \Rightarrow \Big(f(x_1,x_2,\dots)-g(x_1,x_2,\dots) = 0\Big)
+    \]
+
+    \subsection*{Example}
+    Find $\frac{dy}{dx}$ for $e^{xy^2} = x-3y$
+    \begin{align*}
+        e^{xy^2} &= x-3y \\
+        F(x,y) &= x-3y - e^{xy^2} = 0 \\
+        F_x(x,y) &= 1 - y^2e^{xy^2} \\
+        F_y(x,y) &= -3 - 2xye^{xy^2} \\
+        \frac{dy}{dx} &= - \frac{1 - y^2e^{xy^2}}{-3 - 2xye^{xy^2}} \\
+                      &= \frac{1 - y^2e^{xy^2}}{3 + 2xye^{xy^2}}
+    \end{align*}
+
+    \subsection*{Example 2}
+    Find $\frac{\partial z}{\partial y}$ for $\cos(z^2+xy)=\ln(x-z)$.
+    \begin{align*}
+        F(x,y) &= \ln(x-z) - \cos(z^2+xy) \\
+        F_y &= x \sin(z^2+xy) \\
+        F_z &= -\frac{1}{x-z} + 2z\sin(z^2+xy) \\
+        \frac{\partial z}{\partial y} &= - \frac{x \sin(z^2+xy)}{-\frac{1}{x-z} + 2z\sin(z^2+xy)} \\
+                                      &= \frac{x \sin(z^2+xy)}{\frac{1}{x-z} - 2z\sin(z^2+xy)}
+    \end{align*}
+
+    \section*{Gradient}
+    The gradient if function $f: \mathbb{R}^n \mapsto \mathbb{R}$ is a vector in
+    $\mathbb{R}^n$ such that the components of the vector are the derivative of
+    $f$ with respect to the component. Geometrically, the gradient vector points
+    in the direction $f$ increases in. Vectors orthogonal to the gradient are
+    directions where the value of $f$ doesn't change.
+    \[
+        \renewcommand{\arraystretch}{1.5}
+        \nabla f(x_1,\dots,x_n) = \begin{bmatrix}
+            \frac{\partial f}{\partial x_1} \\
+            \frac{\partial f}{\partial x_2} \\
+            \vdots \\
+            \frac{\partial f}{\partial x_n} \\
+        \end{bmatrix}
+    \]
+
+    \subsection*{Directional Derivatives}
+    The directional derivative $D_\mathbf{\hat{u}}$ of a function $f(x,y)$ in
+    the direction of a unit vector $\hat{u}$ is the dot product between
+    $\hat{u}$ and the gradient of the function.
+    \[
+        D_\mathbf{\hat{u}} f(x,y) = \lim_{h\to 0} \frac{f(\mathbf{x} + h \mathbf{\hat{u}}) - f(\mathbf{x})}{h} = \nabla f \cdot \mathbf{\hat{u}}
+    \]
+    For two variables:
+    \begin{align*}
+        D_\mathbf{\hat{u}} f(x,y)
+        &= \lim_{h\to 0} \frac{f(x_1+hu_1, x_2+hu_2) - f(x_1, x_2)}{h} \\
+        &= \lim_{h\to 0} \frac{f(x_1+hu_1, x_2+hu_2) - f(x_1, x_2+hu_2) + f(x_1, x_2+hu_2) - f(x_1, x_2)}{h} \\
+        &= \frac{f(x_1+hu_1, x_2+hu_2) - f(x_1, x_2+hu_2)}{h}
+        + \frac{f(x_1, x_2+hu_2) - f(x_1,x_2)}{h} \\
+        &= u_1\frac{f(x_1+hu_1, x_2+hu_2) - f(x_1, x_2+hu_2)}{hu_1}
+        + u_2\frac{f(x_1, x_2+hu_2) - f(x_1,x_2)}{hu_2} \\
+        &= u_1 \frac{\partial f}{\partial x_1} + u_2 \frac{\partial f}{\partial x_2} \\
+        &= u \cdot \renewcommand{\arraystretch}{1.5}\begin{bmatrix}
+            \frac{\partial f}{\partial x_1} \\
+            \frac{\partial f}{\partial x_2}
+        \end{bmatrix} \\
+        &= u \cdot \nabla f
+    \end{align*}
+    In general, this works for any number of variables.
+    \[
+        D_\mathbf{\hat{u}} f = u \cdot \nabla f
+    \]
+
+\end{document}
