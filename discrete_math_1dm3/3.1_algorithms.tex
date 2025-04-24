@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Algorithms}
+\author{Patrick Chen}
+\date{Feb 10, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    An algorithm is a finite sequence of precise instructions for solving a
+    problem. Pseudocode is a high level description of the steps of an
+    algorithm. The trace of an algorithm is following the steps of the algorithm
+    and writing the state of the algorithm along the steps.
+    \subsection*{Example: Maximum Element in List}
+    \begin{verbatim}
+        function find_max(L,n):
+            max_value = L[1]
+            for i = 2 to n do
+                if L[i]> max_value then
+                max_value = L[i]
+            return max_value
+    \end{verbatim}
+    trace:
+    \begin{verbatim}
+         list: -1, 0, 5, 15, -3, 10
+         max:  -1, 0, 5, 15, 15, 15
+    \end{verbatim}
+
+    \subsection*{Example: Linear Search Element in List}
+    \begin{verbatim}
+         function LinearSearch(L, n, target)
+            for i = 1 to n do
+                if L[i] = target then
+                    return i
+            return -1 #target not found
+    \end{verbatim}
+
+    \section*{Complexity}
+    The complexity of an algorithm is roughly speaking, the amount of operations
+    in relation to the size of the inputs.
+    Let $f: \mathbb{R} \mapsto \mathbb{R}$ and $g:
+            \mathbb{R} \mapsto \mathbb{R}$ be two functions.
+    \begin{itemize}
+        \item Big-$O$ notation: A function $f(x)$ is $O(g(x))$ if there exists a
+            positive real constant $C$ and $k$ such that $|f(x)| \le C|g(x)|$
+            for all $x\ge k$. Big $O$ notation concerns itself with the
+            asymptotic growth rate of a function.
+        \item Big-$\Omega$ notation: A function $f(x)$ is $\Omega(g(x))$ if
+            there exists a positive real constant $C$ and $k$ such that $|f(x)|
+            \ge C|g(x)|$ for all $x\ge k$.
+        \item Big-$\Theta$ notation: We say that $f(x)$ is $\Theta(g(x))$ if
+            $f(x)$ is both $O(g(x))$ and $\Omega(g(x))$. Equivalently, $f(x)$ is
+            $\Theta(g(x))$ if there exists positive real constants $C_1$, $C_2$,
+            and $k$ such for all $x>k$, $C_1|g(x)| \le |f(x)| \le C_2|g(x)|$
+            Polynomials of degree $n$ is $\Theta(x^n)$.
+    \end{itemize}
+
+    \subsection*{Proving Complexity With Limits}
+    By the definition of the limit to infinity, for all $\varepsilon>0$, there
+    exists a $k>0$ such that for all $x>k$, the absolute difference of the
+    function at $x$ and the limit $L$ is less than $\varepsilon$.
+    \[
+         x>k \quad\Rightarrow\quad |f(x)-L|<\varepsilon
+    \]
+    Thus
+    \[
+        x>k \quad\Rightarrow\quad L-\varepsilon<f(x)<L+\varepsilon
+    \]
+    Suppose the limit of the ratio of two functions $f(x)$ and $g(x)$ is defined
+    and approaches a finite value.
+    \[
+        \lim_{x\to \infty} \Big|\frac{f(x)}{g(x)}\Big| = L
+    \]
+    Applying the definition of the limit
+
+    \begin{align*}
+        x>k \quad&\Rightarrow\quad L-\varepsilon< \Big|\frac{f(x)}{g(x)}\Big| <L+\varepsilon \\
+        x>k \quad&\Rightarrow\quad (L-\varepsilon)|g(x)| < |f(x)| < (L+\varepsilon)|g(x)| \\
+    \end{align*}
+    Taking $\varepsilon= \frac{L}{2}$
+    \[
+        x>k \quad\Rightarrow\quad \Big(\frac{1}{2} L\Big)|g(x)| < |f(x)| < \Big(\frac{3}{2} L\Big)|g(x)| \\
+    \]
+    Since $L$ comes from the limit of the absolute value of some function,
+    $L\ge0$. If the limit exists and is a finite positive value, then $f(x)$ is
+    by definition $\Omega(g(x))$ and vise versa.
+
+
+    \subsection*{Special functions}
+    \begin{itemize}
+        \item $n!$ is $O(n^n)$
+            \[
+                n! = n (n-1) \dots (2)(1) \le
+                \underbrace{(n)(n)\dots(n)}_n = n^n
+            \]
+        \item $n^b$ is $O(c^n)$
+        \item $c^n$ is $O(n!)$
+        \item Big-$O$ of common functions in order
+            \[
+                1,\quad \log n,\quad n,\quad n\log n,\quad n^2,\quad 2^n,\quad n!
+            \]
+    \end{itemize}
+
+    \subsection*{Types of Complexity for Algorithms}
+    Space complexity is the amount of storage capacity required for an algorithm
+    to run. Time complexity is the amount of time required for a algorithm to
+    run. The worst case complexity of an algorithm is the largest amount of
+    operations used to the problem over all possible inputs of a given size. The
+    average case complexity is the average amount of operations for all inputs
+    of a given size.
+\end{document}
