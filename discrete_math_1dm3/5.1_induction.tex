@@ -1,0 +1,222 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Induction and Recursion}
+\author{Patrick Chen}
+\date{March 10, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Induction}
+    Suppose we with to prove a proposition $P(n)$. If it is true for a base case
+    $P(1)$ and for all $k$, $P(k)$ implies $P(k+1)$ is true, then it is true for
+    all $n$.
+    \begin{itemize}
+        \item Basis step: $P(1)$
+        \item Inductive step: $P(k) \rightarrow P(k+1)$
+    \end{itemize}
+    Strong induction is a form of induction where in the inductive step, we
+    assume that all $P(i)$ where $i\le k$ is true. Strong induction is
+    mathematically equivalent to regular induction.
+    \begin{itemize}
+        \item Basis step: $P(m)$
+        \item Inductive step: $\Big(\forall i : m\le i\le k,\ P(i)\Big) \rightarrow P(k+1)$
+    \end{itemize}
+
+    \subsection*{Well Ordering Principle}
+    The well ordering principle is an axiom says that every non-empty set of
+    non-negative integers has a smallest element. The well ordering principle is
+    equivalent to assuming that induction is true.
+
+    \subsection*{Proof of Induction}
+    Assume the well ordering principle.
+    \[
+        P(1) \quad P(k) \rightarrow P(k+1)
+    \]
+    Let $\mathcal{C} = \{n\in \mathbb{N}^+ | P(n) \text{ is not true}\}$ \\
+    Assume $\mathcal{C}$ is non-empty \\
+    By the well ordering principle, pick the smallest element $k$ of $\mathcal{C}$ \\
+    Since $P(1)$ is true, $k>1$, thus $k-1$ is a positive integer not in $\mathcal{C}$. \\
+    Thus $P(k-1)$ is true. \\
+    By the inductive hypothesis $P(k)$ is true. \\
+    This contradicts that $P(k)\in\mathcal{C}$ \\
+    Thus $\mathcal{C}$ is empty. \\
+    Thus proving the base case and the inductive hypothesis is equivalent to
+    proving for all elements.
+
+    \section*{Structural Induction}
+    \begin{itemize}
+        \item Basis step: Prove the result for the basis element
+        \item Prove that if the result holds for each element in the
+            construction of the new element, it holds for the new construction.
+    \end{itemize}
+
+
+    \subsection*{Example}
+    Prove that $\sum_{j=1}^{n} j = \frac{n(n+1)}{2}$
+    \[
+        P(n) = \Big(\sum_{j=1}^{n} j = \frac{n(n+1)}{2}\Big) \\
+    \]
+    Base case:
+    \begin{align*}
+        P(1) &= \Big(\sum_{j=1}^{1} j = \frac{1(1+1)}{2}\Big) \\
+             &= (1=1) \\
+             &= T \\
+    \end{align*}
+    Inductive step: \\
+    Assume $P(k)$ is true
+    \begin{align*}
+        p(k+1) &= \Big(\sum_{j=1}^{k+1} j = \frac{(k+1)((k+1)+1)}{2}\Big) \\
+               &= \Big((k+1) + \sum_{j=1}^{k} j = \frac{(k+1)(k+2)}{2}\Big) \\
+               &= \Big((k+1) + \frac{k(k+1)}{2} = \frac{(k+1)(k+2)}{2}\Big) \\
+               &= \Big(\frac{2(k+1) + k(k+1)}{2} = \frac{(k+1)(k+2)}{2}\Big) \\
+               &= \Big(\frac{(k+1)(k+2)}{2} = \frac{(k+1)(k+2)}{2}\Big) \\
+               &= T
+    \end{align*}
+    Therefore, $\sum_{j=1}^{n} j = \frac{n(n+1)}{2}$ for all $n\ge 1$
+
+    \subsection*{Example 2}
+    Prove that $21\ |\ 4^{n+1} + 5^{2n-1}$ \\
+    $21\ |\ n$ if both  $3\ |\ n$ and $7\ |\ n$
+    \[
+        P(n) = (3\ |\ 4^{n+1} + 5^{2n-1})
+    \]
+    Base case:
+    \begin{align*}
+        P(1) &= (3\ |\ 4^{1+1} + 5^{2(1)-1}) \\
+             &= (3\ |\ 21) \\
+             &= T
+    \end{align*}
+    Inductive Step
+    \begin{align*}
+        P(k+1) &= (3\ |\ 4^{k+1+1} + 5^{2(k+1) - 1}) \\
+               &= (3\ |\ 4^{k+2} + 5^{2k + 1}) \\
+               &= (3\ |\ 4 \cdot 4^{k+1} + 25 \cdot 5^{2k - 1}) \\
+               &= (3\ |\ 
+               \underbrace{3\cdot 4^{k+1} + 24\cdot 5^{2k+1}}_{e_1}
+             + \underbrace{4^{k+1} + 5^{2k-1}}_{e_2})
+    \end{align*}
+    3 divides $e_1$ trivially and 3 divides $e_1$ by inductive hypothesis.
+    Therefore $3\ |\ 4^{n+1} + 5^{2n-1}$
+    \[
+        Q(n) = (7\ |\ 4^{n+1} + 5^{2n-1})
+    \]
+    Base case:
+    \begin{align*}
+        Q(1) &= (7\ |\ 21) \\
+             &= 1
+    \end{align*}
+    Inductive Step
+    \begin{align*}
+        Q(k+1) &= (7\ |\ 4^{(k+1)+1} + 5^{2(k+1)-1}) \\
+             &= (7\ |\ 4^{k + 2} + 5^{2k + 1}) \\
+             &= (7\ |\ 4\cdot 4^{k + 1} + 25\cdot 5^{2k - 1}) \\
+             &= (7\ |\ 4\cdot 4^{k + 1} + 4\cdot 5^{2k - 1} + 21\cdot 5^{2k - 1}) \\
+             &= (7\ |\ 4\underbrace{(\cdot 4^{k + 1} + \cdot 5^{2k - 1})}_{e_3} + \underbrace{21\cdot 5^{2k - 1}}_{e_4})
+    \end{align*}
+    7 divides $e_3$ by inductive hypothesis and 7 divides $e_4$ trivially \\
+    Since $3\ |\ 4^{n+1} + 5^{2n-1}$ and $(7\ |\ 4^{n+1} + 5^{2n-1})$, then
+    $21\ |\ 4^{n+1} + 5^{2n-1}$
+
+    \subsection*{Example 3}
+    Prove that every integer $n\ge 2$ is a product of primes.
+    \[
+        p(n) = (\text{every $n\ge 2$ is a product of primes})
+    \]
+    $P(2)$ is trivially true. \\
+    Suppose that $P(i)$ is true for all $2\le i\le k$ \\
+    If $k+1$ is prime, then it is trivially a product of itself\\
+    If $k+1$ is composite, $k+1=ab$ for $2\le a,b < k+1$ \\
+    By the inductive hypothesis, $a$ and $b$ are a product of prime numbers \\
+    Therefore $k+1$ is also a product of primes
+
+    \subsection*{Example 4}
+    Using the well ordering principle, prove that $\sum_{i=1}^{n} n =
+    \frac{n(n+1)}{2}$ for all $n \ge 1$\\
+    Let $C = \{x \ge 1\ |\ \neg P(n)\}$ \\
+    Let $k\in C$ be the smallest element \\
+    $P(k)$ is not true but $P(k-1)$ is true.
+    \begin{align*}
+        \sum_{i=1}^{k-1} i &= \frac{(k-1)k}{2} \\
+        k + \sum_{i=1}^{k-1} i &= k + \frac{(k-1)k}{2} \\
+        \sum_{i=1}^{k} i &= \frac{k(k+1)}{2} \\
+    \end{align*}
+    This contradicts that $P(k)$ is false. \\
+    Thus $C$ is empty.
+
+    \subsection*{Example 5}
+    Every well-formed formula for compound propositions contains an equal number
+    of left and right parentheses.
+    \begin{itemize}
+        \item T, F have no parentheses
+        \item Given well formed compound propositions $p,q$,
+            let $l_p$ and $r_p$ be the number of left and right parentheses in
+            $p$ and similarly $l_q$ and $r_q$ be for $q$. \\
+            Assume $l_p=r_p$ and $l_q=r_q$.
+            \begin{itemize}
+                \item $(\neg p)$ has parentheses $l = l_p+1$, $r=r_p+1$
+                \item $(p \vee q)$ has parentheses $l = l_p+l_q+1$, $r=r_p+r_q+1$
+                \item $(p \wedge q)$ has parentheses $l = l_p+l_q+1$, $r=r_p+r_q+1$
+                \item $(p \rightarrow q)$ has parentheses $l = l_p+l_q+1$, $r=r_p+r_q+1$
+                \item $(p \leftrightarrow q)$ has parentheses $l = l_p+l_q+1$, $r=r_p+r_q+1$
+            \end{itemize}
+            In all cases, $l=r$
+    \end{itemize}
+    Thus for all compound propositions, there is an equal number of left and
+    right parentheses.
+
+\end{document}
