@@ -1,0 +1,391 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Number Theory}
+\author{Patrick Chen}
+\date{Feb 26, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\modm}[1]{\ (\text{mod }#1)}
+\newcommand{\lcm}{\text{lcm}}
+
+\begin{document}
+    \maketitle
+    \section*{Divisor}
+    A number $d$ is a divisor of a number $a$ if there is an integer
+    $c$ such that $a=dc$. If $d$ is a divisor of $a$ it is denoted as as $d\ |\ a$.
+    \begin{itemize}
+        \item If $d\ |\ a$ and $d\ |\ b$ then $d\ |\ a+b$
+        \item If $d\ |\ a$ and $a\ |\ b$ then $d\ |\ b$
+        \item If $d\ |\ a$ then $d\ |\ an$ for all $n\in\mathbb{Z}$
+        \item For all $m,n\in \mathbb{Z}$, if $d\ |\ a$ and $d\ |\ b$ then $d\ |\ ma+nb$
+    \end{itemize}
+
+    \subsection*{Division}
+    Let $a$ and $d$ be integers where $d>0$. There exists unique integers $q$ and $r$ where
+    $0\le r <d$ such that $a = q\cdot d + r$.
+    \begin{align*}
+        a &= q\cdot d + r \\
+        \text{where } q &= a \text{ div } d \\
+                      r &= a \text{ mod } d \\
+        a\text{ div } d &= \Big\lfloor\frac{a}{d}\Big\rfloor\\
+        a\text{ mod } d &= a-d\Big\lfloor\frac{a}{d}\Big\rfloor
+    \end{align*}
+
+    \subsection*{Modulo}
+    For $a,b,m\in \mathbb{Z}$, we say $a$ is congruent to $b$ modulo $m$ if
+    $m\ |\ a-b$.
+    Congruence is denoted by $a\equiv b \modm{m}$
+
+    \subsection*{Example}
+    Prove that $a\equiv b \modm{m}$ if and only if $a\text{ mod }m =
+    b\text{ mod }m$
+    \begin{align*}
+        a = q_1m+r_1 \\
+        b = q_2m+r_2
+    \end{align*}
+    \begin{align*}
+        &a\equiv b \modm{m} \\
+        \Rightarrow\ & m\ |\ a-b \\
+        \Rightarrow\ & m\ |\ (q_1-q_2)m + r_1-r_2 \\
+        \Rightarrow\ & m\ |\ r_1-r_2 \\
+        \Rightarrow\ & r_1-r_2 = 0 &\text{since } r_1,r_2<m \\
+        \Rightarrow\ & r_1 = r_2 \\
+        \Rightarrow\ & q_1 + r_1 \text{ mod } m = q_2 + r_2 \text{ mod } m \\
+        \Rightarrow\ & a \text{ mod } m = b \text{ mod } m
+    \end{align*}
+    \begin{align*}
+        & a\modm{m}=b\modm{m} \\
+        \Rightarrow\ & r_1=r_2 \\
+        \Rightarrow\ & a-b = (q_1-q_2)m+r_1-r_2 \\
+        \Rightarrow\ & a-b = (q_1-q_2)m \\
+        \Rightarrow\ & m\ |\ a-b \\
+        \Rightarrow\ & a \equiv m \modm{m}
+    \end{align*}
+
+    \subsection*{Modulo Ring}
+    $\mathbb{Z}_m$ is the set of all natural numbers less than $m$
+    \[
+        \mathbb{Z}_m = \{0,, 1,\dots, m-1\}
+    \]
+    Addition and multiplication in the modulo $m$ ring
+    $(\mathbb{Z}_m,+_m,\times_m)$ is defined as follows
+    \begin{align*}
+        a+_mb &= (a+b) \mod m \\
+        a\times_m b &= (ab) \mod m
+    \end{align*}
+
+    \section*{Integer Representations}
+    Let the base $b$ be an integer such that $b>1$.
+    All numbers $n$ can be represented uniquely with digits $a_0,\dots,a_k$ where
+    all $0\le a_i < b$ for all $i\in(0,1,\dots,k)$ in base $b$. A numbers $n$ represented
+    in a base $b$ is written as $(n)_b$.
+    \[
+        n = a_kb^k + a_{k-1}b^{k-1} + \dots + a_2b^2 + a_1b + a_0
+    \]
+    For example, $25$ in base $10$ and base $2$ are written as follows.
+    \begin{align*}
+        (25)_{10} &= 2\cdot 10 + 5 = 25 \\
+        (11001)_2 &= 1\cdot 2^4 + 1\cdot 2^3 + 1 = 25
+    \end{align*}
+
+    \subsection*{Converting between bases}
+    Conversion between bases can be done with repeated division and remainder.
+    The remainder will be the right-most digit. This process can be repeated
+    until the quotient is zero.
+    \begin{align*}
+        n &= bq_0 + a_0 \\
+        q_0 &= bq_1 + a_1 \\
+        q_1 &= bq_2 + a_2 \\
+        &\vdots \\
+        q_{n} &= bq_{n+1} + a_n &\text{ where } q_{n+1} = 0 \\
+        n &= b(b(\dots(b q_{n+1} + a_n)\dots + a_1) + a_0 \\
+          &= b(b(\dots(a_n)\dots) + a_1) + a_0 \\
+          &= b^{n}a_n + b^{n-1} a_{n-1} + \dots + b^2a_2 + ba_1 + a_0
+    \end{align*}
+
+    \subsection*{Example}
+    Write 43 in base 16
+    \begin{align*}
+        43 &= \underbrace{2}_{q_0} \cdot 16 + \underbrace{11}_{a_0} \\
+        2 &= \underbrace{0}_{q_1} \cdot 16 + \underbrace{2}_{a_1} \\
+        \therefore \ 42 &= 2\cdot 16 + 11 = \texttt{0x2b}
+    \end{align*}
+
+    \subsection*{Addition and Multiplication}
+    The digit-wise addition and multiplication algorithms used in base 10 also
+    work in other bases.
+
+    \subsection*{Example}
+    Calculate $12 + 8$ in base $3$
+    \begin{align*}
+        12 &= (110)_3 \\
+        8 &= (22)_3
+    \end{align*}
+    \begin{align*}
+        \arraycolsep=1pt
+        \renewcommand\arraystretch{1.2}
+        \begin{array}{*1r @{\hskip\arraycolsep}c@{\hskip\arraycolsep} *{11}r}
+              & 1 &   &   \\
+              & 1 & 1 & 0 \\
+            + &   & 2 & 2 \\
+              \cline{2-4}
+              & 2 & 0 & 2
+        \end{array}
+    \end{align*}
+    \[
+        (202)_3 = 2\cdot 9 + 0\cdot 3 + 2 = 20
+    \]
+
+    \subsection*{Example 2}
+    Calculate $12\times 8$ in base $2$
+    \begin{align*}
+        12 = (1100)_2 \\
+        8 = (1000)_2
+    \end{align*}
+    \begin{align*}
+        \arraycolsep=1pt
+        \renewcommand\arraystretch{1.2}
+        \begin{array}{*1r @{\hskip\arraycolsep}c@{\hskip\arraycolsep} *{11}r}
+              &   &   &   & 1 & 1 & 0 & 0 \\
+              &   &&\times& 1 & 0 & 0 & 0 \\
+            \cline{5-8}
+              &   &   &   & 0 & 0 & 0 & 0 \\
+              &   &   & 0 & 0 & 0 & 0 &   \\
+              &   & 0 & 0 & 0 & 0 &   &   \\
+            + & 1 & 1 & 0 & 0 &   &   &   \\
+            \cline{2-8}
+              & 1 & 1 & 0 & 0 & 0 & 0 & 0
+        \end{array}
+    \end{align*}
+
+    \subsection*{Modular Exponentiation}
+    A quick way to compute large exponents of numbers is to split the number
+    into its base 2 components.
+    \begin{align*}
+        n &= n_k2^k + \dots + n_2\cdot 2^2+n_1\cdot 2 + n_0 \\
+        x^n &= x^{(n_k2^k + \dots + n_2\cdot 2^2+n_1\cdot 2 + n_0)} \\
+            &= x^{n_k2^k}x^{n_{k-1}2^{k-1}}\dots x^{n_2\cdot 2^2} x^{n_1\cdot 2} x^{n_0}
+    \end{align*}
+    This reduces the amount of multiplications
+    \[
+        x^n = \underbrace{x\cdot x\cdot \dots \cdot x}_n
+        = \underbrace{x^{n_k2^k}x^{n_{k-1}2^{k-1}}\dots x^{n_2\cdot 2^2} x^{n_1\cdot 2} x^{n_0}}_{\lceil\log_2(n)\rceil}
+    \]
+
+    \section*{Prime Numbers}
+    A number $p$ is prime if the only positive factors of $p$ are $1$ and $p$.
+    If a number is not prime, it is called composite. There are infinitely many
+    prime numbers. Prime numbers in the form $2^p-1$ where $p$ is a prime is
+    called a Mersenne prime.
+
+    \subsection*{Distribution of primes}
+    Let $\pi(x)$ be the number of primes $p$ such that $p \le x$.
+    \[
+        \pi(x) \approx \frac{x}{\ln x} \text{ as } x \rightarrow \infty
+    \]
+
+    \subsection*{Fundamental Theorem of Arithmetic}
+    Every integer greater than 2 is either prime or can be written uniquely as the product
+    of two or more prime numbers.
+
+    \subsection*{Prime Factorization}
+    The prime factorization of a integer $n>1$ is in the form of products of
+    exponents of primes. Every prime factorization is unique.
+    \begin{align*}
+        n &= p_1^{e_1}p_2^{e_2}\dots p_k^{e_k} \\
+        \text{where } p_i &\text{ is prime for all } i
+    \end{align*}
+    Any composite number $n$ must have at least one prime factors $p_i$ such
+    that  $p_i\le\sqrt{n}$.
+
+    \subsection*{Example}
+    Prove there are infinitely many primes. \\
+    Suppose there are only a finite number of primes.
+    \[
+        P = \{p_1,p_2,\dots,p_k\}
+    \]
+    This means there is some largest prime $p_k$.
+    \begin{align*}
+        \text{let } q &= p_1p_2p_3\dots p_k + 1
+    \end{align*}
+    Since all primes are greater than 2, no primes divide $q$. \\
+    Therefore $q$ is a prime. \\
+    Since $q$ is the product of primes plus one, $q$ is larger than $p_k$ \\
+    This contradicts that a largest prime exists, therefore there is no largest
+    prime. \\
+    Therefore there are infinitely many primes.
+
+    \subsection*{GCD and LCM}
+    The greatest common divisor (GCD) of two positive integers $a$ and $b$ is
+    the largest integer $n$ such that $n\ |\ a$ and $n\ |\ b$.
+    \begin{align*}
+        a &= p_1^{a_1}p_2^{a_2}\dots p_n^{a_n} \\
+        b &= p_1^{b_1}p_2^{b_2}\dots p_n^{b_n} \\
+        \gcd(a,b) &= p_1^{\min(a_1,b_1)} p_2^{\min(a_2,b_2)} \dots p_n^{\min(a_n,b_n)}
+    \end{align*}
+    The least common multiple (LCM) of positive integers $a$ and $b$ is the
+    smallest positive integer $n$ such that $a\ |\ n$ and $b\ |\ n$
+    \begin{align*}
+        a &= p_1^{a_1}p_2^{a_2}\dots p_n^{a_n} \\
+        b &= p_1^{b_1}p_2^{b_2}\dots p_n^{b_n} \\
+        \lcm(a,b) &= p_1^{\max(a_1,b_1)} p_2^{\max(a_2,b_2)} \dots p_n^{\max(a_n,b_n)}
+    \end{align*}
+
+    \subsection*{Euclidean Algorithm}
+    \[
+        \gcd(a,b) = \gcd(a, b\mod a)
+    \]
+    Assume that $b \ge a$.
+    \begin{align*}
+        b &= qa+r \\
+        \text{let}\ &d = gcd(a,b) \\
+        \Rightarrow\ & d\ |\ a,\ d\ |\ b \\
+        \Rightarrow\ & d\ |\ b-qa \\
+        \Rightarrow\ & d\ |\ r \\
+        \Rightarrow\ & d\ |\ \gcd(a,r) = \gcd(a,b \mod a) \\
+        \text{let}\ &d_1 = gcd(a,r) \\
+        \Rightarrow\ & d_1\ |\ r = b-qa \\
+        \Rightarrow\ & d_1\ |\ b \\
+        \Rightarrow\ & d_1\ |\ gcd(a,b) \\
+        \Rightarrow\ & d_1\ |\ d \\
+        d\ |\ d_1 \text{ and } d_1\ |\ d \Rightarrow\ & gcd(a,b) = gcd(a, b\mod a)
+    \end{align*}
+    This identity can be used to create a fast gcd algorithm.
+    \begin{verbatim}
+        function gcd(a,b)
+            x = a
+            y = b
+            while y != 0
+                r = x mod y
+                x = y
+                y = r
+            return x
+    \end{verbatim}
+
+    \subsection*{Bezout's Theorem}
+    If $a$ and $b$ are positive integers then there exists integers $r$ and $s$
+    such that $gcd(a,b) = ra+sb$. The values $r,s$ can be found by using the
+    extended Euclidean algorithm.
+    \begin{verbatim}
+        def xgcd(a, b):
+            s0, s1, t0, t1 = 1, 0, 0, 1
+            while b != 0:
+                q, r = divmod(a, b)
+                a, b = b, r
+                s0, s1 = s1, s0 - q * s1
+                t0, t1 = t1, s0 - q * t1
+            return a, s0, t_0
+    \end{verbatim}
+
+    \subsection*{Example}
+    Prove that if $a$, $b$, and $c$ are positive integers such that $a|bc$ and $gcd(a,b)=1$
+    then $a|c$
+    \begin{align*}
+        ra+sb = 1 \\
+        \Rightarrow rac + sbc = c \\
+    \end{align*}
+    Since $a|bc$, $a|sbc$
+    \begin{align*}
+        \Rightarrow a | rac + sbc \\
+        \Rightarrow a | c
+    \end{align*}
+
+    \subsection*{Congruence}
+    Let $m\in \mathbb{Z}^+$ and $a,b,c\in \mathbb{Z}$. If
+    $ac\equiv bc \modm{m}$ and $\gcd(c,m)=1$, then $a\equiv b \modm{m}$
+    \begin{align*}
+        ac&\equiv bc \modm{m} \\
+        m\ &|\ ac - bc = c(a-b)
+    \end{align*}
+    since $gcd(c,m) = 1$, then $m\ |\ a-b$ and by definition $a = b \modm{m}$
+
+    \subsection*{Product of GCD and LCM}
+    The product of the gcd and lcm is the product of the inputs.
+    \[
+        ab = gcd(a,b) lcm(a,b)
+    \]
+    \begin{align*}
+        a &= p_1^{a_1}p_2^{a_2}\dots p_k^{a_k} \\
+        b &= p_1^{b_1}p_2^{b_2}\dots p_k^{b_k} \\
+        gcd(a,b) &= p_1^{min(a_1,b_1)}\dots p_k^{min(a_k,b_k)} \\
+        lcm(a,b) &= p_1^{max(a_1,b_1)}\dots p_k^{max(a_k,b_k)} \\
+        gcd(a,b)lcm(a,b) &= \Big(p_1^{min(a_1,b_1)}\dots p_k^{min(a_k,b_k)}\Big)
+        \Big(p_1^{max(a_1,b_1)}\dots p_k^{max(a_k,b_k)}\Big) \\
+                         &= p_1^{max(a_1,b_1) + max(a_1,b_1)}\dots p_k^{min(a_k,b_k) + max(a_k,b_k)} \\
+                         &= p_1^{a_1 + b_1}\dots p_k^{a_1+b_1} \\
+                         &= \Big(p_1^{a_1}\dots p_k^{a_k}\Big)\Big(p_1^{b_1}\dots p_k^{b_k}\Big) \\
+                         &= ab
+    \end{align*}
+
+    \subsection*{Modular Inverse}
+    The inverse of a number $a$ mod m is a number $b$ such that $ab = 1
+    \modm{m}$. If $a$ and $m$ is coprime, then the inverse exists and is unique.
+    \begin{align*}
+        gcd(a,m) &= 1 \\
+        sa+tm &= 1 &\text{ for some } s,t \\
+        sa+tm &= 1 \modm{m} \\
+        sa &= 1 \modm{m} & \text{since $tm$ is zero} \modm{m} \\
+        s &= a^{-1} \modm{m}
+    \end{align*}
+    Proof of uniqueness
+    \begin{align*}
+        \text{Suppose } s &= a^{-1}, s' = a^{-1} \\
+        sa &= 1 = s'a \modm{m} \\
+        sa &= s'a \modm{m} \\
+        s &= s' \modm{m} & \text{because $a$ is coprime with $m$}
+    \end{align*}
+\end{document}
