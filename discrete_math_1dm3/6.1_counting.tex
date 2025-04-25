@@ -1,0 +1,336 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Counting}
+\author{Patrick Chen}
+\date{March 17, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    \section*{Product Rule}
+    Suppose a procedure $A$ can be divided into $k$ tasks $A_k$. If there are
+    $n_k$ ways to do task $k$, then the amount of ways to complete the procedure
+    is the product of the ways to do each task.
+    \[
+        |A_1 \times A_2 \times \dots \times A_k| = |A_1|\ |A_2|\dots|A_k|
+    \]
+
+    \subsection*{Counting functions}
+    If set $A$ has $n$ elements and set $B$ has $m$ elements, then each elements
+    in $A$ can be mapped to an element in $B$, leading to $m$ choices. With $n$
+    total elements, the amount of functions that map from $A$ to $B$ is the
+    \[
+        | f: A \mapsto B | = \underbrace{m\times m\times \dots\times m}_{n} = m^n
+    \]
+    For the set of injective functions, the first choice is $m$ and the second
+    is $(m-1)$.
+    \[
+        | f: A \hookrightarrow B | = \underbrace{m(m-1)(m-2)\dots(m-n+1)}_n
+        = \frac{m!}{(m-n)!}
+    \]
+
+    \section*{Sum Rule}
+    Suppose a procedure can be done in $k$ ways. If the kth way requires $n_k$
+    without any overlap, then the amount of ways to do the procedure is the sum
+    of all the ways.
+    \[
+        | A_1 \cup A_2 \cup \dots \cup A_k | = |A_1|+|A_2|+\dots+|A_k|
+    \]
+    If the intersection between $A_i$ and $A_j$ is not empty, then the
+    intersection of the two sets is double counted. Thus to get an accurate
+    count, the intersection must be subtracted.
+    \[
+        |A \cup B| = |A| + |B| - |A\cap B|
+    \]
+    When there are more than two sets, all permutations of the sets have to be
+    added or subtracted. If there is an even amount of sets in the intersection,
+    the size will have to be subtracted, otherwise it will have to be added.
+    \begin{align*}
+        |A\cup B\cup C| = &\quad (|A| + |B| + |C|) \\
+                        &- (|A\cap B| + |B\cap C| + |C\cap A|) \\
+                        &+ (|A\cap B\cap C|)
+    \end{align*}
+
+    \subsection*{Example}
+    How many hexadecimal strings are there of length 2 or 3.
+    \begin{align*}
+        |S_{[2,3]}| &= |S_2| + |S_3| \\
+                    &= 16^2 + 16^3
+    \end{align*}
+
+    \subsection*{Example 2}
+    How many bit strings of length 8 either start with $1$ of end with $00$? \\
+    Let $A$ be the set of strings that start with $1$ \\
+    Let $B$ be the set of  strings that end with $00$ \\
+    The set $A$ will be in the form 1\_\_\_\_\_\_\_ and will have 7 binary choices \\
+    The set $B$ will be in the form \_\_\_\_\_\_00 and will have 6 binary choices \\
+    The set $A\cup B$ will be in the form 1\_\_\_\_\_00 and will have 5 binary choices
+    \begin{align*}
+        |A\cup B| &= |A| + |B| - |A \cup B| \\
+                  &= 2^7 + 2^6 - 2^5
+    \end{align*}
+
+    \section*{Division rule}
+    Suppose a task can be done in $n$ ways. For each way, there are $d$
+    equivalent ways. There are $\frac{n}{d}$ distinct ways to do the task.
+
+    \subsection*{Example}
+    How many different ways to arrange $1,1,2,3,4$ in a sequence? \\
+    There are $5!$ ways to arrange five distinct values, but there are $2!$
+    equivalent ways to arrange them because there are 2 ones in the sequence.
+    Thus there are $\frac{5!}{2!}=60$ ways to arrange them.
+
+    \subsection*{Example 2}
+    How many ways are there to seat 5 people around a circular table? Rotations
+    around to circular table are not considered distinct. \\
+    There are $5!$ ways to seat 5 people in a circular table and there are 5
+    possible rotations, thus there are $\frac{5!}{5}=4!=24$ distinct ways to seat 5
+    people around a circular table.
+
+    \section*{Pigeonhole Principle}
+    If $k$ is a positive integer and $k+1$ more objects are place into $k$
+    boxes, then there is at least one box containing two or more of the objects.
+    Formally, if $A$ and $B$ be two countable sets such that  $|A| > |B|$, then
+    for all $f: A \mapsto B$, there are $a,b\in A$ such that $f(a)=f(b)$.
+
+    % \subsection*{Theorem}
+    % Every sequence of $n^2+1$ distinct real numbers containing a subsequence of
+    % length $n+1$, that is either strictly increasing or strictly decreasing
+    % order.
+
+    \subsection*{Generalized Pigeonhole Principle}
+    If $n$ objects are placed into $k$ boxes, then there is at least one box
+    containing at least $\lceil \frac{n}{k} \rceil$ objects.
+    \[
+        \text{argmin}\Big[n\ |\ \Big\lceil \frac{n}{k} \Big\rceil = c\Big]
+    \]
+
+    \subsection*{Example}
+    How many cards must be selected from a standard deck of 52 cards to
+    guarantee that at least three cards of the same suit are selected
+    \[
+        \text{argmin}\Big[n\ |\ \Big\lceil \frac{n}{4} \Big\rceil = 3\Big] = 9
+    \]
+
+    \subsection*{Example 2}
+    Show that among any $(n+1)$ positive integers (set $A$) not exceeding $2n$,
+    there must be an integer that divides another integer.
+
+    \begin{align*}
+        \text{let } a_i &= 2^{u_i} q_i \text{ for some } u_i,q_i \\
+        \text{where } q_i &\text{ is odd}, \\
+        j&\in\{1,2,\dots,n+1\} \\
+        u_i&\in \mathbb{N}_0
+    \end{align*}
+    Since $a_j \le 2n$, then $q_j\le 2n$ thus the set $(q_1,\dots,q_{n+1})$ is
+    $n+1$ odd numbers. \\
+    Since there are $n$ odd numbers less than $2n$, \\
+    by the pigeonhole principle $q_r=q_s$ for some $1\le r\le n+1$ and $1\le s\le n+1$. \\
+    Thus $a_r=2^{u_r}q_r, a_s=2^{u_s}q_s$. \\
+    If $u_r\le u_s$ then $a_r\ |\ a_s$ otherwise $a_s\ |\ a_r$
+    \section*{Permutations}
+    A permutation is an ordered arrangement of a set of objects. In general, any
+    set with size $n$ has $n!$ permutations. The r-permutation of a set $A$ is a
+    permutation of a subset of $A$ of size $r$. The total amount of
+    r-permutations of size $n$ is $\frac{n!}{(n-r)!}$
+    \[
+        P(n,r) = \frac{n!}{(n-r)!}
+    \]
+
+    \subsection*{Example}
+    For the set $A$, how many permutations contain the string
+    $abc$?
+    \[
+        A=\{a,b,c,d,e,f,g\}
+    \]
+    This is equivalent to asking how many permutations are there when $abc$ is
+    considered one element.
+    \[
+        A' = \{abc,d,e,f,g\}
+    \]
+    Thus there are $5!$ permutations.
+
+    \section*{Combinations}
+    An r-combination of elements of a set $A$ is an unordered selection of r
+    elements from $A$.
+    \[
+        C(n,r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}
+    \]
+
+    \subsection*{Example 1}
+    7 women and 9 men are on the faculty in cs department, how many ways are
+    there to select a committee of 5 members such that there is at least one
+    woman on the committee \\
+    committee with no women: $\binom{9}{5}$ \\
+    arbitrary committee: $\binom{16}{5}$
+    \[
+        \binom{16}{5} - \binom{9}{5}
+    \]
+
+    \subsection*{Example 2}
+    7 women and 9 men are on the faculty in cs department, how many ways are
+    there to select a committee of 5 members such that there is at least one
+    woman and one man on the committee \\
+    committee with no women: $\binom{9}{5}$ \\
+    committee with no men: $\binom{9}{5}$ \\
+    arbitrary committee: $\binom{16}{5}$
+    \[
+        {\binom{16}{5}} - {\binom{9}{5}} - {\binom{7}{5}}
+    \]
+
+    \subsection*{Example 3}
+    Prove that for $n\ge 0$ and $0\le r\le n$ that $C(n,r)=C(n,n-r)$
+    \begin{align*}
+        C(n,n-r) &= \frac{n!}{(n-r)!(n-(n-r))!} \\
+                 &= \frac{n!}{(n-r)!r!} \\
+                 &= C(n,r)
+    \end{align*}
+
+    \section*{Binomial Theorem}
+    \begin{align*}
+        (x+y)^n = (x+y)(x+y)\dots(x+y)
+    \end{align*}
+    All terms in the product are of the form $x^jy^{n-j}$ where $0 \le j \le n$.
+    There are $\binom{n }{n-j}$ ways to choose $(n-j)$ y terms from $n$ factors.
+    Therefore, the coefficient of $x^jy^{j-n}$ is $\binom{n }{n-j}$
+    \begin{align*}
+        (x+y)^n = 
+        \binom{n}{0}x^n+
+        \binom{n}{1}x^{n-1}y+
+        \dots+
+        \binom{n}{n-1}xy^{n-1}+
+        {\binom{n}{n}}y^n =
+        \sum_{j=0}^{n} {\binom{n}{j}}x^{n-j}y^j
+    \end{align*}
+
+    \subsection*{Interesting Conclusions}
+    \begin{itemize}
+        \item $x=y=1$ leads to
+            \begin{align*}
+                (x+y)^n &= \sum_{j=0}^{n} \binom{n}{j}1^{n-j}1^j \\
+                2^n &= \sum_{j=0}^{n} \binom{n}{j}
+            \end{align*}
+            The sum of chooses is equal to a base two exponential.
+        \item $x=1$, $y=-1$ leads to
+            \begin{align*}
+                (x+y)^n &= \sum_{j=0}^{n} \binom{n}{j}1^{n-j}(-1)^j \\
+                0 &= \sum_{j=0}^{n} \binom{n}{j}(-1)^j \\
+            \end{align*}
+            The alternating sum of chooses is equal to zero.
+    \end{itemize}
+
+    \subsection*{Pascel's identity}
+    \begin{align*}
+        \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}
+    \end{align*}
+
+    \begin{align*}
+        \binom{n-1}{k-1} + \binom{n-1}{k}
+        &= \frac{(n-1)!}{(k-1)!(n-k)!} + \frac{(n-1)!}{k!(n-k-1)!} \\
+        &= \frac{k(n-1)! + (n-k)(n-1)!}{k!(n-k)!} \\
+        &= \frac{(k + (n-k))(n-1)!}{k!(n-k)!} \\
+        &= \frac{n(n-1)!}{k!(n-k)!} \\
+        &= \frac{n!}{k!(n-k)!} \\
+        &= \binom{n}{k}
+    \end{align*}
+
+    \subsection*{Pascals Triangle}
+    Pascal's triangle is defined as follows
+    \begin{gather*}
+        \binom{0}{0} \\
+        \binom{1}{0}
+        \binom{1}{1} \\
+        \binom{2}{0}
+        \binom{2}{1}
+        \binom{2}{2} \\
+        \binom{3}{0}
+        \binom{3}{1}
+        \binom{3}{2}
+        \binom{3}{3} \\
+        \vdots
+    \end{gather*}
+    Using pascal's identity, its possible to express the next term as a sum of
+    the previous terms.
+    \begin{gather*}
+        \binom{n-1}{k-1} \binom{n}{k-1} \\
+        \binom{n}{k}
+    \end{gather*}
+
+    \subsection*{Vandermonde's Identity}
+    For $r\le \min(m,n)$
+    \[
+        \binom{m+n}{r} = \sum_{k=0}^{r} \binom{m}{r-k}\binom{n}{k}
+    \]
+    The left hand side is choosing $r$ from $m+n$ \\
+    The right hand side is choosing $k$ objects from the second bin and the
+    remaining objects from the right bin
+
+    \subsection*{Identity 2}
+    For $r \le n$
+    \[
+        \binom{n+1}{r+1} = \sum_{k=r}^{n} \binom{k}{r}
+    \]
+    \begin{align*}
+        \binom{k+1}{r+1} &= \binom{k}{r} + \binom{k}{r+1} & \text{Pascal's Identity} \\
+        \binom{k}{r} &= \binom{k+1}{r+1} - \binom{k}{r+1} \\
+        \sum_{k=r}^{n} \binom{k}{r} &= \sum_{k=r}^{n} \Bigg( \binom{k+1}{r+1} - \binom{k}{r+1}\Bigg) \\
+        \sum_{k=r}^{n} \binom{k}{r} &= \binom{n+1}{r+1} - \binom{r}{r+1} & \text{Alternating Series} \\
+        \sum_{k=r}^{n} \binom{k}{r} &= \binom{n+1}{r+1}
+    \end{align*}
+
+
+\end{document}
