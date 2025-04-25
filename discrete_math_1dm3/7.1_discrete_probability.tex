@@ -1,0 +1,586 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Define Article %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Using Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{empheq}
+\usepackage{mdframed}
+\usepackage{booktabs}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{psfrag}
+\usepackage{pgfplots}
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Other Settings
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Page Setting %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\geometry{a4paper}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define some useful colors %%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{ocre}{RGB}{243,102,25}
+\definecolor{mygray}{RGB}{243,243,244}
+\definecolor{deepGreen}{RGB}{26,111,0}
+\definecolor{shallowGreen}{RGB}{235,255,255}
+\definecolor{deepBlue}{RGB}{61,124,222}
+\definecolor{shallowBlue}{RGB}{235,249,255}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% Define an orangebox command %%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\orangebox[1]{\fcolorbox{ocre}{mygray}{\hspace{1em}#1\hspace{1em}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% English Environments %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheoremstyle{mytheoremstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\newtheoremstyle{myproblemstyle}{3pt}{3pt}{\normalfont}{0cm}{\rmfamily\bfseries}{}{1em}{{\color{black}\thmname{#1}~\thmnumber{#2}}\thmnote{\,--\,#3}}
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowGreen,linecolor=deepGreen,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{theorem}{Theorem}[section]
+\theoremstyle{mytheoremstyle}
+\newmdtheoremenv[linewidth=1pt,backgroundcolor=shallowBlue,linecolor=deepBlue,leftmargin=0pt,innerleftmargin=20pt,innerrightmargin=20pt,]{definition}{Definition}[section]
+\theoremstyle{myproblemstyle}
+\newmdtheoremenv[linecolor=black,leftmargin=0pt,innerleftmargin=10pt,innerrightmargin=10pt,]{problem}{Problem}[section]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Settings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepgfplotslibrary{colorbrewer}
+\pgfplotsset{width=8cm,compat=1.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title & Author %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Discrete Probability}
+\author{Patrick CHen}
+\date{March 26, 2025}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+    \maketitle
+    Probability theory is a mathematical framework for quantifying the
+    likelihood of the outcome of a random experiment. An experiment is defined
+    as a procedure that generates a random outcome. All possible outcomes of a
+    random experiment is called a sample space. An event is a subset of the
+    sample space.
+
+    \section*{Axioms of probability theory}
+    Let $\mathcal{S}$ be a sample space. We assign a number $P(E)$ to each event
+    $E\subseteq \mathcal{S}$ that quantifies how likely it is to happen.
+    \begin{itemize}
+        \item $P(E)$ is the probability that the event $E$ occurs after running
+            a random experiment.
+        \item $P$ is a function $P: \mathcal{P}(\mathcal{S}) \mapsto \mathbb{R}$
+    \end{itemize}
+    The function $P$ must satisfy the following
+    \begin{itemize}
+        \item $P(E) \in [0,1]$
+        \item $P(\mathcal{S}) = 1$
+        \item $P(E_1\cup E_2) = P(E_1) + P(E_2)$ for disjoint sets $E_1$ and
+            $E_2$
+    \end{itemize}
+
+    \section*{Probability}
+    \subsection*{Uniform Probability}
+    Let $\mathcal{S}$ be a sample space of equally likely outcomes.
+    \[
+        P(E) = \frac{|E|}{|\mathcal{S}|}
+    \]
+
+    \subsection*{Example}
+    There are 20 distinct balls in a box labeled from 1 to 20. If 4 balls are
+    taken out all at once, what is the probability that the balls 1,2,3,4
+    are chosen.
+    \begin{align*}
+        \mathcal{S} &= \{ (x,y,z,w)\in \mathbb{Z}^4\ |\ 1\le x,y,z,w\le 20, \text{distinct}\} \\
+        |\mathcal{S}| &= \binom{20}{4} \\
+        E &= \{(1,2,3,4)\} \\
+        |E| &= 1 \\
+        P(E) &= \frac{1}{\binom{20}{4}}
+    \end{align*}
+    \subsection*{Example 2}
+    There are 20 distinct balls in a box labeled from 1 to 20. If one ball is
+    taken out and put back in, what is the probability that balls are 1,2,3,4 in
+    that order.
+    \begin{align*}
+        \mathcal{S} &= \{ (x,y,z,w)\in \mathbb{Z}^4\ |\ 1\le x,y,z,w\le 20\} \\
+        |\mathcal{S}| &= 20^4 \\
+        E = \{(1,2,3,4)\} \\
+        |E| = 1 \\
+        P(E) = \frac{|E|}{|\mathcal{S}|} = \frac{1}{20^4} \\
+    \end{align*}
+
+    \section*{Complements and Union}
+    Let $E\subseteq \mathcal{S}$ be an event. $P(\overline{E})=1-P(E)$
+    \begin{align*}
+        E \cup \overline{E} &= \mathcal{S} \\
+        P(E \cup \overline{E}) &= P(\mathcal{S}) \\
+        P(E) + P(\overline{E}) &= 1 \\
+        P(\overline{E}) &= 1 - P(E)
+    \end{align*}
+    For two non distinct events $E_1,E_2\subseteq{\mathcal{S}}$, then
+    $P(E_1\cup E_2)=P(E_1)+P(E_2)-P(E_1\cap E_2)$
+    \begin{align*}
+        E_1\cup E_2 &= (E_1 - E_1 \cap E_2) \cup (E_1 \cap E_2) \cup (E_2 - E_1\cap E_2) \\
+        P(E_1\cup E_2) &= P(E_1 - E_1 \cap E_2) + P(E_1 \cap E_2) + P(E_2 - E_1\cap E_2) \\
+                       &= P(E_1) - P(E_1 \cap E_2) + P(E_1 \cap E_2) + P(E_2) - P(E_1\cap E_2) \\
+                       &= P(E_1) + P(E_2) - P(E_1\cap E_2)
+    \end{align*}
+
+    \section*{Non-Uniform Probabilities}
+    Let $\mathcal{S}$ be a set $\{s_1,s_2,\dots,s_n\}$. The probability of a
+    outcome is the probability of an event that only contains that outcome.
+    \[
+        P(s) = P(\{s\})
+    \]
+    From this we can reach a few conclusions
+    \begin{itemize}
+        \item For any $E\subseteq \mathcal{S}$, then $P(E) = \sum_{s\in E} P(s)$
+        \item $\sum_{s\in\mathcal{S}}P(s) = 1$
+    \end{itemize}
+
+    \subsection*{Example}
+    What probabilities should we assign to H and T when a fair coin is flipped
+    \[
+        \mathcal{S} = \{H,T\},\quad P(\mathcal{S})=1,\quad P(H) + P(T) = 1
+    \]
+    Since its a fair coin, $P(H)=P(T)$. Thus $P(H)=P(T)=\frac{1}{2}$
+
+    \subsection*{Example 2}
+    What probabilities should we assign to H and T when H is twice as likely as
+    T
+    \[
+        P(H) = 2P(T),\quad P(H)+P(T) = 1,\quad 3P(T) = 1
+    \]
+    Therefore
+    \[
+        P(T)=\frac{1}{3},\quad P(H)=\frac{2}{3}
+    \]
+
+    \subsection*{Example 3}
+    A die is designed in a way such that 1 is three times more likely to come up
+    than each other number and other outcomes are equally likely. What is the
+    probability that a odd number comes up.
+    \[
+        \mathcal{S} = \{1,2,3,4,5,6\}
+    \]
+    \begin{align*}
+        P(1) = 3P(2) = 3P(3) = 3P(4) = 3P(5) = 3P(6) \\
+        P(1) + P(2) + P(3) + P(4) + P(5) + P(6) = 1 \\
+        8P(2) = 1 \\
+        P(1)=\frac{3}{8}, P(2)=P(3)=P(4)=P(5)=P(6)=\frac{1}{8}
+    \end{align*}
+    \begin{align*}
+        P(\text{Odd}) &= P(1) + P(3) + P(5) \\
+                      &= \frac{3}{8} + \frac{1}{8} + \frac{1}{8} \\
+                      &= \frac{5}{8}
+    \end{align*}
+
+    \section*{Conditional Probability}
+    Suppose that an event $F$ has already happened. The probability of another
+    event $E$ happening is denoted as $P(E | F)$. Formally, if $E$ and $F$ are
+    two events and $P(F)>0$, then the probability of $E$ happening given that
+    $F$ happened is defined as follows.
+    \[
+        P(E|F) = \frac{P(E\cap F)}{P(F)}
+    \]
+
+    \subsection*{Example}
+    Suppose we flip a fair coin three times and we know that the first flip
+    comes up tails. What is the probability that we get an odd number of tails.
+    \begin{align*}
+        \mathcal{S} &= \{THH, THT, TTH, TTT\} \\
+        E &= \{THT, TTT\} \\
+        P(E) &= \frac{2}{4} = \frac{1}{2}
+    \end{align*}
+
+    \subsection*{Example 2}
+    What is the probability the sum of two dice rolls is 8 given that the first
+    die shows 3.
+    \begin{align*}
+        \mathcal{S} &= \{(x,y) \in \mathbb{Z}^2 | 1 \le x,y \le 6 \} \\
+        F &= \{ (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3,6) \} \\
+        E &= \{ (2, 6), (3, 5), (4, 4), (5, 3), (6, 2) \} \\
+        E \cap F &= \{(3, 5)\} \\
+        P(F) &= \frac{6}{36} = \frac{1}{6} \\
+        P(E \cap F) &= \frac{1}{36} \\
+        P(E | F) &= \frac{(\frac{1}{36})}{(\frac{1}{6})} = \frac{1}{6}
+    \end{align*}
+
+    \subsection*{Example 3}
+    Suppose 36\% of families own a dog, 30\% of families own a cat, and 22\% of
+    families own both. What is the probability that a family owns a dog if they
+    own a cat.
+    \begin{align*}
+        F &= \text{has cat} = 30\% \\
+        E &= \text{has dog} = 36\% \\
+        E \cap F &= \text{has both} = 22\% \\
+        P(E | F) &= \frac{22\%}{30\%} = \frac{11}{15}
+    \end{align*}
+
+    \section*{Independence}
+    Two events are independent if $P(E|F) = P(E)$. Equivalently, $E$ and $F$
+    are independent if and only if $P(E\cap F) = P(E)P(F)$.
+    \begin{itemize}
+        \item For any arbitrary number of events $E_1,\dots,E_n$ are pairwise
+            independent if  for all pairs of integers $i,j$ such that $i\ne j$,
+            \[
+                P(E_i\cap E_j)=P(E_i)P(E_j)
+            \]
+        \item For any arbitrary number of events $E_1,\dots,E_n$ are mutually
+            independent if
+            \[
+                P(E_1\cap E_2\cap\dots\cap E_m)=P(E_1)P(E_2)\dots P(E_n)
+            \]
+    \end{itemize}
+
+    \subsection*{Example}
+    Let $E$ be the event that a bit string of length 4 generated from uniform
+    randomness begins with 1 and $F$ be the event that the bit string contains
+    an even number of 1s. Are $E$ and $F$ independent?
+    \begin{align*}
+        E &= \{1000, 1001, 1010,\dots, 1111\} = 8 \\
+        F &= \{0000, 0011, 0101, \dots, 1111\} = 8 \\
+        P(E) &= P(F) = \frac{8}{16} = \frac{1}{2} \\
+        E\cup F &= \{1001, 1010, 1100, 1111\} = 4 \\
+        P(E\cup F) &= \frac{4}{16} = \frac{1}{4} = (\frac{1}{2})(\frac{1}{2}) = P(E)P(F)
+    \end{align*}
+    Therefore $E$ and $F$ are independent.
+
+    \section*{Bernoulli Trial}
+    A Bernoulli trial is an experiment with two outcomes: Success with
+    probability $p$, and failure with probability $1-p$. In $n$ independent
+    trials, the probability of obtaining exactly $k$ success is the product of
+    the amount of choices for how the successes are distributed and the
+    probability that an ordered sequence has $k$ successes.
+    \[
+        \binom{n}{k}p^k(1-p)^{n-k}
+    \]
+
+    \subsection*{Random Variable}
+    A random variable $X$ over a sample space $\mathcal{S}$ is a function $X:
+    \mathcal{S} \mapsto \mathbb{R}$. The distribution of $X$ is the set of pairs
+    $(r,P(X=r))$ where $r\in X(\mathcal{S})$ and $P(X=r)$ is the probability
+    that $X$ has the same value as $r$.
+
+    \subsection*{Example}
+    A coin is biased so that the probability of heads is $2/3$. What is the
+    probability that exactly four heads come up when the coin is flipped seven
+    times? Assume coin flips are independent.
+    \begin{align*}
+        P(E) = \binom{7}{4} \Big(\frac{2}{3}\Big)^4 \Big(\frac{1}{3}\Big)^3
+    \end{align*}
+
+    \subsection*{Example}
+    Suppose a coin is flipped three times and the random variable $X$ counts the
+    amount of heads. Find the probability distribution of $X$.
+    \begin{align*}
+        X(HHH)=3 \\
+        X(HHT)=X(HTH)=X(THH) = 2 \\
+        X(TTH)=X(THT)=X(HTT)=1 \\
+        X(TTT)=0
+    \end{align*}
+    \begin{align*}
+        P(X=0)= \frac{1}{8} \\
+        P(X=1)= \frac{3}{8} \\
+        P(X=2)= \frac{3}{8} \\
+        P(X=3)= \frac{1}{8}
+    \end{align*}
+    The probability distribution of $X$ is
+    \[
+        \bigg\{\Big(0, \frac{1}{8}\Big), \Big(1, \frac{3}{8}\Big), \Big(2, \frac{3}{8}\Big), \Big(\frac{3,1}{8}\Big)\bigg\}
+    \]
+
+    \subsection*{Birthday Problem}
+    How many people need to be in a room so that the probability that at least
+    two of them have the same birthday is greater than $\frac{1}{2}$?
+
+    \begin{align*}
+        p_1 &= 1 \\
+        p_2 &= \frac{364}{265} \\
+        p_2 &= \frac{363}{265} \\
+            &\vdots \\
+        p_n &= \frac{365-k+1}{365}
+    \end{align*}
+    Let $E_n$ be the event that everyone has a distinct birthday in a room of
+    $n$ people.
+    \begin{align*}
+        P(E_n) = \prod_{k=1}^n \frac{365-k+1}{365}
+    \end{align*}
+
+    \begin{align*}
+        P(E_22)&\approx 0.524 \\
+        P(E_23)&\approx 0.492
+    \end{align*}
+    Therefore it takes 23 people for the probability of two people having the
+    same birth day to be greater than $\frac{1}{2}$
+
+    \section*{Bayes Theorem}
+    Let $E$ and $F$ be two events from a sample space $\mathcal{S}$ such that
+    $P(E) \ne 0$ and $P(F) \ne 0$.
+    \[
+        P(F | E) = \frac{P(E | F) P(F)}{P(E)}
+    \]
+    Proof:
+    \begin{align*}
+        P(E | F) &= \frac{P(E\cap F)}{P(F)} \\
+        P(E | F)P(F) &= P(E\cap F)  \\
+        P(F | E) &= \frac{P(E\cap F)}{P(E)} \\
+        P(F | E) &= \frac{P(E | F)P(F)}{P(E)}
+    \end{align*}
+    Bayes theorem can also be expressed in this following form
+    \[
+        P(F|E) = \frac{P(E|F)P(F)}{P(E|F)P(F) + P(E|\overline{F})P(\overline{F})}
+    \]
+
+    \subsection*{Generalized Bayes' Theorem}
+    Let $E$ be an event from the sample space $\mathcal{S}$ and $F_1,\dots,F_n$ be mutually
+    exclusive events such that the union of all is S. $P(E)\ne 0$ and
+    $P(F_i)\ne0$.
+    \[
+        P(F_j | E) = \frac{P(E | F_j) P(F_j)}{\sum_{i=1}^{n} P(E | F_i)P(E_i)}
+    \]
+    Proof: \\
+    Since $F_i$ are disjoint
+    \[
+        E=\bigcup_{i=1}^n (F_i \cap E)
+    \]
+    \[
+        P(F_i\cap E) = P(E | F_i) P(F_i) \Rightarrow P(E) = \sum_{i=1}^{n} P(E|F_i)P(F_i)
+    \]
+    From Bayes theorem
+    \begin{align*}
+        P(F_j | E) &= \frac{P(E | F_j) P(F_j)}{P(E)} \\
+                   &= \frac{P(E | F_j) P(F_j)}{\sum_{i=1}^{n} P(E|F_i)P(F_i)}
+    \end{align*}
+
+    \subsection*{Example}
+    According to the data collected from a soccer team, they have won 25\% of
+    all games in the season. They also played with three strikers in 15\% of the
+    games. Three strikers where playing in 50\% of the games the team won. What
+    is the probability of winning with three strikers?
+    \begin{align*}
+        E &= \text{winning game} \\
+        F &= \text{playing 3 strikers} \\
+        P(E) &= \frac{25}{100} = \frac{1}{4} \\
+        P(F) &= \frac{15}{100} \\
+        P(F | E) &= \frac{50}{100} = \frac{1}{2} \\
+        P(E | F) &= ?
+    \end{align*}
+    \begin{align*}
+        P(E \cup F) &= P(E)P(F | E) = \frac{1}{4} \frac{1}{2} = \frac{1}{8} \\
+        P(E | F) &= P(F | E)/(P(F)) = \frac{\frac{1}{8}}{\frac{15}{100}} = \frac{100}{120} = \frac{5}{6}
+    \end{align*}
+
+    \subsection*{Example 2}
+    There are two boxes. The first contains two green balls and seven red balls.
+    The second container four green balls and three red balls. If own box is
+    chosen at random and a red ball is drawn from the boxes, what is the
+    probability that it was drawn from the first box.
+    \begin{align*}
+        E &= \text{choose red ball} \\
+        F &= \text{choosing first box} \\
+        \overline{F} &= \text{choosing second box} \\
+        P(E | F) &= \frac{7}{9} \\
+        P(E | \overline{F}) &= \frac{3}{7} \\
+        P(F) &= P(\overline{F})= \frac{1}{2} \\
+        P(F | E) &= \frac{(\frac{7}{9})(\frac{1}{2})}{(\frac{3}{7})(\frac{1}{2})+(\frac{3}{7})(\frac{1}{2})}
+        \approx 0.64
+    \end{align*}
+
+    \section*{Random Expectations}
+    The expectation of a random variable $X$ on a sample space $\mathcal{S}$ is
+    the average value of $X$ on the sample space. It is defined as follows.
+    \[
+        \mathbb{E}[X] = \sum_{s\in\mathcal{S}} P(s)X(s) = \sum_{r\in X(\mathcal{S})} P(X=r)r
+    \]
+    Let $X_1,\dots,X_n$ be random variables on $\mathcal{S}$ and $a,b\in
+    \mathbb{R}$. The expectation is linear operator on $X_1,\dots,X_n$
+    \begin{align*}
+        \mathbb{E}[X_1+\dots+X_n] &= \mathbb{E}[X_1] +\dots+ \mathbb{E}[X_n] \\
+        \mathbb{E}[aX+b] &= a\mathbb{E}[X] + b
+    \end{align*}
+    The deviation of $X$ at $s$ defined as $X(s) - \mathbb{E}[X]$
+
+    \subsection*{Lemma}
+    The expected value of a random variable that follows the binomial
+    distribution, with success probability $p$ is $np$ \\
+    Proof:
+    \begin{align*}
+        \mathbb{E}[X]
+        &= \sum_{i=1}^{n} P(X=i) \cdot i \\
+        &= \sum_{i=1}^{n} \binom{n}{i} p^i (1-p)^{n-i} \cdot i \\
+        &= \sum_{i=1}^{n} n\binom{n-1}{i-1} p^i (1-p)^{n-i} \cdot i \\
+        &= np\sum_{i=1}^{n} \binom{n-1}{i-1} p^{i-1} (1-p)^{n-i} \cdot i \\
+        &= np\sum_{i=0}^{n-1} \binom{n-1}{i} p^{i} (1-p)^{n-i+1} \cdot i \\
+        &= np (p+1-p)^{n-1} \\
+        &= np
+    \end{align*}
+
+    \subsection*{Example}
+    Let $X$ be the outcome of a fair die roll. What is $\mathbb{E}[X]$?
+    \begin{align*}
+        P(x=j) &= \frac{1}{6} \\
+        \mathbb{E}[X] &= \frac{1}{6} \cdot 1 + \dots + \frac{1}{6} \cdot 6
+        = \frac{21}{6} = \frac{7}{2}
+    \end{align*}
+
+    \subsection*{Example 2}
+    What is the expected value of the sum of the numbers that appear when a pair
+    of fair dice is rolled.
+    \begin{align*}
+        X_1 &= \text{outcome of first die} \\
+        X_2 &= \text{outcome of second die} \\
+        \mathbb{E}[X_1 + X_2] &= \mathbb{E}[X_1] + \mathbb{E}[X_2] & \text{linearity} \\
+                              &= 2 \mathbb{E}[X_1] & \text{identical dice}\\
+                              &= 2 (\frac{7}{3}) & \text{from previous example} \\
+                              &= \frac{14}{3}
+    \end{align*}
+
+    \subsection*{Example 3}
+    What is the expected value of a random variable that follows the binomial
+    distribution with success probability $p$?
+    \begin{align*}
+        \mathbb{E}[X_j] &= P(X=\text{success})\cdot 1 + P(X=\text{fail})\cdot 0 = p \\
+        \mathbb{E}[X_1 + \dots + X_n] &= \mathbb{E}[X_1] + \dots + \mathbb{E}[X_n] \\
+                                      &= \underbrace{p + \dots + p}_n \\
+                                      &= np
+    \end{align*}
+
+    \section*{Geometric Distribution}
+    A random variable $X$ on a sample space $\mathcal{S}$ has a geometric
+    distribution with parameter $p$ if
+    \[
+        P(X=k) = (1-p)^{k-1}p,\quad k\ge 1
+    \]
+    A random variable with a geometric distribution will have an expected value
+    $\mathbb{E}[X]=\frac{1}{p}$.
+    \subsection*{Example}
+    Suppose that the probability that a coin comes up heads is $p$. The coin is
+    flipped repeatedly until it comes up heads. What is the expected number of
+    flips until this coin comes up heads?
+    \begin{align*}
+        \mathcal{S} &= \{H, TH, TTH, TTTH, TTTTTH, \dots \} \\
+        X: S \mapsto \mathbb{R} &= \text{The number of tails flipped}\\
+        \mathbb{E}[X] &= \sum_{i=0}^{\infty} P(X=i) \cdot i \\
+                      &= \sum_{i=0}^{\infty} p(1-p)^{i-1} \cdot i \\
+                      &= p\sum_{i=0}^{\infty} (1-p)^{i-1} \cdot i \\
+                      &= p \frac{1}{p^2} \\
+                      &= \frac{1}{p}
+    \end{align*}
+
+    \section*{Independence of Random Variables}
+    Two random variables $X$, $Y$ are independent if $P(X=r_1,
+    Y=r_2)=P(X=r_1)P(Y=r_1)$.
+
+    \subsection*{Product of Independent Expectations}
+    If $X$ and $Y$ are independent random variables over a sample space $S$,
+    then $\mathbb{E}[XY] = \mathbb{E}[X] \mathbb{E}[Y]$.
+
+    Proof:
+    \begin{align*}
+        \mathbb{E}[XY] &= \sum_{r\in XY(s)} P(XY=r)r \\
+                       &= \sum_{r_1\in X(S), r_2\in Y(S)} P(X=r_1, Y=r_2)r_1r_2 \\
+                       &= \sum_{r_1\in X(S)} \sum_{r_2\in Y(S)} P(X=r_1)P(Y=r_2)r_1r_2 \\
+                       &= \sum_{r_1\in X(S)} P(X=r_1)r_1 \sum_{r_2\in Y(S)} P(Y=r_2)r_2 \\
+                       &= \mathbb{E}[X] \mathbb{E}[Y]
+    \end{align*}
+
+    \subsection*{Example}
+    Let $X_1$ and $X_2$ be the outcome of two die rolls. Define $X=X_1+X_2$. are
+    $X_1$ and $X$ independent?
+    \begin{align*}
+        P(X_1=1, X=10) = 0 \\
+        P(X_1 = 1) = \frac{1}{6} \\
+        P(X = 10) = \frac{3}{36} = \frac{1}{12} \\
+        0 \ne \Big(\frac{1}{6}\Big)\Big(\frac{1}{12}\Big)
+    \end{align*}
+    Therefore, $X$ and $X_1$ are not independent.
+
+    \subsection*{Example 2}
+    Let $X$ and $Y$ be random variables that count the number of heads and the
+    number of tails when a coin is flipped twice. Are $X$ and $Y$ independent?
+    \begin{gather*}
+        X(HH) = 2,\quad X(HT) = X(TH) = 1,\quad X(TT)=0 \\
+        Y(HH) = 0,\quad Y(HT) = Y(TH) = 1,\quad Y(TT)=2 \\
+        XY(HH)=0,\quad XY(HT) = XY(TH) = 1,\quad XY(TT)=0
+    \end{gather*}
+    \begin{align*}
+        \mathbb{E}[XY] &= \frac{1}{4} \cdot 0 + \frac{1}{4} \cdot 1 + \frac{1}{4} \cdot 1 + \frac{1}{4} \cdot 0 \\
+                       &= \frac{1}{2} \\
+        \mathbb{E}[X] = \mathbb{E}[Y] &= \frac{1}{4} \cdot 2 + \frac{1}{4} \cdot 1 + \frac{1}{4} \cdot 1 + \frac{1}{4} \cdot 2 \\
+                                      &= \frac{3}{2} \\
+        \mathbb{E}[XY] &\ne \mathbb{E}[X]\mathbb{E}[Y]
+    \end{align*}
+    Thus, $X$ and $Y$ are not independent.
+
+    \subsection*{Variance}
+    The variance $V(X)$ of random variable $X$ is defined as
+    \[
+        V(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2
+    \]
+    The standard deviation $\sigma$ is defined as the square root of the variance.
+    \[
+        \sigma(X) = \sqrt{V(X)}
+    \]
+    If $X$ and $Y$ are independent, then variance is linear operator.
+    \subsection*{Lemma}
+    let $\mu = \mathbb{E}[X]$ then $V(X) = \mathbb{E}[(X-\mu)^2]$
+    \begin{align*}
+        \mathbb{E}[(X-\mu)^2] &= \mathbb{E}[X^2 - 2\mu X + \mu^2] \\
+        &= \mathbb{E}[X^2] - 2\mu\mathbb{E}[X] + \mu^2 \\
+        &= \mathbb{E}[X^2] - 2\mathbb{E}[X]^2 + \mathbb{E}[X]^2 \\
+        &= \mathbb{E}[X^2] - \mathbb{E}[X]^2 \\
+        &= V(X)
+    \end{align*}
+
+    \subsection*{Example}
+    What is the variance of a Bernoulli random variable with success probability
+    $p$?
+    \begin{align*}
+        X = \begin{cases}
+            1, &\text{ if }p\\
+            0
+        \end{cases} \\
+        X^2 = \begin{cases}
+            1^2, &\text{ if }p\\
+            0^2
+        \end{cases}
+    \end{align*}
+    \[
+        \mathbb{E}[X] = p,\quad \mathbb{E}[X^2] = p \\
+    \]
+    \begin{align*}
+        V(X) &= \mathbb{E}[X^2] - \mathbb{E}[X]^2 \\
+        &= p-p^2
+        &= p(1-p)
+    \end{align*}
+
+    \subsection*{Example}
+    What is the variance of the value of a fair dice.
+    \begin{align*}
+        \mathbb{E}[X] &= \frac{7}{2} \\
+        P(x^2 = j^2) &= P(x=j) = \frac{1}{6} \\
+        \mathbb{E}[X^2] &= \frac{1}{6} 1^2 + \frac{1}{6} 2^2 + \dots + \frac{1}{6} 6^2 \\
+        &= \frac{91}{6} \\
+        V(X) &= \Big(\frac{91}{6}\Big)-\Big(\frac{7}{2}\Big)^2 \approx 2.9
+    \end{align*}
+
+    \section*{Chebyshev's Inequality}
+    Let X be a random variable on a sample space $\mathcal{S}$ with $\mu = \mathbb{E}[X]$
+    and $r\in \mathbb{R}$.
+    \[
+        P(|X-\mu| \ge r) \le \frac{V(X)}{r^2}
+    \]
+    Proof: \\
+    Define the event $A = \{s\in S : |X(s)-\mu| \ge r\}$.
+    \begin{align*}
+        V(X) &= \mathbb{E}[(X-\mu)^2] \\
+             &= \sum_{s\in A} (X-\mu)^2 P(s) + \sum_{s\not\in A} (X-\mu)^2 P(s) \\
+             &\ge \sum_{s\in A} (X-\mu)^2 P(s) \\
+             &\ge \sum_{s\in A} r^2 P(s) = r^2 P(A)
+    \end{align*}
+\end{document}
